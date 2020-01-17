@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".activity.CameraExample"
+    android:background="#f4efef"
+    android:orientation="vertical">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/AppTheme.PopupOverlay"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:background="#fdfdfd">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_centerHorizontal="true"
+    android:gravity="center">
+    <ImageView
+        android:id="@+id/saveImg"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ec" />
+    <ImageButton
+        android:id="@+id/click"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_link_black_24dp"
+        android:rotationX="12"
+        android:background="#ffff" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="15sp"
+        android:background="@drawable/edittext_shape"
+        android:hint="Name"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:padding="10dp"
+        android:inputType="text"/>
+    <EditText
+        android:id="@+id/discription"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="15sp"
+        android:background="@drawable/edittext_shape"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:padding="10dp"
+        android:inputType="text"
+        android:hint="Description"/>
+
+</LinearLayout>
+
+
+
+
+        <Button
+            android:id="@+id/Submit"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/white"
+            android:layout_margin="20dp"
+            android:textStyle="normal"
+            android:textAllCaps="false"
+            android:fontFamily="serif"
+            android:textSize="15sp"
+            android:text="Submit"
+            android:layout_alignParentBottom="true"/>
+        <TextView
+            android:id="@+id/eml"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#e2dfe2"
+            android:textColor="@color/black"
+            android:layout_margin="20dp"
+            android:visibility="gone" />
+    </RelativeLayout>
+</LinearLayout>

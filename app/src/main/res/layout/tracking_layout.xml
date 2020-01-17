@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--<com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginBottom="100dp"-->
+        <!--android:layout_marginLeft="20dp">-->
+
+        <!--&lt;!&ndash;<com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar&ndash;&gt;-->
+            <!--&lt;!&ndash;android:id="@+id/capacity_seek"&ndash;&gt;-->
+            <!--&lt;!&ndash;style="@style/Base.Widget.AppCompat.SeekBar.Discrete"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:background="@null"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:focusable="auto"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:max="7"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:progressDrawable="@drawable/seekbar"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:scrollbarSize="50dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:scrollbarThumbHorizontal="@color/grey"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:splitTrack="false"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:thumb="@drawable/rotate"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:tickMark="@drawable/blue_dot"&ndash;&gt;-->
+            <!--&lt;!&ndash;app:seekBarRotation="CW90" />&ndash;&gt;-->
+
+
+        <!--&lt;!&ndash;    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar-->
+         <!--android:id="@+id/capacity_seek"-->
+         <!--style="@style/Widget.AppCompat.SeekBar.Discrete"-->
+         <!--android:layout_width="wrap_content"-->
+         <!--android:layout_height="wrap_content"-->
+         <!--android:background="@null"-->
+         <!--android:max="4"-->
+         <!--android:progress="1"-->
+         <!--android:progressDrawable="@drawable/seekbar"-->
+         <!--android:splitTrack="false"-->
+         <!--android:thumb="@drawable/seekbar_thumb_green"-->
+         <!--android:tickMark="@drawable/rotate"-->
+         <!--app:seekBarRotation="CW90" />&ndash;&gt;-->
+
+    <!--</com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>-->
+</LinearLayout>

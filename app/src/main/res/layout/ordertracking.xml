@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            android:background="#dde7e5e3">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Product Details :"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_gravity="center|left"
+               android:padding="10dp"/>
+        </LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginTop="20dp">
+    <RadioButton
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="Order Placed"/>
+    <View
+        android:layout_width="2dp"
+        android:layout_height="50dp"
+        android:background="#232121"/>
+    <RadioButton
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="Order Received"/>
+    <View
+        android:layout_width="2dp"
+        android:layout_height="50dp"
+        android:background="#181616"/>
+    <RadioButton
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="Order Running"/>
+    <View
+        android:layout_width="2dp"
+        android:layout_height="50dp"
+        android:background="#161616"/>
+    <RadioButton
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="Order Done"
+        />
+
+
+</LinearLayout>
+    </LinearLayout>
+        <Button
+            android:id="@+id/Submit"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/white"
+            android:layout_margin="20dp"
+            android:textStyle="normal"
+            android:textAllCaps="false"
+            android:fontFamily="serif"
+            android:textSize="15sp"
+            android:text="Submit"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+
+</LinearLayout>

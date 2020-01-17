@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">ECommerceAdmin</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">E-Commerce</string>
+    <string name="nav_header_subtitle">ecommerce@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="Categories"><u>Categories</u></string>
+    <string name="SubCategories"><u>Sub Categories</u></string>
+    <string name="CategoryType"><u>Category Type</u></string>
+    <string name="BrandType"><u>Brand Type</u></string>
+    <string name="ProductType"><u>Product Type</u></string>
+    <string name="somthing"> 10 % instant Discount* with this bank  </string>
+    <string name="message">Welcom to ECommerce</string>
+    <string name="note">Sign-up now to get <b>500 off + free shipping</b> on your first order</string>
+    <string name="notification_activity">notify</string>
+
+
+    <string name="default_notification_channel_id">0102</string>
+    <string name="default_notification_channel_name">Product</string>
+
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+
+
+    <!-- [END fcm_default_icon_string] -->
+    <string name="msg_subscribe_failed">Failed to subscribe to weather topic</string>
+    <string name="fcm_message">FCM Message</string>
+
+</resources>
