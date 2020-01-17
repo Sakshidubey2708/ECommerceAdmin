@@ -35,8 +35,6 @@ import android.widget.Toast;
 
 import com.bytes.tech.awizom.ecommerceadmin.R;
 import com.bytes.tech.awizom.ecommerceadmin.configure.HelperApi;
-import com.bytes.tech.awizom.ecommerceadmin.configure.SharedPrefManager;
-import com.bytes.tech.awizom.ecommerceadmin.models.PricerequestModel;
 import com.bytes.tech.awizom.ecommerceadmin.models.UploadBuilty;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
