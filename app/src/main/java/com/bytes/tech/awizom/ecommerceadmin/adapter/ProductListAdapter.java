@@ -62,7 +62,7 @@ public class ProductListAdapter extends  RecyclerView.Adapter<ProductListAdapter
 
     @Override
     public void onBindViewHolder(@NonNull final OrderItemViewHolder holder, int position) {
-        ProductModel catagoriesModel = productModelList.get(position);
+        final ProductModel catagoriesModel = productModelList.get(position);
 
         try{
             holder.titleNames.setText(catagoriesModel.getTypeWeight().toString());
@@ -73,10 +73,6 @@ public class ProductListAdapter extends  RecyclerView.Adapter<ProductListAdapter
             holder.brandId.setText(String.valueOf(catagoriesModel.getBrandId()));
             holder.categoryId.setText(String.valueOf(catagoriesModel.getMainCatId()));
             holder.mainId.setText(String.valueOf(catagoriesModel.getMainCatId()));
-
-
-
-
 
             holder.getRequest.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -107,8 +103,8 @@ public class ProductListAdapter extends  RecyclerView.Adapter<ProductListAdapter
                             TextView discountPrices = dialog.findViewById(R.id.discountPrice);
                             TextView salePrices = dialog.findViewById(R.id.salePrice);
                             Button ok = dialog.findViewById(R.id.okbtn);
-                            discountPrices.setText(String.valueOf(pricerequestModel.getSalePrice()));
-                            salePrices.setText(String.valueOf(pricerequestModel.getSaleDiscount()));
+                            discountPrices.setText(String.valueOf(catagoriesModel.getTotalDiscountsPer()));
+                            salePrices.setText(String.valueOf(catagoriesModel.getMRPINR()));
 
                             ok.setOnClickListener(new View.OnClickListener() {
                                 @Override

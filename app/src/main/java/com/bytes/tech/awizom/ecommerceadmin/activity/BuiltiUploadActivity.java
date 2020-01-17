@@ -45,7 +45,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CameraExample extends AppCompatActivity implements View.OnClickListener {
+public class BuiltiUploadActivity extends AppCompatActivity implements View.OnClickListener {
     public static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
     public static final String ALLOW_KEY = "ALLOWED";
     public static final String CAMERA_PREF = "camera_pref";
@@ -228,7 +228,7 @@ public class CameraExample extends AppCompatActivity implements View.OnClickList
     }
 
     private void showAlert() {
-        AlertDialog alertDialog = new AlertDialog.Builder(CameraExample.this).create();
+        AlertDialog alertDialog = new AlertDialog.Builder(BuiltiUploadActivity.this).create();
         alertDialog.setTitle("Alert");
         alertDialog.setMessage("App needs to access the Camera.");
 
@@ -245,7 +245,7 @@ public class CameraExample extends AppCompatActivity implements View.OnClickList
 
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        ActivityCompat.requestPermissions(CameraExample.this,
+                        ActivityCompat.requestPermissions(BuiltiUploadActivity.this,
                                 new String[]{Manifest.permission.CAMERA},
                                 MY_PERMISSIONS_REQUEST_CAMERA);
                     }
@@ -254,7 +254,7 @@ public class CameraExample extends AppCompatActivity implements View.OnClickList
     }
 
     private void showSettingsAlert() {
-        AlertDialog alertDialog = new AlertDialog.Builder(CameraExample.this).create();
+        AlertDialog alertDialog = new AlertDialog.Builder(BuiltiUploadActivity.this).create();
         alertDialog.setTitle("Alert");
         alertDialog.setMessage("App needs to access the Camera.");
 
@@ -272,7 +272,7 @@ public class CameraExample extends AppCompatActivity implements View.OnClickList
 
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        startInstalledAppDetailsActivity(CameraExample.this);
+                        startInstalledAppDetailsActivity(BuiltiUploadActivity.this);
                     }
                 });
 
@@ -295,7 +295,7 @@ public class CameraExample extends AppCompatActivity implements View.OnClickList
                         if (showRationale) {
                             showAlert();
                         } else if (!showRationale) {
-                            saveToPreferences(CameraExample.this, ALLOW_KEY, true);
+                            saveToPreferences(BuiltiUploadActivity.this, ALLOW_KEY, true);
                         }
                     }
                 }

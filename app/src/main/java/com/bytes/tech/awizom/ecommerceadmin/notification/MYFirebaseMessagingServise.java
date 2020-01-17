@@ -1,4 +1,4 @@
-package com.bytes.tech.awizom.ecommerceadmin.activity;
+package com.bytes.tech.awizom.ecommerceadmin.notification;
 
 
 import android.app.NotificationManager;

@@ -6,10 +6,14 @@ import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,8 +28,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
 import com.bytes.tech.awizom.ecommerceadmin.R;
 import com.bytes.tech.awizom.ecommerceadmin.adapter.ProductListAdapter;
+import com.bytes.tech.awizom.ecommerceadmin.adapter.SliderAdapter;
+import com.bytes.tech.awizom.ecommerceadmin.chat.ChatActivity;
 import com.bytes.tech.awizom.ecommerceadmin.configure.HelperApi;
 import com.bytes.tech.awizom.ecommerceadmin.configure.SharedPrefManager;
 import com.bytes.tech.awizom.ecommerceadmin.models.PricerequestModel;
@@ -37,6 +45,8 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity
@@ -54,6 +64,12 @@ public class MainActivity extends AppCompatActivity
     private Intent intent= new Intent();
     List<PricerequestModel> pricerequestModels;
 
+    ViewPager viewPager;
+    TabLayout indicator;
+    List<Integer> imglist;
+    List<Integer> color;
+    List<String> colorName;
+    TextView offerTextViews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,11 +123,14 @@ public class MainActivity extends AppCompatActivity
 
     private void initview() {
         progressDialog = new ProgressDialog(this);
+        viewPager = findViewById(R.id.viewPager);
+        indicator = findViewById(R.id.indicator);
+
         recyclerView = findViewById(R.id.recyclerViewItems);
         mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayoutItems);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        offerTextViews =findViewById(R.id.offerTextView);
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -122,7 +141,37 @@ public class MainActivity extends AppCompatActivity
         });
         getProductList();
 
+        color = new ArrayList<>();
+        imglist = new ArrayList<Integer>();
+        imglist.add(R.drawable.ec);
+        imglist.add(R.drawable.m1);
+        imglist.add(R.drawable.stt);
+        color.add(Color.RED);
+        color.add(Color.GREEN);
+        color.add(Color.BLUE);
+        colorName = new ArrayList<>();
+        colorName.add("");
+        colorName.add("");
+        colorName.add("");
 
+        viewPager.setAdapter(new SliderAdapter(this, color, colorName, imglist));
+        indicator.setupWithViewPager(viewPager, true);
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new SliderTimer(), 4000, 6000);
+
+        final Handler handler = new Handler();
+        final int[] colors = {Color.BLUE, Color.RED};
+        final int[] i = new int[1];
+        Runnable runnable = new Runnable () {
+            @Override
+            public void run() {
+                i[0] = i[0] % colors.length;
+                offerTextViews.setTextColor(colors[i[0]]);
+                i[0]++;
+                handler.postDelayed(this, 1000);
+            }
+        };
+        handler.postDelayed(runnable, 1000);
     }
 
 
@@ -168,7 +217,24 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+    private class SliderTimer extends TimerTask {
+        @Override
+        public void run() {
+            if (this != null) {
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (viewPager.getCurrentItem() < color.size() - 1) {
+                            viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+                        } else {
+                            viewPager.setCurrentItem(0);
+                        }
+                    }
+                });
+            }
+        }
 
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -193,17 +259,19 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-         if (id == R.id.nav_ofcLink) {
-
+        if (id == R.id.nav_productDeatails) {
+            startActivity(intent=new Intent(this,ProductListActivity.class));
+        }else  if (id == R.id.nav_Chat) {
+             startActivity(intent=new Intent(this,ChatActivity.class));
          }else  if (id == R.id.nav_ordrTrack) {
              startActivity(intent=new Intent(this,OrdertrackingActivity.class));
 
          }else  if (id == R.id.nav_builtyUpload) {
-             startActivity(intent=new Intent(this,CameraExample.class));
+             startActivity(intent=new Intent(this,BuiltiUploadActivity.class));
 
          } else if (id == R.id.nav_userpermission) {
 
-             Intent intent = new Intent(this, UserListActivity.class);
+             Intent intent = new Intent(this, UserPermissionActivity.class);
              startActivity(intent);
          }else if (id == R.id.nav_login) {
              if(SharedPrefManager.getInstance(this).getUser().getUserID() == null){

@@ -175,17 +175,17 @@ public class HelperApi extends AppCompatActivity {
         }
     }
 
-    public static final class GETPriceRatingAll extends AsyncTask<String, Void, String> {
+    public static final class GetChat extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... strings) {
             String json = "";
-
+            String userid = strings[0];
             try {
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "/GETPriceRatingComplete");
+                builder.url(AppConfig.BASE_URL_API + "/GETChatingClient/"+ userid);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 okhttp3.Response response = client.newCall(builder.build()).execute();
@@ -210,28 +210,27 @@ public class HelperApi extends AppCompatActivity {
         }
     }
 
-    public static final class  PostproductForRating extends AsyncTask<String, Void, String> {
+    public static final class  PostChating extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {
 
-            String ProductId = params[0];
-            String ProductName = params[1];
-            String Raiting = params[2];
-            String IsRaiting = params[3];
+            String ClientUserId = params[0];
+            String ChatContain = params[1];
+
             String json = "";
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "/AddProductsPost");
+                builder.url(AppConfig.BASE_URL_API + "/ChatingClientPost/"+ClientUserId);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 FormBody.Builder parameters = new FormBody.Builder();
 
-                parameters.add("ProductId", ProductId);
-                parameters.add("ProductName", ProductName);
-                parameters.add("Raiting", Raiting);
-                parameters.add("IsRaiting", IsRaiting);
+                parameters.add("ClientUserId", ClientUserId);
+                parameters.add("AdminUserId", "Messages");
+                parameters.add("RoleMessageBy", "Admin");
+                parameters.add("ChatContain", ChatContain);
 
                 builder.post(parameters.build());
                 okhttp3.Response response = client.newCall(builder.build()).execute();

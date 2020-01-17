@@ -85,7 +85,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="Title Name"
-                                android:textSize="16sp"
+                                android:textSize="13sp"
                                 android:textAllCaps="true"
                                 android:fontFamily="serif"
                                 android:layout_weight="1"
@@ -98,7 +98,7 @@
                                 android:layout_height="wrap_content"
                                 android:hint="Product Name"
                                 android:fontFamily="serif"
-                                android:textSize="13sp"
+                                android:textSize="12sp"
                                 android:layout_weight="1"
                                 android:textColor="@color/black"
                                 android:gravity="left|center_horizontal"
@@ -150,7 +150,7 @@
                                 android:text="Request"
                                 android:textAllCaps="false"
                                 android:textColor="#75b475"
-                                android:textSize="14sp"
+                                android:textSize="10sp"
                                 android:textStyle="bold"
                                 android:background="#fefffe"/>
                             <Button

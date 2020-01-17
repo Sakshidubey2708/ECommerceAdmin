@@ -29,7 +29,7 @@ import okhttp3.Request;
 
 
 
-public class UserListActivity extends AppCompatActivity {
+public class UserPermissionActivity extends AppCompatActivity {
 
     List<UserModel> userItemList;
     UserListAdapter adapter;
@@ -137,7 +137,7 @@ public class UserListActivity extends AppCompatActivity {
                 for (UserModel cm : userItemList) {
                     userId = cm.getUserId();
                 }
-                adapter = new UserListAdapter(UserListActivity.this, userItemList);
+                adapter = new UserListAdapter(UserPermissionActivity.this, userItemList);
                 recyclerView.setAdapter(adapter);
                 //  progressDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);
