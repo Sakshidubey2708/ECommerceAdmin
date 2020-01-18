@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="false">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:gravity="center|center_horizontal"
+                android:background="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_horizontal|center">
+                        <TextView
+                            android:id="@+id/name"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="Catagory"
+                            android:textSize="15sp"
+                            android:textColor="@color/black"
+                            android:layout_weight="1"
+                            android:padding="5dp"
+                            android:layout_gravity="center"
+                            android:gravity="left|center_horizontal"/>
+
+
+                        <TextView
+                            android:id="@+id/work"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:hint="Business"
+                            android:textSize="15sp"
+                            android:textColor="@color/black"
+                            android:layout_weight="1"
+                            android:padding="5dp"
+                            android:layout_gravity="center"
+                            android:gravity="left|center_horizontal"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </RelativeLayout>
+</LinearLayout>

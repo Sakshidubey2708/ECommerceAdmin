@@ -29,13 +29,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-
 import com.bytes.tech.awizom.ecommerceadmin.R;
 import com.bytes.tech.awizom.ecommerceadmin.adapter.ProductListAdapter;
 import com.bytes.tech.awizom.ecommerceadmin.adapter.SliderAdapter;
 import com.bytes.tech.awizom.ecommerceadmin.chat.ChatActivity;
 import com.bytes.tech.awizom.ecommerceadmin.configure.HelperApi;
 import com.bytes.tech.awizom.ecommerceadmin.configure.SharedPrefManager;
+import com.bytes.tech.awizom.ecommerceadmin.models.CatagoriesModel;
 import com.bytes.tech.awizom.ecommerceadmin.models.PricerequestModel;
 import com.bytes.tech.awizom.ecommerceadmin.models.ProductModel;
 import com.bytes.tech.awizom.ecommerceadmin.models.RatingModel;
@@ -70,7 +70,8 @@ public class MainActivity extends AppCompatActivity
     List<Integer> color;
     List<String> colorName;
     TextView offerTextViews;
-
+    List<CatagoriesModel> categorylist;
+    private TextView searchEdits;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,11 +97,14 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        Menu menu = navigationView.getMenu();
+        MenuItem target = menu.findItem(R.id.nav_login);
         if(SharedPrefManager.getInstance(this).getUser().getUserID() != null){
-                Menu menu = navigationView.getMenu();
-                MenuItem target = menu.findItem(R.id.nav_login);
+
                 target.setVisible(false);
-            }
+            }else {
+            target.setVisible(true);
+        }
 
 
 //       FirebaseInstanceId.getInstance().getToken().toString();
@@ -125,6 +129,7 @@ public class MainActivity extends AppCompatActivity
         progressDialog = new ProgressDialog(this);
         viewPager = findViewById(R.id.viewPager);
         indicator = findViewById(R.id.indicator);
+        searchEdits = findViewById(R.id.searchEdit);
 
         recyclerView = findViewById(R.id.recyclerViewItems);
         mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayoutItems);
@@ -140,6 +145,14 @@ public class MainActivity extends AppCompatActivity
             }
         });
         getProductList();
+
+        searchEdits.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(MainActivity.this,SearchActivity.class);
+                startActivity(intent);
+            }
+        });
 
         color = new ArrayList<>();
         imglist = new ArrayList<Integer>();
@@ -258,8 +271,14 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-        if (id == R.id.nav_productDeatails) {
+        if (id == R.id.nav_viewClients) {
+            startActivity(intent=new Intent(this,ViewUsers.class));
+        }else if (id == R.id.nav_searchActivity) {
+            startActivity(intent=new Intent(this,SearchActivity.class));
+        }else if (id == R.id.nav_addClients) {
+            startActivity(intent=new Intent(this,AddClient.class));
+        }
+        else if (id == R.id.nav_productDeatails) {
             startActivity(intent=new Intent(this,ProductListActivity.class));
         }else  if (id == R.id.nav_Chat) {
              startActivity(intent=new Intent(this,ChatActivity.class));
@@ -271,9 +290,51 @@ public class MainActivity extends AppCompatActivity
 
          } else if (id == R.id.nav_userpermission) {
 
-             Intent intent = new Intent(this, UserPermissionActivity.class);
-             startActivity(intent);
-         }else if (id == R.id.nav_login) {
+            AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
+            alertbox.setIcon(R.drawable.ic_warning_black_24dp);
+            alertbox.setTitle("Working process....");
+            alertbox.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface arg0, int arg1) {
+
+                }
+            });
+
+            alertbox.show();
+         }else if (id == R.id.nav_notification) {
+
+            AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
+            alertbox.setIcon(R.drawable.ic_warning_black_24dp);
+            alertbox.setTitle("Working process....");
+            alertbox.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface arg0, int arg1) {
+                }
+            });
+
+            alertbox.show();
+        }else if (id == R.id.nav_orderHistory) {
+
+            AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
+            alertbox.setIcon(R.drawable.ic_warning_black_24dp);
+            alertbox.setTitle("Working process....");
+            alertbox.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface arg0, int arg1) {
+
+                }
+            });
+
+            alertbox.show();
+        }else if (id == R.id.nav_orderRunning) {
+
+            AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
+            alertbox.setIcon(R.drawable.ic_warning_black_24dp);
+            alertbox.setTitle("Working process....");
+            alertbox.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface arg0, int arg1) {
+                }
+            });
+
+            alertbox.show();
+        }else if (id == R.id.nav_login) {
              if(SharedPrefManager.getInstance(this).getUser().getUserID() == null){
                  startActivity(intent=new Intent(this,SignInActivity.class));
              }else {
@@ -282,9 +343,6 @@ public class MainActivity extends AppCompatActivity
                  alertbox.setTitle("You have already logged In");
                  alertbox.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                      public void onClick(DialogInterface arg0, int arg1) {
-//                         finishAffinity();
-//                         System.exit(0);
-
 
                      }
                  });
@@ -293,7 +351,47 @@ public class MainActivity extends AppCompatActivity
              }
 
         }else if (id == R.id.nav_logout) {
-             SharedPrefManager.getInstance(this).logout();
+            AlertDialog.Builder alertbox = new AlertDialog.Builder(MainActivity.this);
+            alertbox.setIcon(R.drawable.ic_warning_black_24dp);
+            alertbox.setTitle("Do You Want To Logout?");
+            alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface arg0, int arg1) {
+                    // finish used for destroyed activity
+
+
+                    SharedPrefManager.getInstance(MainActivity.this).logout();
+                }
+            });
+
+            alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface arg0, int arg1) {
+
+                }
+            });
+            alertbox.show();
+
+            //startActivity(intent=new Intent(this,SignInActivity.class));
+        }else if (id == R.id.nav_weblink) {
+            AlertDialog.Builder alertbox = new AlertDialog.Builder(MainActivity.this);
+            alertbox.setIcon(R.drawable.ic_bookmark_black_24dp);
+            alertbox.setTitle("Do You Want To Open?");
+            alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface arg0, int arg1) {
+                    // finish used for destroyed activity
+
+                intent = new Intent(MainActivity.this,WebViewActivity.class);
+                startActivity(intent);
+
+                }
+            });
+
+            alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface arg0, int arg1) {
+
+                }
+            });
+            alertbox.show();
+
             //startActivity(intent=new Intent(this,SignInActivity.class));
         }
 

@@ -57,7 +57,7 @@ public class BuiltiUploadActivity extends AppCompatActivity implements View.OnCl
     private TextView emls;
     UploadBuilty uploadBuilty;
     Button btnUpload;
-    EditText NameofBuilty,DescriptionOfBuilty;
+    TextView NameofBuilty,DescriptionOfBuilty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class BuiltiUploadActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.camera_example);
 
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Upload Bilti");
+        toolbar.setTitle("Download Bilti");
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -126,7 +126,20 @@ public class BuiltiUploadActivity extends AppCompatActivity implements View.OnCl
                // callingMethod();
                 break;
             case R.id.Submit:
-             postBuiltyMethod();
+                AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
+                alertbox.setIcon(R.drawable.ic_check_circle_black_24dp);
+                alertbox.setTitle("Downloaded");
+                alertbox.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+//                         finishAffinity();
+//                         System.exit(0);
+
+
+                    }
+                });
+
+                alertbox.show();
+          //   postBuiltyMethod();
                 break;
         }
     }

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="?android:attr/colorPrimary"
+        app:popupTheme="@style/AppTheme.PopupOverlay"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1.9"
+            android:background="@drawable/layout_shape">
+
+            <TextView
+                android:id="@+id/T1"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="20dp"
+                android:text=" "
+                android:textColor="@color/maroon"
+                android:fontFamily="serif"
+                android:textSize="12sp"
+                android:padding="5dp"/>
+            <TextView
+                android:id="@+id/T2"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:text=" "
+                android:layout_marginTop="8dp"
+                android:textColor="@color/maroon"
+                android:fontFamily="serif"
+                android:textSize="12sp"
+                android:padding="5dp"/>
+            <TextView
+                android:id="@+id/T3"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:text=" "
+                android:layout_marginTop="8dp"
+                android:textColor="@color/maroon"
+                android:fontFamily="serif"
+                android:textSize="12sp"
+                android:padding="5dp"/>
+            <TextView
+                android:id="@+id/T4"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:text=" "
+                android:layout_marginTop="8dp"
+                android:textColor="@color/maroon"
+                android:fontFamily="serif"
+                android:textSize="12sp"
+                android:padding="5dp"/>
+            <TextView
+                android:id="@+id/T5"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:text=" "
+                android:layout_marginTop="8dp"
+                android:textColor="@color/maroon"
+                android:fontFamily="serif"
+                android:textSize="12sp"
+                android:padding="5dp"/>
+            <TextView
+                android:id="@+id/T6"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:text=" "
+                android:layout_marginTop="8dp"
+                android:textColor="@color/maroon"
+                android:fontFamily="serif"
+                android:textSize="12sp"
+                android:padding="5dp"/>
+
+            <TextView
+                android:id="@+id/T7"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="8dp"
+                android:text=" "
+                android:textColor="@color/maroon"
+                android:fontFamily="serif"
+                android:textSize="12sp"
+                android:padding="5dp"/>
+
+
+        </LinearLayout>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/grey_light"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <AutoCompleteTextView
+                    android:id="@+id/searchCities"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:hint="Search"
+                    android:padding="10dp"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@drawable/ic_search_black_24dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+                <android.support.v4.widget.SwipeRefreshLayout
+                    android:id="@+id/swipeRefreshLayoutItems"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/layout">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerViewItems"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/layout" />
+                </android.support.v4.widget.SwipeRefreshLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

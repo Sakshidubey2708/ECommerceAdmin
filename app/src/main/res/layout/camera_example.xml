@@ -26,32 +26,33 @@
     android:gravity="center">
     <ImageView
         android:id="@+id/saveImg"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/ec" />
+        android:src="@drawable/fas" />
     <ImageButton
         android:id="@+id/click"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:src="@drawable/ic_link_black_24dp"
         android:rotationX="12"
-        android:background="#ffff" />
+        android:background="#ffff"
+        android:visibility="gone"/>
 
-    <EditText
+    <TextView
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:textSize="15sp"
         android:background="@drawable/edittext_shape"
-        android:hint="Name"
+        android:text="Mobile"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:padding="10dp"
         android:inputType="text"/>
-    <EditText
+    <TextView
         android:id="@+id/discription"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -62,7 +63,7 @@
         android:layout_marginLeft="20dp"
         android:padding="10dp"
         android:inputType="text"
-        android:hint="Description"/>
+        android:text="Electronic Item"/>
 
 </LinearLayout>
 
@@ -80,7 +81,7 @@
             android:textAllCaps="false"
             android:fontFamily="serif"
             android:textSize="15sp"
-            android:text="Submit"
+            android:text="Download Here"
             android:layout_alignParentBottom="true"/>
         <TextView
             android:id="@+id/eml"

@@ -15,11 +15,17 @@
             android:id="@+id/nav_addClients"
             android:title="Add Client" />
         <item
+            android:id="@+id/nav_searchActivity"
+            android:title="Search" />
+        <item
             android:id="@+id/nav_viewClients"
             android:title="View Client" />
         <item
             android:id="@+id/nav_userpermission"
             android:title="User Permission" />
+        <item
+            android:id="@+id/nav_weblink"
+            android:title="Web Software" />
         <item
             android:id="@+id/nav_Chat"
             android:title="Chat" />

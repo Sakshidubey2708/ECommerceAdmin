@@ -174,6 +174,75 @@ public class HelperApi extends AppCompatActivity {
             }
         }
     }
+    public static final class GetAllSubCategoriesList extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String json = "";
+            try {
+
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "/GetSubCategoriesList");
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return json;
+        }
+        protected void onPostExecute(String result) {
+            try {
+                if (result.isEmpty()) {
+                } else {
+                    super.onPostExecute(result);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+    public static final class GetSubCategoriesListByMAinCAtID extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String json = "";
+            String mID = strings[0];
+            try {
+
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "/GetSelectedMainCatagories/" + mID);
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return json;
+        }
+        protected void onPostExecute(String result) {
+            try {
+                if (result.isEmpty()) {
+                } else {
+                    super.onPostExecute(result);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     public static final class GetChat extends AsyncTask<String, Void, String> {
 
@@ -186,6 +255,39 @@ public class HelperApi extends AppCompatActivity {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
                 builder.url(AppConfig.BASE_URL_API + "/GETChatingClient/"+ userid);
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return json;
+        }
+        protected void onPostExecute(String result) {
+            try {
+                if (result.isEmpty()) {
+                } else {
+                    super.onPostExecute(result);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public static final class GetAllGetMainCategoriesList extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String json = "";
+            try {
+
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "/GetMainCategoriesList");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 okhttp3.Response response = client.newCall(builder.build()).execute();
@@ -305,6 +407,58 @@ public class HelperApi extends AppCompatActivity {
 
     }
 
+    public static final class  PostClient extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String FirstName = params[0];
+            String ContactNo = params[1];
+            String Address = params[2];
+            String EmailId = params[3];
+            String Business = params[4];
+
+            String json = "";
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "/AddClientPost");
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                FormBody.Builder parameters = new FormBody.Builder();
+
+                parameters.add("FirstName", FirstName);
+                parameters.add("ContactNo", ContactNo);
+                parameters.add("Address", Address);
+                parameters.add("EmailId", EmailId);
+                parameters.add("Business", Business);
+
+                builder.post(parameters.build());
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return json;
+
+        }
+        protected void onPostExecute(String result) {
+
+            try {
+                if (result.isEmpty()) {
+                } else {
+                    super.onPostExecute(result);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    }
+
     public static final class GETPriceRequest extends AsyncTask<String, Void, String> {
 
         @Override
@@ -341,7 +495,7 @@ public class HelperApi extends AppCompatActivity {
         }
     }
 
-    public static final class GETPriceRequestAll extends AsyncTask<String, Void, String> {
+    public static final class GETUsers extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... strings) {
@@ -349,9 +503,8 @@ public class HelperApi extends AppCompatActivity {
             try {
 
                 OkHttpClient client = new OkHttpClient();
-                Request.Builder builder = new Request.Builder
-                        ();
-                builder.url(AppConfig.BASE_URL_API + "/GETPriceRequestAll");
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "/GETUsers");
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 okhttp3.Response response = client.newCall(builder.build()).execute();
