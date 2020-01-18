@@ -52,18 +52,8 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    RecyclerView recyclerView;
-    private String result = "";
-    List<ProductModel> productModel;
-    List<RatingModel> ratingModels;
-    SwipeRefreshLayout mSwipeRefreshLayout;
-    private ProgressDialog progressDialog;
-    List<String> ratingId = new ArrayList<String>();//a
-    List<String> statusRequst = new ArrayList<String>();//a
-    private String TAG="hjsgdf";
-    private Intent intent= new Intent();
-    List<PricerequestModel> pricerequestModels;
 
+    private Intent intent= new Intent();
     ViewPager viewPager;
     TabLayout indicator;
     List<Integer> imglist;
@@ -99,11 +89,14 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         Menu menu = navigationView.getMenu();
         MenuItem target = menu.findItem(R.id.nav_login);
-        if(SharedPrefManager.getInstance(this).getUser().getUserID() != null){
+        MenuItem target2 = menu.findItem(R.id.nav_logout);
 
-                target.setVisible(false);
-            }else {
-            target.setVisible(true);
+        if(SharedPrefManager.getInstance(this).getUser().getUserID() != null){
+             target.setVisible(false);
+             target2.setVisible(true);
+        }else {
+             target.setVisible(true);
+             target2.setVisible(false);
         }
 
 
@@ -126,25 +119,14 @@ public class MainActivity extends AppCompatActivity
 
 
     private void initview() {
-        progressDialog = new ProgressDialog(this);
+
         viewPager = findViewById(R.id.viewPager);
         indicator = findViewById(R.id.indicator);
         searchEdits = findViewById(R.id.searchEdit);
 
-        recyclerView = findViewById(R.id.recyclerViewItems);
-        mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayoutItems);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         offerTextViews =findViewById(R.id.offerTextView);
 
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // Refresh items
-                getProductList();
-            }
-        });
-        getProductList();
 
         searchEdits.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,40 +167,6 @@ public class MainActivity extends AppCompatActivity
             }
         };
         handler.postDelayed(runnable, 1000);
-    }
-
-
-
-
-    private void getProductList() {
-        try {
-
-            progressDialog.setMessage("loading...");
-            progressDialog.show();
-            mSwipeRefreshLayout.setRefreshing(true);
-            result = new HelperApi.GetAllProductList().execute().get();
-            if (result.isEmpty()) {
-                mSwipeRefreshLayout.setRefreshing(false);
-                progressDialog.dismiss();
-            } else {
-
-                    progressDialog.dismiss();
-                    /*   Toast.makeText(getApplicationContext(),result+"",Toast.LENGTH_LONG).show();*/
-                    Gson gson = new Gson();
-                    Type listType = new TypeToken<List<ProductModel>>() {
-                    }.getType();
-                    productModel = new Gson().fromJson(result, listType);
-                    Log.d("Error", productModel.toString());
-                    ProductListAdapter productListAdapter= new ProductListAdapter(MainActivity.this, productModel);
-                    recyclerView.setAdapter(productListAdapter);
-                    mSwipeRefreshLayout.setRefreshing(false);
-
-            }
-
-        } catch (Exception e) {
-            mSwipeRefreshLayout.setRefreshing(false);
-            e.printStackTrace();
-        }
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.bytes.tech.awizom.ecommerceadmin.chat;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,7 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,6 +25,7 @@ import android.widget.Toast;
 
 import com.bytes.tech.awizom.ecommerceadmin.R;
 import com.bytes.tech.awizom.ecommerceadmin.activity.MainActivity;
+import com.bytes.tech.awizom.ecommerceadmin.activity.SignInActivity;
 import com.bytes.tech.awizom.ecommerceadmin.activity.SplashActivity;
 import com.bytes.tech.awizom.ecommerceadmin.adapter.ProductListAdapter;
 import com.bytes.tech.awizom.ecommerceadmin.configure.HelperApi;
@@ -127,21 +132,64 @@ public class ChatActivity extends AppCompatActivity {
         sendmsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    result = new HelperApi.PostChating().execute(
-                            SharedPrefManager.getInstance(ChatActivity.this).getUser().getUserID(),
-                            typeMessage.getText().toString()).get();
-                    if (result.isEmpty()) {
+                if( SharedPrefManager.getInstance(ChatActivity.this).getUser().getUserID() == null){
+                    final Dialog dialog = new Dialog(ChatActivity.this);
+                    WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                    lp.copyFrom(dialog.getWindow().getAttributes());
+                    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                    lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+                    lp.gravity = Gravity.BOTTOM;
+                    lp.windowAnimations = R.style.DialogAnimation;
+                    dialog.getWindow().setAttributes(lp);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setCancelable(false);
+                    dialog.setContentView(R.layout.bottom_slide_dailog);
+
+
+                    ImageView closebtn = dialog.findViewById(R.id.close);
+                    TextView loginview = dialog.findViewById(R.id.loginClickevent);
+
+                    loginview.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent i = new Intent(ChatActivity.this, SignInActivity.class);
+                            startActivity(i);
+                        }
+                    });
+                    closebtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
+
+
+                    closebtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    dialog.show();
+                }else {
+
+                    try {
                         result = new HelperApi.PostChating().execute(
                                 SharedPrefManager.getInstance(ChatActivity.this).getUser().getUserID(),
                                 typeMessage.getText().toString()).get();
-                    } else {
-                      typeMessage.setText("");
-                        recyclerView.getRecycledViewPool().clear();
-                        getChat();
+                        if (result.isEmpty()) {
+                            result = new HelperApi.PostChating().execute(
+                                    SharedPrefManager.getInstance(ChatActivity.this).getUser().getUserID(),
+                                    typeMessage.getText().toString()).get();
+                        } else {
+                            typeMessage.setText("");
+                            recyclerView.getRecycledViewPool().clear();
+                            getChat();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
             }
         });
