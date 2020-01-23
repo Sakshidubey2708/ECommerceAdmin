@@ -1,7 +1,6 @@
 package com.bytes.tech.awizom.ecommerceadmin.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,17 +9,17 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
 import com.bytes.tech.awizom.ecommerceadmin.R;
-import com.bytes.tech.awizom.ecommerceadmin.models.UserModels;
+import com.bytes.tech.awizom.ecommerceadmin.models.AddUser;
 
 import java.util.List;
 
 public class ViewUserAdapter extends  RecyclerView.Adapter<ViewUserAdapter.OrderItemViewHolder> {
 
     private Context mCtx;
-    private List<UserModels> userModelsList;
+    private List<AddUser> userModelsList;
 
 
-    public ViewUserAdapter(Context mCtx, List<UserModels> userModelsList) {
+    public ViewUserAdapter(Context mCtx, List<AddUser> userModelsList) {
         this.mCtx = mCtx;
         this.userModelsList = userModelsList;
     }
@@ -35,7 +34,7 @@ public class ViewUserAdapter extends  RecyclerView.Adapter<ViewUserAdapter.Order
 
     @Override
     public void onBindViewHolder(@NonNull final ViewUserAdapter.OrderItemViewHolder holder, int position) {
-        UserModels catagoriesModel = userModelsList.get(position);
+        AddUser catagoriesModel = userModelsList.get(position);
 
         holder.catagory_names.setText("Name"+catagoriesModel.getUserName().toString());
         holder.catagoryIDs.setText("Business"+String.valueOf(catagoriesModel.getBusiness()));
@@ -61,11 +60,11 @@ public class ViewUserAdapter extends  RecyclerView.Adapter<ViewUserAdapter.Order
         private Context mCtx;
         private TextView catagory_names,catagoryIDs;
 
-        private List<UserModels> userModelsList;
-        private UserModels catagoriesModel;
+        private List<AddUser> userModelsList;
+        private AddUser catagoriesModel;
         private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
 
-        public OrderItemViewHolder(View view, Context mCtx, List<UserModels> userModelsList) {
+        public OrderItemViewHolder(View view, Context mCtx, List<AddUser> userModelsList) {
             super(view);
             this.mCtx = mCtx;
             this.userModelsList = userModelsList;

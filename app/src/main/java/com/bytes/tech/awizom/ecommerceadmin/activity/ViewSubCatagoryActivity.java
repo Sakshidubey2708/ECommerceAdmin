@@ -91,7 +91,7 @@ public class ViewSubCatagoryActivity extends AppCompatActivity {
                 getSubcatagorieswithID(ID.toString());
             }
         }catch (Exception e){
-
+            e.printStackTrace();
         }
 
     }

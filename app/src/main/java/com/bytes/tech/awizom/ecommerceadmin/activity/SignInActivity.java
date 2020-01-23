@@ -175,10 +175,13 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                         UserLogin us = new UserLogin();
                         us.UserName = jsonbody.UserName;
                         us.UserID = jsonbody.UserID;
+                        us.SubscriberId = jsonbody.SubscriberId;
+                        us.FirmName = jsonbody.FirmName;
+                        us.Category = jsonbody.Category;
                         SharedPrefManager.getInstance(getApplicationContext()).userLogin(us);
 
                         Snackbar.make(getWindow().getDecorView().getRootView(),  "Login Successfull", Snackbar.LENGTH_LONG).show();
-                      //  Toast.makeText(SignInActivity.this, SharedPrefManager.getInstance(this).getUser().getUserName(), Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(SignInActivity.this, SharedPrefManager.getInstance(this).getUser().getSubscriberId(), Toast.LENGTH_SHORT).show();
 
                         Intent i = new Intent(this, MainActivity.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -6,6 +6,9 @@ public class UserLogin {
     public String Password ;
     public boolean RememberMe ;
     public  String UserID;
+    public String SubscriberId ;
+    public String FirmName;
+    public String Category;
 
     public String getUserName() {
         return UserName;
@@ -37,5 +40,29 @@ public class UserLogin {
 
     public void setUserID(String userID) {
         UserID = userID;
+    }
+
+    public String getSubscriberId() {
+        return SubscriberId;
+    }
+
+    public void setSubscriberId(String subscriberId) {
+        SubscriberId = subscriberId;
+    }
+
+    public String getFirmName() {
+        return FirmName;
+    }
+
+    public void setFirmName(String firmName) {
+        FirmName = firmName;
+    }
+
+    public String getCategory() {
+        return Category;
+    }
+
+    public void setCategory(String category) {
+        Category = category;
     }
 }

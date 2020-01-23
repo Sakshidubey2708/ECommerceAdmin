@@ -1,27 +1,30 @@
 package com.bytes.tech.awizom.ecommerceadmin.models;
 
-public class UserModels {
+public class AddUser {
 
-    public int AddUserId ;
+    public long AddUserId ;
     public String FirstName ;
     public String MiddleName ;
-    public String LastName ;
-    public String UserName ;
+    public String LastName;
+    public String UserName;
     public String pass ;
     public String Business ;
     public long ContactNo ;
-    public String EmailId;
-    public int Pincode;
-    public String Address ;
-    public int StateID;
-    public int CityID ;
-    public String UID;
+    public String EmailId ;
+    public long Pincode ;
+    public String Address;
+    public long StateID ;
+    public long CityID ;
+    public String UID ;
+    public String SubscriberID ;
+    public boolean Active;
 
-    public int getAddUserId() {
+
+    public long getAddUserId() {
         return AddUserId;
     }
 
-    public void setAddUserId(int addUserId) {
+    public void setAddUserId(long addUserId) {
         AddUserId = addUserId;
     }
 
@@ -89,11 +92,11 @@ public class UserModels {
         EmailId = emailId;
     }
 
-    public int getPincode() {
+    public long getPincode() {
         return Pincode;
     }
 
-    public void setPincode(int pincode) {
+    public void setPincode(long pincode) {
         Pincode = pincode;
     }
 
@@ -105,19 +108,19 @@ public class UserModels {
         Address = address;
     }
 
-    public int getStateID() {
+    public long getStateID() {
         return StateID;
     }
 
-    public void setStateID(int stateID) {
+    public void setStateID(long stateID) {
         StateID = stateID;
     }
 
-    public int getCityID() {
+    public long getCityID() {
         return CityID;
     }
 
-    public void setCityID(int cityID) {
+    public void setCityID(long cityID) {
         CityID = cityID;
     }
 
@@ -127,5 +130,21 @@ public class UserModels {
 
     public void setUID(String UID) {
         this.UID = UID;
+    }
+
+    public String getSubscriberID() {
+        return SubscriberID;
+    }
+
+    public void setSubscriberID(String subscriberID) {
+        SubscriberID = subscriberID;
+    }
+
+    public boolean isActive() {
+        return Active;
+    }
+
+    public void setActive(boolean active) {
+        Active = active;
     }
 }

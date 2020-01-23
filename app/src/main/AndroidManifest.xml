@@ -83,6 +83,9 @@
         <activity android:name=".activity.ViewUsers"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity android:name=".activity.StockActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity
             android:name=".activity.SplashActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">

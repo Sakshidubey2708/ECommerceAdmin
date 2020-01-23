@@ -10,38 +10,44 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.GridView;
 
 import com.bytes.tech.awizom.ecommerceadmin.R;
 import com.bytes.tech.awizom.ecommerceadmin.configure.HelperApi;
-import com.bytes.tech.awizom.ecommerceadmin.models.AddUser;
+import com.bytes.tech.awizom.ecommerceadmin.configure.SharedPrefManager;
+import com.bytes.tech.awizom.ecommerceadmin.models.ProductModel;
+import com.bytes.tech.awizom.ecommerceadmin.models.StockMain;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class ViewUsers extends AppCompatActivity {
+public class StockActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     private String result = "";
-    List<AddUser> userModels;
-    ViewUserAdapter subCatagoryAdapter;
+    List<StockMain> stockMains;
     SwipeRefreshLayout mSwipeRefreshLayout;
-    private String ID="";
     private ProgressDialog progressDialog;
+    GridView gridView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recyclerview_list_layout);
+        setContentView(R.layout.stockgrid);
+        try {
+            initview();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        initview();
     }
 
     private void initview() {
-        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
 
-        toolbar.setTitle("Users");
+        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Stock");
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -54,57 +60,27 @@ public class ViewUsers extends AppCompatActivity {
         toolbar.setSubtitleTextAppearance(getApplicationContext(), R.style.styleA);
         toolbar.setTitleTextAppearance(getApplicationContext(), R.style.styleA);
         toolbar.setTitleTextColor(Color.WHITE);
-
-
-
-
         progressDialog = new ProgressDialog(this);
-        recyclerView = findViewById(R.id.recyclerView);
-        mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(ViewUsers.this));
-        getuser();
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // Refresh items
-                getuser();
-            }
-        });
 
+        gridView = (GridView) findViewById(R.id.gridview);
+        getProductList();
     }
 
-    private void getuser() {
+    private void getProductList() {
         try {
-            progressDialog.setMessage("loading...");
-            progressDialog.show();
-            mSwipeRefreshLayout.setRefreshing(true);
-            result = new HelperApi.GETUsers().execute().get();
+            result = new HelperApi.GetStockItems().execute(SharedPrefManager.getInstance(this).getUser().getSubscriberId()).get();
             if (result.isEmpty()) {
-                progressDialog.dismiss();
-                mSwipeRefreshLayout.setRefreshing(false);
             } else {
-
-
-                    progressDialog.dismiss();
-                    Gson gson = new Gson();
-                    Type listType = new TypeToken<List<AddUser>>() {
-                    }.getType();
-                    userModels = new Gson().fromJson(result, listType);
-                    Log.d("Error", userModels.toString());
-                    ViewUserAdapter viewUserAdapter= new ViewUserAdapter(ViewUsers.this, userModels);
-                    recyclerView.setAdapter(viewUserAdapter);
-                    mSwipeRefreshLayout.setRefreshing(false);
-
-
-
-
+                Gson gson = new Gson();
+                Type listType = new TypeToken<List<StockMain>>() {
+                }.getType();
+                stockMains = new Gson().fromJson(result, listType);
+                StockAdapter catagoryGridViewAdapter = new StockAdapter(StockActivity.this, stockMains);
+                gridView.setAdapter(catagoryGridViewAdapter);
+                Log.d("LOGId",stockMains.toString());
             }
         } catch (Exception e) {
-            mSwipeRefreshLayout.setRefreshing(false);
             e.printStackTrace();
-
         }
     }
-
 }

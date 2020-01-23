@@ -28,6 +28,7 @@
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:text="Search"
+                android:visibility="gone"
                 android:padding="5dp"
                 android:drawableLeft="@drawable/ic_search_black_24dp"/>
 

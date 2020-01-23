@@ -3,7 +3,6 @@ package com.bytes.tech.awizom.ecommerceadmin.activity;
 import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,9 +13,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -28,17 +24,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.GridView;
 import android.widget.TextView;
 import com.bytes.tech.awizom.ecommerceadmin.R;
-import com.bytes.tech.awizom.ecommerceadmin.adapter.ProductListAdapter;
 import com.bytes.tech.awizom.ecommerceadmin.adapter.SliderAdapter;
 import com.bytes.tech.awizom.ecommerceadmin.chat.ChatActivity;
 import com.bytes.tech.awizom.ecommerceadmin.configure.HelperApi;
 import com.bytes.tech.awizom.ecommerceadmin.configure.SharedPrefManager;
-import com.bytes.tech.awizom.ecommerceadmin.models.CatagoriesModel;
-import com.bytes.tech.awizom.ecommerceadmin.models.PricerequestModel;
-import com.bytes.tech.awizom.ecommerceadmin.models.ProductModel;
-import com.bytes.tech.awizom.ecommerceadmin.models.RatingModel;
+import com.bytes.tech.awizom.ecommerceadmin.models.AddUser;
+import com.bytes.tech.awizom.ecommerceadmin.models.StockMain;
+import com.bytes.tech.awizom.ecommerceadmin.models.StockProduct;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -48,10 +43,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
 
     private Intent intent= new Intent();
     ViewPager viewPager;
@@ -60,14 +53,20 @@ public class MainActivity extends AppCompatActivity
     List<Integer> color;
     List<String> colorName;
     TextView offerTextViews;
-    List<CatagoriesModel> categorylist;
+    List<StockMain> stockMains;
     private TextView searchEdits;
+    private String result="";
+    private AddUser  addUser;
+    private TextView userNameIDs,catagories;
+    GridView gridView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(" ");
+        toolbar.setTitle(SharedPrefManager.getInstance(MainActivity.this).getUser().getFirmName());
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -86,11 +85,12 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
         navigationView.setNavigationItemSelectedListener(this);
         Menu menu = navigationView.getMenu();
         MenuItem target = menu.findItem(R.id.nav_login);
         MenuItem target2 = menu.findItem(R.id.nav_logout);
-
+        userNameIDs = headerView.findViewById(R.id.userNameID);
         if(SharedPrefManager.getInstance(this).getUser().getUserID() != null){
              target.setVisible(false);
              target2.setVisible(true);
@@ -99,10 +99,7 @@ public class MainActivity extends AppCompatActivity
              target2.setVisible(false);
         }
 
-
 //       FirebaseInstanceId.getInstance().getToken().toString();
-
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Create channel to show notifications.
             String channelId  = getString(R.string.default_notification_channel_id);
@@ -112,20 +109,32 @@ public class MainActivity extends AppCompatActivity
             notificationManager.createNotificationChannel(new NotificationChannel(channelId,
                     channelName, NotificationManager.IMPORTANCE_LOW));
         }
-        FirebaseMessaging.getInstance().subscribeToTopic("Product");
 
+        FirebaseMessaging.getInstance().subscribeToTopic("Product");
         initview();
     }
-
 
     private void initview() {
 
         viewPager = findViewById(R.id.viewPager);
         indicator = findViewById(R.id.indicator);
         searchEdits = findViewById(R.id.searchEdit);
-
-
         offerTextViews =findViewById(R.id.offerTextView);
+        gridView = (GridView) findViewById(R.id.gridview);
+        catagories = findViewById(R.id.catagory);
+        try{
+            userNameIDs.setText(SharedPrefManager.getInstance(this).getUser().getUserName().toString());
+            catagories.setText(SharedPrefManager.getInstance(this).getUser().getCategory());
+            catagories.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    intent = new Intent(MainActivity.this,StockActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
 
         searchEdits.setOnClickListener(new View.OnClickListener() {
@@ -167,7 +176,12 @@ public class MainActivity extends AppCompatActivity
             }
         };
         handler.postDelayed(runnable, 1000);
+
+
+
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -308,6 +322,7 @@ public class MainActivity extends AppCompatActivity
 
 
                     SharedPrefManager.getInstance(MainActivity.this).logout();
+                    startActivity(intent=new Intent(MainActivity.this,SignInActivity.class));
                 }
             });
 
@@ -374,5 +389,26 @@ public class MainActivity extends AppCompatActivity
         }
 
         return super.onKeyDown(keyCode, event);
+    }
+    private void GetSubscriberUsers(String userID) {
+        try {
+
+            result = new HelperApi.GetSubscriberUsers().execute(userID.toString()).get();
+            if (result.isEmpty()) {
+            } else {
+                Gson gson = new Gson();
+                AddUser jsonbody = gson.fromJson(result, AddUser.class);
+                AddUser us = new AddUser();
+                us.SubscriberID = jsonbody.SubscriberID;
+                SharedPrefManager.getInstance(MainActivity.this).addsubscribeUser(us);
+                Log.d("LOGSubscride Id",SharedPrefManager.getInstance(MainActivity.this).getaddsubscribeUser().SubscriberID);
+
+            }
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
+
     }
 }
