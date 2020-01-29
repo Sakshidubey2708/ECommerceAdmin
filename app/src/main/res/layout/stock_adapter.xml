@@ -63,9 +63,33 @@
                     android:layout_gravity="center"
                     android:gravity="center_horizontal|top"
                     android:padding="5dp"
+
+
                     android:text="@string/app_name"
                     android:layout_below="@+id/catalogName"
                     android:layout_marginBottom="5dp"/>
+                <Button
+                    android:id="@+id/btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="request"
+                    android:textAllCaps="false"
+                    android:visibility="gone"
+                    android:background="@color/white"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/description"/>
+                <Button
+                    android:id="@+id/btnSent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="request"
+                    android:textAllCaps="false"
+                    android:visibility="gone"
+                    android:background="@color/white"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/description"/>
                 <TextView
                     android:id="@+id/imgLink"
                     android:layout_width="wrap_content"

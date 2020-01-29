@@ -74,6 +74,7 @@ public class ProductListAdapter extends  RecyclerView.Adapter<ProductListAdapter
             holder.categoryId.setText(String.valueOf(catagoriesModel.getMainCatId()));
             holder.mainId.setText(String.valueOf(catagoriesModel.getMainCatId()));
 
+
             holder.getRequest.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -87,6 +88,7 @@ public class ProductListAdapter extends  RecyclerView.Adapter<ProductListAdapter
                             }.getType();
                             pricerequestModel = new Gson().fromJson(result, listType1);
                             Log.d("Error", pricerequestModel.toString());
+
 
                             final Dialog dialog = new Dialog(mCtx);
                             WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -112,10 +114,6 @@ public class ProductListAdapter extends  RecyclerView.Adapter<ProductListAdapter
                                     dialog.dismiss();
                                 }
                             });
-
-
-
-
                             dialog.show();
                         }
                     } catch (Exception e) {
@@ -190,10 +188,6 @@ public class ProductListAdapter extends  RecyclerView.Adapter<ProductListAdapter
 
                                     holder.book.setVisibility(View.GONE);
                                     holder.getRequest.setVisibility(View.VISIBLE);
-
-
-
-
                                 }
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -211,6 +205,9 @@ public class ProductListAdapter extends  RecyclerView.Adapter<ProductListAdapter
         }
 
     }
+
+
+
     @Override
     public long getItemId(int position) {
 

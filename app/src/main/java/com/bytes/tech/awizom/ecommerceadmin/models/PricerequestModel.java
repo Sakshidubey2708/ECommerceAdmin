@@ -8,6 +8,15 @@ public class PricerequestModel {
     public String RequestStatus ;
     public double SalePrice ;
     public double SaleDiscount ;
+    public Boolean isRequest;
+
+    public Boolean getRequest() {
+        return isRequest;
+    }
+
+    public void setRequest(Boolean request) {
+        isRequest = request;
+    }
 
     public long getPriceRequestId() {
         return PriceRequestId;
@@ -64,4 +73,6 @@ public class PricerequestModel {
     public void setSaleDiscount(double saleDiscount) {
         SaleDiscount = saleDiscount;
     }
+
+
 }

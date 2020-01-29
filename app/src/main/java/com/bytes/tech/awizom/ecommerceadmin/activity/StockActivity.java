@@ -6,20 +6,17 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
-
 import com.bytes.tech.awizom.ecommerceadmin.R;
+import com.bytes.tech.awizom.ecommerceadmin.adapter.StockAdapter;
 import com.bytes.tech.awizom.ecommerceadmin.configure.HelperApi;
 import com.bytes.tech.awizom.ecommerceadmin.configure.SharedPrefManager;
-import com.bytes.tech.awizom.ecommerceadmin.models.ProductModel;
 import com.bytes.tech.awizom.ecommerceadmin.models.StockMain;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
 import java.util.List;
 

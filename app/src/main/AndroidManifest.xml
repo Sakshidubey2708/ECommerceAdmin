@@ -57,6 +57,7 @@
         <activity android:name=".activity.SignInActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
         <activity android:name=".activity.OrdertrackingActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <!--<intent-filter>-->
@@ -68,24 +69,51 @@
         <activity android:name=".chat.ChatActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
         <activity android:name=".activity.AddClient"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
         <activity android:name=".activity.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
         <activity android:name=".activity.ProductListActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
         <activity android:name=".activity.ViewSubCatagoryActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
         <activity android:name=".activity.ViewUsers"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
         <activity android:name=".activity.StockActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
+        <activity android:name=".activity.NotificationListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity android:name=".activity.MyOrderActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity android:name=".activity.MyProceedOrderActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity android:name=".activity.MyRunningOrderActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity android:name=".activity.MyDispatchOrderActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
         <activity
             android:name=".activity.SplashActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
@@ -94,13 +122,13 @@
             <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".activity.WebViewActivity">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
-
         <activity android:name=".activity.BuiltiUploadActivity">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->

@@ -25,6 +25,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.bytes.tech.awizom.ecommerceadmin.R;
 import com.bytes.tech.awizom.ecommerceadmin.adapter.SliderAdapter;
@@ -33,11 +34,8 @@ import com.bytes.tech.awizom.ecommerceadmin.configure.HelperApi;
 import com.bytes.tech.awizom.ecommerceadmin.configure.SharedPrefManager;
 import com.bytes.tech.awizom.ecommerceadmin.models.AddUser;
 import com.bytes.tech.awizom.ecommerceadmin.models.StockMain;
-import com.bytes.tech.awizom.ecommerceadmin.models.StockProduct;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -59,6 +57,8 @@ public class MainActivity extends AppCompatActivity
     private AddUser  addUser;
     private TextView userNameIDs,catagories;
     GridView gridView;
+    private TextView notoifye;
+    private ImageView notificationIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +109,6 @@ public class MainActivity extends AppCompatActivity
             notificationManager.createNotificationChannel(new NotificationChannel(channelId,
                     channelName, NotificationManager.IMPORTANCE_LOW));
         }
-
         FirebaseMessaging.getInstance().subscribeToTopic("Product");
         initview();
     }
@@ -119,6 +118,8 @@ public class MainActivity extends AppCompatActivity
         viewPager = findViewById(R.id.viewPager);
         indicator = findViewById(R.id.indicator);
         searchEdits = findViewById(R.id.searchEdit);
+        notoifye = findViewById(R.id.cart_badge);
+        notificationIcon = findViewById(R.id.notification);
         offerTextViews =findViewById(R.id.offerTextView);
         gridView = (GridView) findViewById(R.id.gridview);
         catagories = findViewById(R.id.catagory);
@@ -132,6 +133,7 @@ public class MainActivity extends AppCompatActivity
                     startActivity(intent);
                 }
             });
+            getNotificationCount();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -144,6 +146,15 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
+
+        notificationIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(MainActivity.this,NotificationListActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         color = new ArrayList<>();
         imglist = new ArrayList<Integer>();
@@ -177,11 +188,22 @@ public class MainActivity extends AppCompatActivity
         };
         handler.postDelayed(runnable, 1000);
 
-
-
     }
 
+    private void getNotificationCount() {
+        try {
 
+            result = new HelperApi.GETNotificationCount().execute(SharedPrefManager.getInstance(this).getUser().getSubscriberId()).get();
+            if (result.isEmpty()) {
+
+            } else {
+                notoifye.setText(result.toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
 
     @Override
     public void onBackPressed() {
@@ -264,38 +286,13 @@ public class MainActivity extends AppCompatActivity
             alertbox.show();
          }else if (id == R.id.nav_notification) {
 
-            AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
-            alertbox.setIcon(R.drawable.ic_warning_black_24dp);
-            alertbox.setTitle("Working process....");
-            alertbox.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface arg0, int arg1) {
-                }
-            });
-
-            alertbox.show();
+            startActivity(intent=new Intent(this,NotificationListActivity.class));
         }else if (id == R.id.nav_orderHistory) {
 
-            AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
-            alertbox.setIcon(R.drawable.ic_warning_black_24dp);
-            alertbox.setTitle("Working process....");
-            alertbox.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface arg0, int arg1) {
-
-                }
-            });
-
-            alertbox.show();
+            startActivity(intent=new Intent(this,MyDispatchOrderActivity.class));
         }else if (id == R.id.nav_orderRunning) {
 
-            AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
-            alertbox.setIcon(R.drawable.ic_warning_black_24dp);
-            alertbox.setTitle("Working process....");
-            alertbox.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface arg0, int arg1) {
-                }
-            });
-
-            alertbox.show();
+            startActivity(intent=new Intent(this,MyRunningOrderActivity.class));
         }else if (id == R.id.nav_login) {
              if(SharedPrefManager.getInstance(this).getUser().getUserID() == null){
                  startActivity(intent=new Intent(this,SignInActivity.class));

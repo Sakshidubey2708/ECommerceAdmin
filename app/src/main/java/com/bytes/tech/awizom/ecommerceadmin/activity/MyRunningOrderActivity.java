@@ -12,20 +12,21 @@ import android.util.Log;
 import android.view.View;
 
 import com.bytes.tech.awizom.ecommerceadmin.R;
+import com.bytes.tech.awizom.ecommerceadmin.adapter.MyOrderAdapter;
 import com.bytes.tech.awizom.ecommerceadmin.configure.HelperApi;
-import com.bytes.tech.awizom.ecommerceadmin.models.AddUser;
+import com.bytes.tech.awizom.ecommerceadmin.configure.SharedPrefManager;
+import com.bytes.tech.awizom.ecommerceadmin.models.MyOrderModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class ViewUsers extends AppCompatActivity {
+public class MyRunningOrderActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     private String result = "";
-    List<AddUser> userModels;
-    ViewUserAdapter subCatagoryAdapter;
+    List<MyOrderModel> userModels;
     SwipeRefreshLayout mSwipeRefreshLayout;
     private String ID="";
     private ProgressDialog progressDialog;
@@ -34,14 +35,18 @@ public class ViewUsers extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recyclerview_list_layout);
+        try {
+            initview();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
-        initview();
     }
 
     private void initview() {
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
 
-        toolbar.setTitle("Users");
+        toolbar.setTitle("My Order");
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -62,39 +67,37 @@ public class ViewUsers extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(ViewUsers.this));
-        getuser();
+        recyclerView.setLayoutManager(new LinearLayoutManager(MyRunningOrderActivity.this));
+        getNotificationList();
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 // Refresh items
-                getuser();
+                getNotificationList();
             }
         });
-
     }
 
-    private void getuser() {
+    private void getNotificationList() {
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();
             mSwipeRefreshLayout.setRefreshing(true);
-            result = new HelperApi.GETUsers().execute().get();
+            result = new HelperApi.GETMyOrderPlace().execute(SharedPrefManager.getInstance(MyRunningOrderActivity.this).getUser().getSubscriberId(),
+                    "Running Order").get();
             if (result.isEmpty()) {
                 progressDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);
             } else {
-
-
-                    progressDialog.dismiss();
-                    Gson gson = new Gson();
-                    Type listType = new TypeToken<List<AddUser>>() {
-                    }.getType();
-                    userModels = new Gson().fromJson(result, listType);
-                    Log.d("Error", userModels.toString());
-                    ViewUserAdapter viewUserAdapter= new ViewUserAdapter(ViewUsers.this, userModels);
-                    recyclerView.setAdapter(viewUserAdapter);
-                    mSwipeRefreshLayout.setRefreshing(false);
+                progressDialog.dismiss();
+                Gson gson = new Gson();
+                Type listType = new TypeToken<List<MyOrderModel>>() {
+                }.getType();
+                userModels = new Gson().fromJson(result, listType);
+                Log.d("Error", userModels.toString());
+                MyOrderAdapter viewUserAdapter= new MyOrderAdapter(MyRunningOrderActivity.this, userModels);
+                recyclerView.setAdapter(viewUserAdapter);
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         } catch (Exception e) {
             mSwipeRefreshLayout.setRefreshing(false);
@@ -102,5 +105,4 @@ public class ViewUsers extends AppCompatActivity {
 
         }
     }
-
 }

@@ -9,6 +9,24 @@ public class StockMain {
     public long StockQuantity;
     public long StockInQuantity;
     public long StockOutQuantity;
+    public int PricingProductId;
+    public  int StockMainId;
+
+    public int getPricingProductId() {
+        return PricingProductId;
+    }
+
+    public void setPricingProductId(int pricingProductId) {
+        PricingProductId = pricingProductId;
+    }
+
+    public int getStockMainId() {
+        return StockMainId;
+    }
+
+    public void setStockMainId(int stockMainId) {
+        StockMainId = stockMainId;
+    }
 
     public long getProductId() {
         return ProductId;

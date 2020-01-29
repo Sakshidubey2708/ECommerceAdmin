@@ -61,6 +61,7 @@ public class ProductListActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

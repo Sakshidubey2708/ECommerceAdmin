@@ -38,6 +38,16 @@
                 android:layout_height="30dp"
                 android:paddingLeft="10dp"
                 android:src="@drawable/ic_notifications_none_black_24dp" />
+            <TextView
+                android:id="@+id/cart_badge"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:layout_gravity="top"
+                android:gravity="top"
+                android:textColor="@color/white"
+                android:text="0"
+                android:textStyle="bold"
+                android:textSize="10sp"/>
             <ImageView
                 android:id="@+id/addcart"
                 android:layout_width="30dp"

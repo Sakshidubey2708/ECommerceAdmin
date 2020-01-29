@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/logo"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ec"
+            android:layout_weight="1.9"/>
+        <TextView
+            android:id="@+id/searchEdit"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:text="Search"
+            android:visibility="gone"
+            android:tint="@color/colorPrimaryDark"
+            android:padding="5dp"
+            android:layout_weight="1.9"
+            android:drawableLeft="@drawable/ic_search_black_24dp"/>
+
+
+    <!--<TextView-->
+        <!--android:id="@+id/cart_badge"-->
+        <!--android:layout_width="20dp"-->
+        <!--android:layout_height="20dp"-->
+        <!--android:layout_gravity="right|end|top"-->
+        <!--android:layout_marginEnd="-5dp"-->
+        <!--android:layout_marginRight="-5dp"-->
+        <!--android:layout_marginTop="3dp"-->
+        <!--android:background="@drawable/badge_background"-->
+        <!--android:gravity="center"-->
+        <!--android:padding="3dp"-->
+        <!--android:textColor="@android:color/white"-->
+        <!--android:text="0"-->
+        <!--android:textSize="10sp"/>-->
+        <ImageView
+            android:id="@+id/notification"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_weight="1.9"
+            android:paddingLeft="10dp"
+            android:tint="@color/colorPrimaryDark"
+            android:src="@drawable/ic_notifications_none_black_24dp" />
+
+        <ImageView
+            android:id="@+id/addcart"
+            android:layout_width="30dp"
+            android:paddingLeft="5dp"
+            android:layout_height="30dp"
+            android:layout_weight="1.9"
+            android:tint="@color/colorPrimaryDark"
+            android:src="@drawable/ic_shopping_cart_black_24dp" />
+
+</LinearLayout>

@@ -50,17 +50,40 @@
             android:textColor="@color/blue"
             android:fontFamily="serif" />
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:layout_gravity="center|center_horizontal|center_vertical">
 
-        <Button
-            android:id="@+id/okbtn"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:textColor="@color/white"
-            android:layout_gravity="center"
-            android:background="@color/colorPrimaryDark"
-            android:text="ok"
-            android:layout_margin="8dp"
-            android:padding="5dp"/>
+    <Button
+        android:id="@+id/orderPlace"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_weight="1"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimaryDark"
+        android:text="Place Order"
+        android:textAllCaps="false"
+        android:layout_margin="8dp"
+        android:padding="5dp"
+        android:visibility="visible"/>
+    <Button
+        android:id="@+id/okbtn"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimaryDark"
+        android:text="Cancel"
+        android:textAllCaps="false"
+        android:layout_weight="1"
+        android:layout_margin="8dp"
+        android:padding="5dp"/>
+
+</LinearLayout>
+
     </LinearLayout>
 
 </RelativeLayout>
