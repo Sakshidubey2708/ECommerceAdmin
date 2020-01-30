@@ -170,9 +170,9 @@ public class StockAdapter extends BaseAdapter {
                                         PriceRequestId = pricerequestModel.getPriceRequestId();
 
 
-//                                        Intent i = new Intent(mContext,StockActivity.class);
-//                                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                                        mContext.startActivity(i);
+                                        Intent i = new Intent(mContext,StockActivity.class);
+                                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        mContext.startActivity(i);
 
                                     }
                                 } catch (Exception e) {
@@ -284,6 +284,33 @@ public class StockAdapter extends BaseAdapter {
                                                         orderDetailID = orderDetailMain.getOrderId();
                                                      //   orderMainID=0;
                                                         Toast.makeText(mContext,"OrderDetailsMain"+String.valueOf(orderDetailID),Toast.LENGTH_LONG).show();
+                                                        try {
+
+
+                                                               String userID = SharedPrefManager.getInstance(mContext).getUser().getUserID();
+
+                                                            result =   new HelperApi.PostCarts().execute(productid.getText().toString(),userID.toString()).get();
+                                                            try {
+                                                                if (result.isEmpty()) {
+                                                                    Log.d("Result Empty", "Error");
+
+                                                                } else {
+
+                                                                    Toast.makeText(mContext, "Added", Toast.LENGTH_SHORT).show();
+
+                                                                }
+
+                                                            } catch (Exception e) {
+                                                                Log.d("Result Empty", "Error");
+                                                                e.printStackTrace();
+                                                            }
+
+                                                        } catch (Exception e) {
+                                                            Log.d("Result Empty", "Error");
+                                                            e.printStackTrace();
+                                                        }
+
+
                                                     }
                                                 }
 

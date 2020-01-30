@@ -9,6 +9,9 @@
             android:id="@+id/nav_productDeatails"
             android:title="Product" />
         <item
+            android:id="@+id/nav_cart"
+            android:title="Cart" />
+        <item
             android:id="@+id/nav_builtyUpload"
             android:title="Download Bilti" />
         <item

@@ -41,6 +41,11 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
+        <activity
+            android:name=".activity.AddressActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
         <service
             android:name=".notification.MYFirebaseMessagingServise"
             android:exported="false">
@@ -48,11 +53,14 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <activity
+            android:name=".activity.CartActivity"
+            android:theme="@style/AppTheme.NoActionBar">
 
+        </activity>
         <activity
             android:name=".notification.MyfirebaseReceiver"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_notifications_active_black_24dp" />

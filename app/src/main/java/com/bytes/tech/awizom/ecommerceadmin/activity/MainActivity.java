@@ -264,6 +264,8 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_productDeatails) {
             startActivity(intent=new Intent(this,ProductListActivity.class));
+        }else if (id == R.id.nav_cart) {
+            startActivity(intent=new Intent(this,CartActivity.class));
         }else  if (id == R.id.nav_Chat) {
              startActivity(intent=new Intent(this,ChatActivity.class));
          }else  if (id == R.id.nav_ordrTrack) {
