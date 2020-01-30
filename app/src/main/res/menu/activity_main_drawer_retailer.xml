@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_builtyUpload"
+            android:title="Download Bilti" />
+        <item
+            android:id="@+id/nav_searchActivity"
+            android:title="Search" />
+        <item
+            android:id="@+id/nav_Chat"
+            android:title="Chat" />
+        <item
+            android:id="@+id/nav_notification"
+            android:title="Notification" />
+        <item
+            android:id="@+id/nav_orderHistory"
+            android:title="My Order" />
+        <item
+            android:id="@+id/nav_orderRunning"
+            android:title="Order Running" />
+        <item
+            android:id="@+id/nav_ordrTrack"
+            android:title="Order Track" />
+        <item
+            android:id="@+id/nav_login"
+            android:title="Login" />
+        <item
+            android:id="@+id/nav_logout"
+            android:title="logout" />
+    </group>
+
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_ofcLink"
+                android:title="Copyright@2019:Awizom Tech Bytes Pvt Ltd" />
+        </menu>
+    </item>
+
+</menu>

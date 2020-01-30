@@ -83,7 +83,7 @@ public class MyProceedOrderActivity extends AppCompatActivity {
             progressDialog.show();
             mSwipeRefreshLayout.setRefreshing(true);
             result = new HelperApi.GETMyOrderPlace().execute(SharedPrefManager.getInstance(MyProceedOrderActivity.this).getUser().getSubscriberId(),
-                    "Proceed Order").get();
+                    "Order Accepted").get();
             if (result.isEmpty()) {
                 progressDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);

@@ -7,6 +7,73 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
 public class HelperApi extends AppCompatActivity {
+    public static final class  PostCartAmount extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String CartAssuredId = params[0];
+            String CartId = params[1];
+            String ProductId = params[2];
+            String UserId = params[3];
+            String Quantity = params[4];
+            String AssuredPriceINR = params[5];
+            String ProImg1=params[6];
+            String ProductName = params[7];
+            String Descriptions = params[8];
+            String TotalDiscountsPer = params[9];
+            String MRPINR = params[10];
+            String BrandId = params[11];
+            String BrandName=params[12];
+            String MRPDiscountINR = params[13];
+
+
+            String json = "";
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "/CartAmountDetailsPost");
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                FormBody.Builder parameters = new FormBody.Builder();
+
+                parameters.add("CartAssuredId" ,CartAssuredId);
+                parameters.add("CartId", CartId);
+                parameters.add("ProductId", ProductId);
+                parameters.add("UserId", UserId);
+                parameters.add("Quantity", Quantity);
+                parameters.add("AssuredPriceINR", AssuredPriceINR);
+                parameters.add("ProImg1" ,ProImg1);
+                parameters.add("ProductName", ProductName);
+                parameters.add("Descriptions", Descriptions);
+                parameters.add("TotalDiscountsPer", TotalDiscountsPer);
+                parameters.add("MRPINR", MRPINR);
+                parameters.add("BrandId", BrandId);
+                parameters.add("BrandName", BrandName);
+                parameters.add("MRPDiscountINR", MRPDiscountINR);
+
+
+                builder.post(parameters.build());
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return json;
+        }
+        protected void onPostExecute(String result) {
+            try {
+                if (result.isEmpty()) {
+                } else {
+                    super.onPostExecute(result);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public static final class PostSentPriceRequest extends AsyncTask<String, Void, String> {
 
@@ -217,6 +284,41 @@ public class HelperApi extends AppCompatActivity {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
                 builder.url(AppConfig.BASE_URL_API + "/GetSelectedMainCatagories/" + mID);
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return json;
+        }
+        protected void onPostExecute(String result) {
+            try {
+                if (result.isEmpty()) {
+                } else {
+                    super.onPostExecute(result);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public static final class GetCartList extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String json = "";
+            String userID = strings[0];
+
+            try {
+
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "/GetViewCartShows/"+userID );
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 okhttp3.Response response = client.newCall(builder.build()).execute();
@@ -868,11 +970,12 @@ public class HelperApi extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             String json = "";
             String CreatedBy=strings[0];
+            String UserId=strings[1];
             try {
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "/GetStockProduct/"+CreatedBy);
+                builder.url(AppConfig.BASE_URL_API + "/GetStockProduct/"+CreatedBy+"/"+UserId);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 okhttp3.Response response = client.newCall(builder.build()).execute();

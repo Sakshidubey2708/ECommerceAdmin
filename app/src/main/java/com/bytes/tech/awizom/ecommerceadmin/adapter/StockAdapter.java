@@ -46,6 +46,7 @@ public class StockAdapter extends BaseAdapter {
     long PriceRequestId = 0, ratingID = 0,orderMainID=0,orderDetailID=0;
     OrderMainModel orderMainModel;
     OrderDetailMain orderDetailMain;
+    int k =0;
 
 
     public StockAdapter(StockActivity newCustomerHome, List<StockMain> stockMains) {
@@ -91,7 +92,6 @@ public class StockAdapter extends BaseAdapter {
                 textViewAndroid.setText(stockMains.get(i).getProductName());
                 descriptions.setText(stockMains.get(i).getHighlightsDesign());
                 productid.setText(String.valueOf(stockMains.get(i).getProductId()));
-
 
                 if (stockMains.get(i).getPricingProductId() == 0) {
                     request.setVisibility(View.VISIBLE);
@@ -170,9 +170,9 @@ public class StockAdapter extends BaseAdapter {
                                         PriceRequestId = pricerequestModel.getPriceRequestId();
 
 
-                                        Intent i = new Intent(mContext,StockActivity.class);
-                                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        mContext.startActivity(i);
+//                                        Intent i = new Intent(mContext,StockActivity.class);
+//                                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                                        mContext.startActivity(i);
 
                                     }
                                 } catch (Exception e) {
@@ -235,10 +235,12 @@ public class StockAdapter extends BaseAdapter {
                                     @Override
                                     public void onClick(View v) {
                                         try {
+                                          k = ++k;
+                                           String S= "ord"+k;
 
                                             result = new HelperApi.PostOrderMain().execute(
                                                     String.valueOf(orderMainID),
-                                                    String.valueOf(orderMainID),
+                                                    S.toString(),
                                                     SharedPrefManager.getInstance(mContext).getUser().getUserID().toString(),
                                                     "",order.getText().toString().trim(),"","","",SharedPrefManager.getInstance(mContext).getUser().getSubscriberId()).get();
 
@@ -280,6 +282,7 @@ public class StockAdapter extends BaseAdapter {
                                                         }.getType();
                                                         orderDetailMain = new Gson().fromJson(result, listType1);
                                                         orderDetailID = orderDetailMain.getOrderId();
+                                                     //   orderMainID=0;
                                                         Toast.makeText(mContext,"OrderDetailsMain"+String.valueOf(orderDetailID),Toast.LENGTH_LONG).show();
                                                     }
                                                 }

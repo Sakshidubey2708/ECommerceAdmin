@@ -27,5 +27,6 @@
     <string name="msg_subscribe_failed">Failed to subscribe to weather topic</string>
     <string name="fcm_message">FCM Message</string>
     <string name="clikHere"><u>Click Here</u></string>
+    <string name="title_activity_main2">Main2Activity</string>
 
 </resources>

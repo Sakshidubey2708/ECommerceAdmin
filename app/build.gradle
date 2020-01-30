@@ -64,7 +64,6 @@ dependencies {
     implementation 'com.frosquivel:magicaltakephoto:1.0'
 
 
-
 }
 
 apply plugin: 'com.google.gms.google-services'
