@@ -13,6 +13,12 @@ public class OrderMainModel {
     public double AnyOtherCharge;
 
 
+    public String PlaceOrder ;
+    public String OrderAccept ;
+    public String UnderProccess ;
+    public String OrderDispatch ;
+
+
     public long getOrderId() {
         return OrderId;
     }
@@ -75,5 +81,37 @@ public class OrderMainModel {
 
     public void setAnyOtherCharge(double anyOtherCharge) {
         AnyOtherCharge = anyOtherCharge;
+    }
+
+    public String getPlaceOrder() {
+        return PlaceOrder;
+    }
+
+    public void setPlaceOrder(String placeOrder) {
+        PlaceOrder = placeOrder;
+    }
+
+    public String getOrderAccept() {
+        return OrderAccept;
+    }
+
+    public void setOrderAccept(String orderAccept) {
+        OrderAccept = orderAccept;
+    }
+
+    public String getUnderProccess() {
+        return UnderProccess;
+    }
+
+    public void setUnderProccess(String underProccess) {
+        UnderProccess = underProccess;
+    }
+
+    public String getOrderDispatch() {
+        return OrderDispatch;
+    }
+
+    public void setOrderDispatch(String orderDispatch) {
+        OrderDispatch = orderDispatch;
     }
 }

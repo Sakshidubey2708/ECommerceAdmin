@@ -291,7 +291,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent=new Intent(this,NotificationListActivity.class));
         }else if (id == R.id.nav_orderHistory) {
 
-            startActivity(intent=new Intent(this,MyDispatchOrderActivity.class));
+            startActivity(intent=new Intent(this,MyOrderActivity.class));
         }else if (id == R.id.nav_orderRunning) {
 
             startActivity(intent=new Intent(this,MyRunningOrderActivity.class));

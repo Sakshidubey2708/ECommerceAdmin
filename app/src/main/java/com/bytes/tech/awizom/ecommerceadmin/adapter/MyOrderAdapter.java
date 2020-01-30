@@ -29,7 +29,7 @@ public class MyOrderAdapter extends  RecyclerView.Adapter<MyOrderAdapter.OrderIt
     @Override
     public MyOrderAdapter.OrderItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mCtx);
-        View view = inflater.inflate(R.layout.notification_adapter, null);
+        View view = inflater.inflate(R.layout.my_order_adapter, null);
         return new MyOrderAdapter.OrderItemViewHolder(view, mCtx, userModelsList);
     }
 
@@ -39,6 +39,7 @@ public class MyOrderAdapter extends  RecyclerView.Adapter<MyOrderAdapter.OrderIt
 
         holder.catagory_names.setText(catagoriesModel.getProductName().toString());
         holder.catagoryIDs.setText(String.valueOf(catagoriesModel.getStatus()));
+        holder.amounts.setText(String.valueOf(catagoriesModel.getTotalAmount()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +59,7 @@ public class MyOrderAdapter extends  RecyclerView.Adapter<MyOrderAdapter.OrderIt
     class OrderItemViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
 
         private Context mCtx;
-        private TextView catagory_names,catagoryIDs;
+        private TextView catagory_names,catagoryIDs,amounts;
 
         private List<MyOrderModel> userModelsList;
         private MyOrderModel catagoriesModel;
@@ -71,6 +72,7 @@ public class MyOrderAdapter extends  RecyclerView.Adapter<MyOrderAdapter.OrderIt
 
             catagory_names = view.findViewById(R.id.name);
             catagoryIDs=view.findViewById(R.id.work);
+            amounts=view.findViewById(R.id.amount);
             itemView.setOnClickListener(this);
 
 

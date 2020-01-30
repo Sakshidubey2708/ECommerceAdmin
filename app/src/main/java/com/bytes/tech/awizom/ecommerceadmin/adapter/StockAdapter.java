@@ -310,12 +310,8 @@ public class StockAdapter extends BaseAdapter {
                                                             e.printStackTrace();
                                                         }
 
-
                                                     }
                                                 }
-
-
-
                                             }
                                         } catch (Exception e) {
                                             e.printStackTrace();

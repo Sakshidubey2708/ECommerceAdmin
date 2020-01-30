@@ -82,7 +82,6 @@ public class HelperApi extends AppCompatActivity {
 
             String productID = params[0];
             String UserId = params[1];
-
             String json = "";
             try {
                 OkHttpClient client = new OkHttpClient();
