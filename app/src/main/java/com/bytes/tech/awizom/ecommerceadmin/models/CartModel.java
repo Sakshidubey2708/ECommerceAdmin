@@ -11,12 +11,49 @@ public class CartModel {
     public String Img1 ;
     public String ProductName;
     public String Descriptions ;
-    public double TotalDiscountsPer ;
+
     public double MRPINR;
-    public double AssuredPriceINR ;
+
     public long BrandId ;
     public String BrandName ;
-    public double MRPDiscountINR ;
+
+    public String UserId ;
+
+    public long OrderId ;
+    public long OrderDetailId ;
+    public String OrdersNo ;
+
+    public String getOrderNo() {
+        return OrdersNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        OrdersNo = orderNo;
+    }
+
+    public String getUserId() {
+        return UserId;
+    }
+
+    public void setUserId(String userId) {
+        UserId = userId;
+    }
+
+    public long getOrderId() {
+        return OrderId;
+    }
+
+    public void setOrderId(long orderId) {
+        OrderId = orderId;
+    }
+
+    public long getOrderDetailId() {
+        return OrderDetailId;
+    }
+
+    public void setOrderDetailId(long orderDetailId) {
+        OrderDetailId = orderDetailId;
+    }
 
     public long getCartId() {
         return CartId;
@@ -66,28 +103,12 @@ public class CartModel {
         Descriptions = descriptions;
     }
 
-    public double getTotalDiscountsPer() {
-        return TotalDiscountsPer;
-    }
-
-    public void setTotalDiscountsPer(double totalDiscountsPer) {
-        TotalDiscountsPer = totalDiscountsPer;
-    }
-
     public double getMRPINR() {
         return MRPINR;
     }
 
     public void setMRPINR(double MRPINR) {
         this.MRPINR = MRPINR;
-    }
-
-    public double getAssuredPriceINR() {
-        return AssuredPriceINR;
-    }
-
-    public void setAssuredPriceINR(double assuredPriceINR) {
-        AssuredPriceINR = assuredPriceINR;
     }
 
     public long getBrandId() {
@@ -104,13 +125,5 @@ public class CartModel {
 
     public void setBrandName(String brandName) {
         BrandName = brandName;
-    }
-
-    public double getMRPDiscountINR() {
-        return MRPDiscountINR;
-    }
-
-    public void setMRPDiscountINR(double MRPDiscountINR) {
-        this.MRPDiscountINR = MRPDiscountINR;
     }
 }

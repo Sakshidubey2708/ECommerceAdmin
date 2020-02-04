@@ -19,6 +19,9 @@
     <!--<color name="grey_lights">#a4a6a6</color>-->
     <color name="blue_light">#c94c69</color>
 
+    <color name="green">#5fa426</color>
+    <color name="green_light">#caeaae</color>
+
     <color name="transparent">#00000000</color>
     <color name="transparency">#00000000</color>
 </resources>

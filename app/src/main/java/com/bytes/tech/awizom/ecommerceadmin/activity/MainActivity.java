@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity
         MenuItem target = menu.findItem(R.id.nav_login);
         MenuItem target2 = menu.findItem(R.id.nav_logout);
         userNameIDs = headerView.findViewById(R.id.userNameID);
-        if(SharedPrefManager.getInstance(this).getUser().getUserID() != null){
+        if(SharedPrefManager.getInstance(this).getUser().getUserId() != null){
              target.setVisible(false);
              target2.setVisible(true);
         }else {
@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity
     private void getNotificationCount() {
         try {
 
-            result = new HelperApi.GETNotificationCount().execute(SharedPrefManager.getInstance(this).getUser().getSubscriberId()).get();
+            result = new HelperApi.GETNotificationCount().execute(SharedPrefManager.getInstance(this).getUser().getSubsciberID()).get();
             if (result.isEmpty()) {
 
             } else {
@@ -296,7 +296,7 @@ public class MainActivity extends AppCompatActivity
 
             startActivity(intent=new Intent(this,MyRunningOrderActivity.class));
         }else if (id == R.id.nav_login) {
-             if(SharedPrefManager.getInstance(this).getUser().getUserID() == null){
+             if(SharedPrefManager.getInstance(this).getUser().getUserId() == null){
                  startActivity(intent=new Intent(this,SignInActivity.class));
              }else {
                  AlertDialog.Builder alertbox = new AlertDialog.Builder(this);

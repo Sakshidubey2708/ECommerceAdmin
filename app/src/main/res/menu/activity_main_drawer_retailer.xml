@@ -24,7 +24,12 @@
             android:title="Order Running" />
         <item
             android:id="@+id/nav_ordrTrack"
-            android:title="Order Track" />
+            android:title="Order Track"
+            android:visible="false"/>
+
+        <item
+            android:id="@+id/nav_weblink"
+            android:title="Web Link" />
         <item
             android:id="@+id/nav_login"
             android:title="Login" />

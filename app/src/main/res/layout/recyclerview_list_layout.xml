@@ -5,7 +5,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/goneBagLayout"
+        android:layout_width="match_parent"
+        android:layout_height="650dp"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:background="@color/white">
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="150dp"
+            android:src="@drawable/bag"
+            android:layout_gravity="center|center_horizontal"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_gravity="center|center_horizontal"
+            android:text="Hey, Your Order is not here!"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/grey_darks"
+            android:textSize="15sp"
+            android:layout_gravity="center|center_horizontal"
+            android:text="Wait"/>
 
+    </LinearLayout>
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"

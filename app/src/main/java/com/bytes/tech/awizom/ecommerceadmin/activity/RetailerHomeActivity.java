@@ -3,6 +3,7 @@ package com.bytes.tech.awizom.ecommerceadmin.activity;
 import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,8 +15,10 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -24,8 +27,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.bytes.tech.awizom.ecommerceadmin.R;
+import com.bytes.tech.awizom.ecommerceadmin.adapter.RetailerAdapter;
 import com.bytes.tech.awizom.ecommerceadmin.adapter.SliderAdapter;
 import com.bytes.tech.awizom.ecommerceadmin.chat.ChatActivity;
 import com.bytes.tech.awizom.ecommerceadmin.configure.HelperApi;
@@ -34,6 +39,9 @@ import com.bytes.tech.awizom.ecommerceadmin.models.AddUser;
 import com.bytes.tech.awizom.ecommerceadmin.models.StockMain;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -57,6 +65,15 @@ public class RetailerHomeActivity extends AppCompatActivity
     GridView gridView;
     private TextView notoifye;
     private ImageView notificationIcon;
+
+
+    RecyclerView recyclerView;
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    private ProgressDialog progressDialog;
+    private LinearLayout notifyLayouts;
+  //  TextView subscriberNAmes,subscriber_catagorys;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +99,7 @@ public class RetailerHomeActivity extends AppCompatActivity
         MenuItem target = menu.findItem(R.id.nav_login);
         MenuItem target2 = menu.findItem(R.id.nav_logout);
         userNameIDs = headerView.findViewById(R.id.userNameID);
-        if(SharedPrefManager.getInstance(this).getUser().getUserID() != null){
+        if(SharedPrefManager.getInstance(this).getUser().getUserId() != null){
             target.setVisible(false);
             target2.setVisible(true);
         }else {
@@ -114,16 +131,27 @@ public class RetailerHomeActivity extends AppCompatActivity
         offerTextViews =findViewById(R.id.offerTextView);
         gridView = (GridView) findViewById(R.id.gridview);
         catagories = findViewById(R.id.catagory);
+        notifyLayouts = findViewById(R.id.notifyLayout);
+        //subscriberNAmes = findViewById(R.id.subscriberNAme);
+        //subscriber_catagorys =findViewById(R.id.subscriber_catagory);
+        notifyLayouts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(RetailerHomeActivity.this,NotificationListActivity.class);
+                startActivity(intent);
+            }
+        });
         try{
-            userNameIDs.setText(SharedPrefManager.getInstance(this).getUser().getUserName().toString());
+            userNameIDs.setText(SharedPrefManager.getInstance(this).getUser().getFirmName().toString());
+//            subscriberNAmes.setText(SharedPrefManager.getInstance(this).getUser().getUserName().toString());
+//            subscriber_catagorys.setText(SharedPrefManager.getInstance(this).getUser().getCategory());
             catagories.setText(SharedPrefManager.getInstance(this).getUser().getCategory());
-            catagories.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    intent = new Intent(RetailerHomeActivity.this,StockActivity.class);
-                    startActivity(intent);
-                }
-            });
+            getProductList();
+            if(catagories.getText().toString().isEmpty()){
+
+            }else {
+                getProductList();
+            }
             getNotificationCount();
         }catch (Exception e){
             e.printStackTrace();
@@ -184,7 +212,7 @@ public class RetailerHomeActivity extends AppCompatActivity
     private void getNotificationCount() {
         try {
 
-            result = new HelperApi.GETNotificationCount().execute(SharedPrefManager.getInstance(this).getUser().getSubscriberId()).get();
+            result = new HelperApi.GETNotificationCount().execute(SharedPrefManager.getInstance(this).getUser().getSubsciberID()).get();
             if (result.isEmpty()) {
 
             } else {
@@ -223,6 +251,25 @@ public class RetailerHomeActivity extends AppCompatActivity
         }
 
     }
+
+    private void getProductList() {
+        try {
+            result = new HelperApi.GetStockItems().execute(SharedPrefManager.getInstance(this).getUser().getSubsciberID(),
+                    SharedPrefManager.getInstance(this).getUser().getUserId()).get();
+            if (result.isEmpty()) {
+            } else {
+                Gson gson = new Gson();
+                Type listType = new TypeToken<List<StockMain>>() {
+                }.getType();
+                stockMains = new Gson().fromJson(result, listType);
+                RetailerAdapter catagoryGridViewAdapter = new RetailerAdapter(RetailerHomeActivity.this, stockMains);
+                gridView.setAdapter(catagoryGridViewAdapter);
+                Log.d("LOGId",stockMains.toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -246,7 +293,7 @@ public class RetailerHomeActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-       if (id == R.id.nav_searchActivity) {
+        if (id == R.id.nav_searchActivity) {
             startActivity(intent=new Intent(this,SearchActivity.class));
 
         }
@@ -255,23 +302,38 @@ public class RetailerHomeActivity extends AppCompatActivity
         }else  if (id == R.id.nav_Chat) {
             startActivity(intent=new Intent(this,ChatActivity.class));
         }else  if (id == R.id.nav_ordrTrack) {
-            startActivity(intent=new Intent(this,OrdertrackingActivity.class));
+            startActivity(intent=new Intent(this,MyOrderTrackingActivity.class));
+        }else  if (id == R.id.nav_weblink) {
+            AlertDialog.Builder alertbox = new AlertDialog.Builder(RetailerHomeActivity.this);
+            alertbox.setIcon(R.drawable.ic_bookmark_black_24dp);
+            alertbox.setTitle("Do You Want To Open?");
+            alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface arg0, int arg1) {
+                    // finish used for destroyed activity
 
-        }else  if (id == R.id.nav_builtyUpload) {
+                    intent = new Intent(RetailerHomeActivity.this,WebViewActivity.class);
+                    startActivity(intent);
+
+                }
+            });
+
+            alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface arg0, int arg1) {
+
+                }
+            });
+            alertbox.show();
+        }
+        else  if (id == R.id.nav_builtyUpload) {
             startActivity(intent=new Intent(this,BuiltiUploadActivity.class));
-
-
         }else if (id == R.id.nav_notification) {
-
             startActivity(intent=new Intent(this,NotificationListActivity.class));
         }else if (id == R.id.nav_orderHistory) {
-
-            startActivity(intent=new Intent(this,MyDispatchOrderActivity.class));
+            startActivity(intent=new Intent(this,MyOrderActivity.class));
         }else if (id == R.id.nav_orderRunning) {
-
             startActivity(intent=new Intent(this,MyRunningOrderActivity.class));
         }else if (id == R.id.nav_login) {
-            if(SharedPrefManager.getInstance(this).getUser().getUserID() == null){
+            if(SharedPrefManager.getInstance(this).getUser().getUserId() == null){
                 startActivity(intent=new Intent(this,SignInActivity.class));
             }else {
                 AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
@@ -279,10 +341,8 @@ public class RetailerHomeActivity extends AppCompatActivity
                 alertbox.setTitle("You have already logged In");
                 alertbox.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface arg0, int arg1) {
-
                     }
                 });
-
                 alertbox.show();
             }
 

@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.bytes.tech.awizom.ecommerceadmin.R;
 import com.bytes.tech.awizom.ecommerceadmin.adapter.MyOrderAdapter;
@@ -30,6 +31,7 @@ public class MyRunningOrderActivity extends AppCompatActivity {
     SwipeRefreshLayout mSwipeRefreshLayout;
     private String ID="";
     private ProgressDialog progressDialog;
+    private LinearLayout emptyLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,7 @@ public class MyRunningOrderActivity extends AppCompatActivity {
 
 
 
+        emptyLayout = findViewById(R.id.goneBagLayout);
         progressDialog = new ProgressDialog(this);
         recyclerView = findViewById(R.id.recyclerView);
         mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
@@ -83,11 +86,12 @@ public class MyRunningOrderActivity extends AppCompatActivity {
             progressDialog.setMessage("loading...");
             progressDialog.show();
             mSwipeRefreshLayout.setRefreshing(true);
-            result = new HelperApi.GETMyOrderPlace().execute(SharedPrefManager.getInstance(MyRunningOrderActivity.this).getUser().getSubscriberId(),
+            result = new HelperApi.GETMyOrderPlace().execute(SharedPrefManager.getInstance(MyRunningOrderActivity.this).getUser().getSubsciberID(),
                     "Running Order").get();
             if (result.isEmpty()) {
                 progressDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);
+                emptyLayout.setVisibility(View.VISIBLE);
             } else {
                 progressDialog.dismiss();
                 Gson gson = new Gson();
@@ -102,7 +106,7 @@ public class MyRunningOrderActivity extends AppCompatActivity {
         } catch (Exception e) {
             mSwipeRefreshLayout.setRefreshing(false);
             e.printStackTrace();
-
+            emptyLayout.setVisibility(View.VISIBLE);
         }
     }
 }

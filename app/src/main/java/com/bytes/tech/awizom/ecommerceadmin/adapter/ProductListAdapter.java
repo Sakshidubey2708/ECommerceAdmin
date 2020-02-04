@@ -126,7 +126,7 @@ public class ProductListAdapter extends  RecyclerView.Adapter<ProductListAdapter
                 public void onClick(View v){
                     v.startAnimation(holder.buttonClick);
                     try {
-                        if( SharedPrefManager.getInstance(mCtx).getUser().getUserID() == null){
+                        if( SharedPrefManager.getInstance(mCtx).getUser().getUserId() == null){
                             final Dialog dialog = new Dialog(mCtx);
                             WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
                             lp.copyFrom(dialog.getWindow().getAttributes());
@@ -170,13 +170,13 @@ public class ProductListAdapter extends  RecyclerView.Adapter<ProductListAdapter
                             try {
                                 result = new HelperApi.PostSentPriceRequest().execute(
                                         String.valueOf(PriceRequestId),
-                                        SharedPrefManager.getInstance(mCtx).getUser().getUserID().toString(),
+                                        SharedPrefManager.getInstance(mCtx).getUser().getUserId().toString(),
                                         holder.productId.getText().toString().trim(),
                                         "PriceRequest").get();
                                 if (result.isEmpty()) {
                                     result = new HelperApi.PostSentPriceRequest().execute(
                                             String.valueOf(PriceRequestId),
-                                            SharedPrefManager.getInstance(mCtx).getUser().getUserID().toString(),
+                                            SharedPrefManager.getInstance(mCtx).getUser().getUserId().toString(),
                                             holder.productId.getText().toString().trim(),
                                             "PriceRequest").get();
                                 } else {

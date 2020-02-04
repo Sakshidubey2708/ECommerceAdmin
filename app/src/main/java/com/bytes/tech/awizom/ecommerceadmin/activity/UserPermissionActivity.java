@@ -83,7 +83,7 @@ public class UserPermissionActivity extends AppCompatActivity {
         try {
 
             mSwipeRefreshLayout.setRefreshing(true);
-            new GetUserDetails().execute(SharedPrefManager.getInstance(this).getUser().UserID);
+            new GetUserDetails().execute(SharedPrefManager.getInstance(this).getUser().UserId);
 
 
         } catch (Exception e) {

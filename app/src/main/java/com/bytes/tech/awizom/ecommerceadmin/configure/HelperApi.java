@@ -82,6 +82,9 @@ public class HelperApi extends AppCompatActivity {
 
             String productID = params[0];
             String UserId = params[1];
+            String OrderId = params[2];
+            String OrderDetailId = params[3];
+            String OrdersNo = params[4];
             String json = "";
             try {
                 OkHttpClient client = new OkHttpClient();
@@ -93,6 +96,9 @@ public class HelperApi extends AppCompatActivity {
 
                 parameters.add("ProductId", productID);
                 parameters.add("UserId", UserId);
+                parameters.add("OrderId", OrderId);
+                parameters.add("OrderDetailId", OrderDetailId);
+                parameters.add("OrdersNo", OrdersNo);
 
 
 
@@ -273,7 +279,6 @@ public class HelperApi extends AppCompatActivity {
             }
         }
     }
-
 
     public static final class PostPriceRating extends AsyncTask<String, Void, String> {
 
@@ -475,6 +480,7 @@ public class HelperApi extends AppCompatActivity {
             String DeliveryCharge = params[6];
             String AnyOtherCharge = params[7];
             String SubscriberID = params[8];
+            String PlaceOrder = params[9];
 
             String json = "";
             try {
@@ -494,6 +500,11 @@ public class HelperApi extends AppCompatActivity {
                 parameters.add("DeliveryCharge", DeliveryCharge);
                 parameters.add("AnyOtherCharge", AnyOtherCharge);
                 parameters.add("SubscriberID",SubscriberID);
+                parameters.add("PlaceOrder",PlaceOrder);
+
+                parameters.add("OrderAccept","0");
+                parameters.add("UnderProccess","0");
+                parameters.add("OrderDispatch","0");
                 builder.post(parameters.build());
                 okhttp3.Response response = client.newCall(builder.build()).execute();
                 if (response.isSuccessful()) {
@@ -794,6 +805,45 @@ public class HelperApi extends AppCompatActivity {
         }
 
     }
+
+
+    public static final class GETMyOrderTracking extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String json = "";
+            String oid = strings[0];
+            String uid = strings[1];
+            try {
+
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder
+                        ();
+                builder.url(AppConfig.BASE_URL_API + "/GetTracking/"+ oid+"/"+uid);
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return json;
+        }
+        protected void onPostExecute(String result) {
+            try {
+                if (result.isEmpty()) {
+                } else {
+                    super.onPostExecute(result);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public static final class GETPriceRequest extends AsyncTask<String, Void, String> {
 
         @Override

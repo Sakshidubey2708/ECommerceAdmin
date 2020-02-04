@@ -32,7 +32,7 @@ import java.util.concurrent.ExecutionException;
 public class CartActivity extends AppCompatActivity implements View.OnClickListener , OnItemClick {
 
     RecyclerView recyclerView;
-    private String result = "";
+    private String result = "",orderMain_Id="",orderDetails_ID="";
     List<CartModel> productModelList;
    // SwipeRefreshLayout mSwipeRefreshLayout;
     private LinearLayout gridlayout,baglayout;
@@ -45,8 +45,10 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     String AssuredString="",deliveryAddress="Raipur",productId="",quantities="",mrpPric="",dicounts="";
     OrderMainModel orderMainModel;
     long orderMainID=0,orderDetailID=0;
-    private static int orderNo = 1;
+
     OrderDetailMain orderDetailMain;
+    private String[] order_main_ID;
+    private String[] order_no;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +60,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     private void initview() {
 
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Cart");
+        toolbar.setTitle("Total Items");
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -72,6 +74,8 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         toolbar.setTitleTextAppearance(getApplicationContext(), R.style.styleA);
         toolbar.setTitleTextColor(Color.WHITE);
 
+        orderMain_Id = getIntent().getStringExtra("orderMainID").toString();
+        orderDetails_ID = getIntent().getStringExtra("orderDetailID").toString();
 
         progressDialog = new ProgressDialog(this);
         try{
@@ -91,14 +95,14 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-            if(SharedPrefManager.getInstance(CartActivity.this).getUser().getUserID() == String.valueOf(0)){
+            if(SharedPrefManager.getInstance(CartActivity.this).getUser().getUserId() == String.valueOf(0)){
                 gridlayout.setVisibility(View.GONE);
                 baglayout.setVisibility(View.VISIBLE);
                 total_amounts.setVisibility(View.GONE);
                 proceed.setEnabled(false);
             }else {
                 getCArt();
-                getAssuredTotalAmount(SharedPrefManager.getInstance(CartActivity.this).getUser().getUserID().toString());
+                getAssuredTotalAmount(SharedPrefManager.getInstance(CartActivity.this).getUser().getUserId().toString());
 
 
             }
@@ -122,7 +126,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             progressDialog.setMessage("loading...");
             progressDialog.show();
          //   mSwipeRefreshLayout.setRefreshing(true);
-            result = new HelperApi.GetCartList().execute(SharedPrefManager.getInstance(this).getUser().getUserID().toString()).get();
+            result = new HelperApi.GetCartList().execute(SharedPrefManager.getInstance(this).getUser().getUserId().toString()).get();
             if (result.isEmpty()) {
                 progressDialog.dismiss();
                 gridlayout.setVisibility(View.GONE);
@@ -138,6 +142,22 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                     Type listType = new TypeToken<List<CartModel>>() {
                     }.getType();
                     productModelList = new Gson().fromJson(result, listType);
+                    order_main_ID = new String[productModelList.size()];
+                    order_no = new String[productModelList.size()];
+                   for (int i = 0; i < productModelList.size(); i++) {
+
+                       order_no[i] = String.valueOf(productModelList.get(i).getOrderNo());
+
+                       order_main_ID[i] = String.valueOf(productModelList.get(i).getOrderId());
+
+                  }
+                for (String s : order_main_ID) {
+                    anyother_charge.setText(s);
+                }
+                for (String s : order_no) {
+                    shippingcharge_amounts.setText(s);
+                }
+
                     Log.d("Error", productModelList.toString());
                     CartAdapter cartAdapter= new CartAdapter(CartActivity.this, productModelList,this,orderMainID);
                     recyclerView.setAdapter(cartAdapter);
@@ -164,11 +184,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             progressDialog.show();
             result = new HelperApi.GetCartAmountList().execute(s.toString()).get();
             progressDialog.dismiss();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
 
         if (result.isEmpty()) {
             progressDialog.dismiss();
@@ -182,13 +198,17 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                // subtotal_prices.setText("₹" + String.valueOf(amountTotalShow.getTotalAssuredPriceINR()) );
 
                 Double  discountamount;
-                discountamount = Double.parseDouble(String.valueOf(amountTotalShow.getTotalAssuredPriceINR()));
+                discountamount = Double.parseDouble(String.valueOf(amountTotalShow.getMRPINR()));
                 int i = Math.round(Float.parseFloat(discountamount.toString()));
                 subtotal_prices.setText(String.valueOf(i) + ".00");
                 total_amounts.setText( "Total Amount =" +String.valueOf(i) + ".00");
             }
         }
-
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -203,26 +223,23 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
     private  void postOrderMain(){
 
+
         try {
             result = new HelperApi.PostOrderMain().execute(
-                    String.valueOf(orderMainID),
-                    String.valueOf(1),
-                    SharedPrefManager.getInstance(this).getUser().getUserID().toString(),
-                    "",
-                    proceed.getText().toString().trim(),
-                    subtotal_prices.getText().toString().split("\\.")[0],
+                    anyother_charge.getText().toString(),
                     shippingcharge_amounts.getText().toString(),
-                    anyother_charge.getText().toString()).get();
+                    SharedPrefManager.getInstance(this).getUser().getUserId().toString(),
+                    "","",subtotal_prices.getText().toString().split("\\.")[0],
+                    "","",SharedPrefManager.getInstance(this).getUser().getSubsciberID(),"1").get();
+
+
             if (result.isEmpty()) {
                 result = new HelperApi.PostOrderMain().execute(
-                        String.valueOf(orderMainID),
-                        String.valueOf(1),
-                        SharedPrefManager.getInstance(this).getUser().getUserID().toString(),
-                        "",
-                        proceed.getText().toString().trim(),
-                        subtotal_prices.getText().toString().split("\\.")[0],
+                        anyother_charge.getText().toString(),
                         shippingcharge_amounts.getText().toString(),
-                        anyother_charge.getText().toString()).get();
+                        SharedPrefManager.getInstance(this).getUser().getUserId().toString(),
+                        "","",subtotal_prices.getText().toString().split("\\.")[0],
+                        "","",SharedPrefManager.getInstance(this).getUser().getSubsciberID(),"1").get();
             } else {
 
                     Gson gson = new Gson();
@@ -232,10 +249,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                     orderMainModel = new Gson().fromJson(result, listType);
                     orderMainID =orderMainModel.getOrderId();
 
-                Intent intent = new Intent(this,AddressActivity.class);
-                intent.putExtra("ID" , String.valueOf(orderMainID));
-                startActivity(intent);
-                Toast.makeText(this,String.valueOf(orderMainID),Toast.LENGTH_LONG).show();
+
 
             }
         } catch (Exception e) {

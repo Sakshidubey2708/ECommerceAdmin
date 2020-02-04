@@ -132,7 +132,7 @@ public class ChatActivity extends AppCompatActivity {
         sendmsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if( SharedPrefManager.getInstance(ChatActivity.this).getUser().getUserID() == null){
+                if( SharedPrefManager.getInstance(ChatActivity.this).getUser().getSubsciberID() == null){
                     final Dialog dialog = new Dialog(ChatActivity.this);
                     WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
                     lp.copyFrom(dialog.getWindow().getAttributes());
@@ -176,11 +176,11 @@ public class ChatActivity extends AppCompatActivity {
 
                     try {
                         result = new HelperApi.PostChating().execute(
-                                SharedPrefManager.getInstance(ChatActivity.this).getUser().getUserID(),
+                                SharedPrefManager.getInstance(ChatActivity.this).getUser().getSubsciberID(),
                                 typeMessage.getText().toString()).get();
                         if (result.isEmpty()) {
                             result = new HelperApi.PostChating().execute(
-                                    SharedPrefManager.getInstance(ChatActivity.this).getUser().getUserID(),
+                                    SharedPrefManager.getInstance(ChatActivity.this).getUser().getSubsciberID(),
                                     typeMessage.getText().toString()).get();
                         } else {
                             typeMessage.setText("");
@@ -197,7 +197,7 @@ public class ChatActivity extends AppCompatActivity {
     }
     public void getChat() {
         try {
-            result = new HelperApi.GetChat().execute(SharedPrefManager.getInstance(this).getUser().getUserID()).get();
+            result = new HelperApi.GetChat().execute(SharedPrefManager.getInstance(this).getUser().getSubsciberID()).get();
             if (result.isEmpty()) {
             } else {
                 /*   Toast.makeText(getApplicationContext(),result+"",Toast.LENGTH_LONG).show();*/

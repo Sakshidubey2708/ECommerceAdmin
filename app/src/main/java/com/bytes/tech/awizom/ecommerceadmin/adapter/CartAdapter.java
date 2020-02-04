@@ -72,17 +72,13 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
         try{
             holder.productIdd.setText(String.valueOf(catagoriesModel.getProductId()));
             holder.cartIds.setText(String.valueOf(catagoriesModel.getCartId()));
-//            CartAssuredId =  Integer.parseInt(holder.cartIds.getText().toString());
+            CartAssuredId =  Integer.parseInt(holder.cartIds.getText().toString());
             holder.product_name.setText(catagoriesModel.getProductName());
-            holder.assuredprice.setText("₹"+String.valueOf(catagoriesModel.getAssuredPriceINR()));
+            holder.assuredprice.setText("₹"+String.valueOf(catagoriesModel.getMRPINR()));
             holder.mrpPrice.setText("₹"+String.valueOf(catagoriesModel.getMRPINR()));
-            holder.discount.setText(String.valueOf(catagoriesModel.getMRPDiscountINR()) + "%");
-
-
             holder.descripyion.setText(catagoriesModel.getDescriptions());
             holder.brandId.setText("₹"+String.valueOf(catagoriesModel.getBrandId()));
             holder.branNam.setText(catagoriesModel.getBrandName().toString());
-            holder.totaldiscount.setText(String.valueOf(catagoriesModel.getTotalDiscountsPer()) + "%");
 
             holder.donebtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -95,8 +91,8 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
                                 String.valueOf(catagoriesModel.getMRPINR()),
                                 holder.quantity.getText().toString(),
                                 holder.totals.getText().toString(),
-                                String.valueOf(catagoriesModel.getMRPDiscountINR()) ,
-                                String.valueOf(catagoriesModel.getAssuredPriceINR()), "0", "0","0","0").get();
+                                "0" ,
+                                "0", "0", "0","0","0").get();
                         if (result.isEmpty()) {
                             result = new HelperApi.PostOrderDetailMain().execute(
                                     String.valueOf(orderDetailID),
@@ -105,8 +101,8 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
                                     String.valueOf(catagoriesModel.getMRPINR()),
                                     holder.quantity.getText().toString(),
                                     holder.totals.getText().toString(),
-                                    String.valueOf(catagoriesModel.getMRPDiscountINR()) ,
-                                    String.valueOf(catagoriesModel.getAssuredPriceINR()), "0", "0","0","0").get();
+                                    "0" ,
+                                    "0", "0", "0","0","0").get();
                         } else {
 
                             Gson gson = new Gson();
@@ -166,7 +162,7 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
                                         String.valueOf(CartAssuredId),
                                         holder.cartIds.getText().toString(),
                                         holder.productIdd.getText().toString(),
-                                        SharedPrefManager.getInstance(mCtx).getUser().getUserID().toString(),
+                                        SharedPrefManager.getInstance(mCtx).getUser().getUserId().toString(),
                                         holder.quantity.getText().toString(),
                                         holder.totals.getText().toString().split("₹")[1],
                                         "img", holder.product_name.getText().toString(),
@@ -181,7 +177,7 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
                                             String.valueOf(CartAssuredId),
                                             holder.cartIds.getText().toString(),
                                             holder.productIdd.getText().toString(),
-                                            SharedPrefManager.getInstance(mCtx).getUser().getUserID().toString(),
+                                            SharedPrefManager.getInstance(mCtx).getUser().getUserId().toString(),
                                             holder.quantity.getText().toString(),
                                             holder.totals.getText().toString().split("₹")[1],
                                             "img", holder.product_name.getText().toString(),
@@ -193,7 +189,7 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
                                             holder.discount.getText().toString()).get();
                                 } else {
                                     if (result.isEmpty()) {
-
+                                        Toast.makeText(mCtx,"Empty Result",Toast.LENGTH_LONG).show();
                                     } else {
                                         Gson gson = new Gson();
                                         Type listType = new TypeToken<List<CartAssured>>() {
@@ -374,7 +370,7 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
 
             assuredprice =view.findViewById(R.id.assuredRate);
             mrpPrice =view.findViewById(R.id.mrpPrice);
-            discount = view.findViewById(R.id.dicount);
+
             totals = view.findViewById(R.id.total);
             Qtys = view.findViewById(R.id.Qty);
 
@@ -388,7 +384,7 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.OrderItemView
             descripyion =view.findViewById(R.id.description);
             brandId =view.findViewById(R.id.brandID);
             branNam = view.findViewById(R.id.brandName);
-            totaldiscount = view.findViewById(R.id.mrpDiscountINr);
+
 
         }
 

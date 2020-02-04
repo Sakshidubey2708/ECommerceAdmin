@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/tools"
     android:id="@+id/android_custom_gridview_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -26,6 +25,7 @@
             android:background="@drawable/background_cardview"
             android:gravity="center|center_horizontal"
             android:layout_gravity="center_horizontal|center">
+
             <RelativeLayout
                 android:id="@+id/r"
                 android:layout_width="200dp"
@@ -33,76 +33,91 @@
                 android:orientation="vertical"
                 android:padding="5dp"
                 android:gravity="center_vertical|center|center_horizontal">
-<ImageView
-    android:id="@+id/img"
-    android:layout_width="200dp"
-    android:layout_height="100dp"
-    android:src="@drawable/stt"
-    android:padding="5dp"/>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/stt"
+                    android:padding="5dp"
+                    android:layout_centerHorizontal="true"/>
+
                 <TextView
                     android:id="@+id/catalogName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:padding="5dp"
+                    android:layout_width="80dp"
+                    android:layout_height="45dp"
+                    android:textSize="9sp"
+                    android:padding="3dp"
                     android:fontFamily="serif"
                     android:textStyle="bold"
+                    android:layout_centerHorizontal="true"
                     android:textColor="@color/colorPrimaryDark"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:layout_below="@+id/img"
-                    android:text="@string/app_name" />
-                <TextView
-                    android:id="@+id/description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="8sp"
-                    android:fontFamily="serif"
-                    android:textStyle="bold"
-                    android:textColor="@color/grey_darks"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal|top"
-                    android:padding="5dp"
+                    android:layout_below="@+id/img"
+                    android:text="@string/app_name" />
 
-
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="80dp"
+                    android:layout_height="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="6sp"
+                    android:fontFamily="serif"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal|top"
+                    android:padding="2dp"
                     android:text="@string/app_name"
                     android:layout_below="@+id/catalogName"
-                    android:layout_marginBottom="5dp"/>
+                    />
+
                 <Button
                     android:id="@+id/btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="80dp"
+                    android:layout_height="30dp"
                     android:text="request"
                     android:textAllCaps="false"
+                    android:padding="3dp"
                     android:visibility="gone"
                     android:background="@color/white"
                     android:textColor="@color/colorPrimaryDark"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/description"/>
+                    android:layout_below="@+id/description" />
+
                 <Button
                     android:id="@+id/btnSent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="80dp"
+                    android:layout_height="30dp"
                     android:text="request"
                     android:textAllCaps="false"
                     android:visibility="gone"
+                    android:padding="3dp"
                     android:background="@color/white"
                     android:textColor="@color/colorPrimaryDark"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/description"/>
+                    android:layout_below="@+id/description" />
+
                 <TextView
                     android:id="@+id/imgLink"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone" />
+
                 <TextView
-                    android:id="@+id/catagoryIDs"
+                    android:id="@+id/product_ids"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+                <TextView
+                    android:id="@+id/stock_ids"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone" />
 
-            </RelativeLayout>
 
+            </RelativeLayout>
 
 
         </LinearLayout>

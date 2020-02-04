@@ -36,7 +36,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class StockAdapter extends BaseAdapter {
+public class RetailerAdapter extends BaseAdapter {
 
     //  private final String[] catalogNameList;
 
@@ -51,7 +51,7 @@ public class StockAdapter extends BaseAdapter {
     int k =0;
 
 
-    public StockAdapter(StockActivity newCustomerHome, List<StockMain> stockMains) {
+    public RetailerAdapter(RetailerHomeActivity newCustomerHome, List<StockMain> stockMains) {
 
         this.mContext = newCustomerHome;
         this.stockMains = stockMains;
@@ -115,7 +115,7 @@ public class StockAdapter extends BaseAdapter {
                     public void onClick(View v) {
                         v.startAnimation(buttonClick);
                         try {
-                            if (SharedPrefManager.getInstance(mContext).getUser().getSubsciberID() == null) {
+                            if (SharedPrefManager.getInstance(mContext).getUser().getUserId() == null) {
                                 final Dialog dialog = new Dialog(mContext);
                                 WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
                                 lp.copyFrom(dialog.getWindow().getAttributes());
@@ -241,8 +241,8 @@ public class StockAdapter extends BaseAdapter {
                                     @Override
                                     public void onClick(View v) {
                                         try {
-                                          k = ++k;
-                                           String S= "ord"+k;
+                                            k = ++k;
+                                            String S= "ord"+k;
 
                                             result = new HelperApi.PostOrderMain().execute(
                                                     String.valueOf(orderMainID),
@@ -288,15 +288,15 @@ public class StockAdapter extends BaseAdapter {
                                                         }.getType();
                                                         orderDetailMain = new Gson().fromJson(result, listType1);
                                                         orderDetailID = orderDetailMain.getOrderId();
-                                                     //   orderMainID=0;
+                                                        //   orderMainID=0;
                                                         Toast.makeText(mContext,"OrderDetailsMain"+String.valueOf(orderDetailID),Toast.LENGTH_LONG).show();
                                                         try {
 
-                                                            String userID = SharedPrefManager.getInstance(mContext).getUser().getSubsciberID();
+                                                            String userID = SharedPrefManager.getInstance(mContext).getUser().getUserId();
                                                             String h= "ord"+k;
                                                             result =   new HelperApi.PostCarts().execute(productid.getText().toString(),
-                                                                   SharedPrefManager.getInstance(mContext).getUser().getSubsciberID(),
-                                                                   String.valueOf(orderMainID),String.valueOf(orderDetailID),h.toString()).get();
+                                                                    SharedPrefManager.getInstance(mContext).getUser().getUserId(),
+                                                                    String.valueOf(orderMainID),String.valueOf(orderDetailID),h.toString()).get();
                                                             try {
                                                                 if (result.isEmpty()) {
                                                                     Log.d("Result Empty", "Error");
@@ -356,3 +356,4 @@ public class StockAdapter extends BaseAdapter {
 
 
 }
+

@@ -123,7 +123,7 @@ public class AddressActivity extends AppCompatActivity implements View.OnClickLi
             result = new HelperApi.PostOrderDetailMain().execute(
                     String.valueOf(orderDetailID),
                     orderMainID.toString(),
-                    SharedPrefManager.getInstance(this).getUser().getUserID().toString(),
+                    SharedPrefManager.getInstance(this).getUser().getUserId().toString(),
                     "", "",
                     "",
                     "",
@@ -132,7 +132,7 @@ public class AddressActivity extends AppCompatActivity implements View.OnClickLi
                 result = new HelperApi.PostOrderDetailMain().execute(
                         String.valueOf(orderDetailID),
                         orderMainID.toString(),
-                        SharedPrefManager.getInstance(this).getUser().getUserID().toString(),
+                        SharedPrefManager.getInstance(this).getUser().getUserId().toString(),
                         "", "",
                         "",
                         "",

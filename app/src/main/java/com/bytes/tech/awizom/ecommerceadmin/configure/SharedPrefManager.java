@@ -39,20 +39,22 @@ public class SharedPrefManager {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(KEY_USER_TOKEN, user.UserName);
-        editor.putString(KEY_USER_ID, user.UserID);
-        editor.putString(KEY_PREF_SUBSCRIBEID, user.SubscriberId);
+        editor.putString(KEY_USER_ID, user.UserId);
+        editor.putString(KEY_PREF_SUBSCRIBEID, user.SubsciberID);
         editor.putString(KEY_USER_CAtagory, user.Category);
         editor.putString(KEY_PREF_FirmName, user.FirmName);
         editor.putString(KEY_PREF_UserName, user.UserName);
         editor.apply();
         return true;
+
+
     }
     public UserLogin getUser() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         UserLogin users=new UserLogin();
         users.UserName   =  sharedPreferences.getString(KEY_USER_EMAIL, null);
-        users.UserID   =  sharedPreferences.getString(KEY_USER_ID, null);
-        users.SubscriberId   =  sharedPreferences.getString(KEY_PREF_SUBSCRIBEID, null);
+        users.UserId   =  sharedPreferences.getString(KEY_USER_ID, null);
+        users.SubsciberID   =  sharedPreferences.getString(KEY_PREF_SUBSCRIBEID, null);
         users.Category   =  sharedPreferences.getString(KEY_USER_CAtagory, null);
         users.FirmName   =  sharedPreferences.getString(KEY_PREF_FirmName, null);
         users.UserName   =  sharedPreferences.getString(KEY_PREF_UserName, null);
@@ -60,6 +62,8 @@ public class SharedPrefManager {
     }
 
     public boolean addsubscribeUser(AddUser add) {
+
+
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(KEY_PREF_SUBSCRIBEID,add.SubscriberID);

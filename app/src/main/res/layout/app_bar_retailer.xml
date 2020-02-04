@@ -52,6 +52,7 @@
                 android:id="@+id/addcart"
                 android:layout_width="30dp"
                 android:paddingLeft="5dp"
+                android:visibility="gone"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_shopping_cart_black_24dp" />
         </android.support.v7.widget.Toolbar>

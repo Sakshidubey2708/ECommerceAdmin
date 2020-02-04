@@ -85,6 +85,21 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/noti_id"
                             android:visibility="gone"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/productID"
+                            android:visibility="gone"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/orderID"
+                            android:visibility="gone"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/notifcationType"
+                            android:visibility="gone"/>
                     </LinearLayout>
 
                 </LinearLayout>

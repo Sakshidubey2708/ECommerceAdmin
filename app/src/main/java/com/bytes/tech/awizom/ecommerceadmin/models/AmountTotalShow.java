@@ -2,22 +2,14 @@ package com.bytes.tech.awizom.ecommerceadmin.models;
 
 public class AmountTotalShow {
 
-    public double TotalAssuredPriceINR;
-    public double TotalMRPINR ;
 
-    public double getTotalAssuredPriceINR() {
-        return TotalAssuredPriceINR;
+    public double MRPINR ;
+
+    public double getMRPINR() {
+        return MRPINR;
     }
 
-    public void setTotalAssuredPriceINR(double totalAssuredPriceINR) {
-        TotalAssuredPriceINR = totalAssuredPriceINR;
-    }
-
-    public double getTotalMRPINR() {
-        return TotalMRPINR;
-    }
-
-    public void setTotalMRPINR(double totalMRPINR) {
-        TotalMRPINR = totalMRPINR;
+    public void setMRPINR(double MRPINR) {
+        this.MRPINR = MRPINR;
     }
 }

@@ -1,59 +1,275 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal">
+  >
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        </android.support.v7.widget.Toolbar>
 
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/logo"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ec"
-            android:layout_weight="1.9"/>
-        <TextView
-            android:id="@+id/searchEdit"
-            android:layout_width="140dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Search"
-            android:visibility="gone"
-            android:tint="@color/colorPrimaryDark"
-            android:padding="5dp"
-            android:layout_weight="1.9"
-            android:drawableLeft="@drawable/ic_search_black_24dp"/>
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="18dp"
+
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:gravity="start"
+                android:text="Track Type"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+
+                android:text="Completed"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="40dp"
+
+                android:text="Process"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="5dp">
 
 
-    <!--<TextView-->
-        <!--android:id="@+id/cart_badge"-->
-        <!--android:layout_width="20dp"-->
-        <!--android:layout_height="20dp"-->
-        <!--android:layout_gravity="right|end|top"-->
-        <!--android:layout_marginEnd="-5dp"-->
-        <!--android:layout_marginRight="-5dp"-->
-        <!--android:layout_marginTop="3dp"-->
-        <!--android:background="@drawable/badge_background"-->
-        <!--android:gravity="center"-->
-        <!--android:padding="3dp"-->
-        <!--android:textColor="@android:color/white"-->
-        <!--android:text="0"-->
-        <!--android:textSize="10sp"/>-->
-        <ImageView
-            android:id="@+id/notification"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_weight="1.9"
-            android:paddingLeft="10dp"
-            android:tint="@color/colorPrimaryDark"
-            android:src="@drawable/ic_notifications_none_black_24dp" />
+            <ScrollView
+                android:id="@+id/scrollView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
 
-        <ImageView
-            android:id="@+id/addcart"
-            android:layout_width="30dp"
-            android:paddingLeft="5dp"
-            android:layout_height="30dp"
-            android:layout_weight="1.9"
-            android:tint="@color/colorPrimaryDark"
-            android:src="@drawable/ic_shopping_cart_black_24dp" />
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="50dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
 
-</LinearLayout>
+                    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="100dp"
+                        android:layout_marginLeft="20dp">
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                            android:id="@+id/capacity_seek"
+                            style="@style/Base.Widget.AppCompat.SeekBar.Discrete"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:focusable="auto"
+                            android:max="3"
+                            android:progressDrawable="@drawable/seekbar"
+                            android:scrollbarSize="50dp"
+                            android:scrollbarThumbHorizontal="@color/grey"
+                            android:splitTrack="false"
+                            android:thumb="@drawable/rotate"
+                            android:tickMark="@drawable/ic_check_circle_black_24dp"
+                            app:seekBarRotation="CW90" />
+
+
+
+                    </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:padding="5dp"
+                                   />
+
+                                <TextView
+                                    android:id="@+id/cylinderprep"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:fontFamily="serif"
+                                    android:padding="5dp"
+                                    android:text="Order placed"
+                                    android:textColor="@color/black"
+                                    android:textSize="18sp" />
+
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/cylinderprepdate"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="serif"
+                                android:padding="5dp"
+                                android:text="Order Placed Successfully"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:padding="5dp"
+                                 />
+
+                                <TextView
+                                    android:id="@+id/printing"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:fontFamily="serif"
+                                    android:padding="5dp"
+                                    android:text="Accepted"
+                                    android:textColor="@color/black"
+                                    android:textSize="18sp" />
+
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:id="@+id/printingdate"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="serif"
+                                android:padding="5dp"
+                                android:text="Order Accepted successfullty"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:padding="5dp"
+                                  />
+
+                                <TextView
+                                    android:id="@+id/inspection"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:fontFamily="serif"
+                                    android:padding="5dp"
+                                    android:text="Under Process"
+                                    android:textColor="@color/black"
+                                    android:textSize="18sp" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/inspectiondate"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="serif"
+                                android:padding="5dp"
+                                android:text="Order under Process"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+
+                        </LinearLayout>
+
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </ScrollView>
+
+
+        </android.support.v7.widget.CardView>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

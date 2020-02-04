@@ -3,8 +3,10 @@ package com.bytes.tech.awizom.ecommerceadmin.activity;
 import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -81,9 +83,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         progressDialog = new ProgressDialog(this);
         paswdHidShows.setOnClickListener(this);
 
-        emails.setOnClickListener(new View.OnClickListener() {
+        paswdHidShows.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                togglePassVisability();
 //                Intent googlePicker = AccountPicker.newChooseAccountIntent(null, null, new String[]{GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE}, true, null, null, null, null);
 //                startActivityForResult(googlePicker, 201);
             }
@@ -107,7 +110,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-
 //        AccountManager am = AccountManager.get(this);
 //        Account[] accounts = am.getAccounts();
 //        ArrayList<String> googleAccounts = new ArrayList<String>();
@@ -119,24 +121,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 //        }
     }
 
-    private void togglePassVisability() {
-//        if (isPasswordVisible) {
-//            String pass = passWord.getText().toString();
-//            passWord.setTransformationMethod(PasswordTransformationMethod.getInstance());
-//            passWord.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-//            passWord.setText(pass);
-//            passWord.setSelection(pass.length());
-//            paswdHidShows.setText("Show");
-//        } else {
-//            String pass = passWord.getText().toString();
-//            passWord.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-//            passWord.setInputType(InputType.TYPE_CLASS_TEXT);
-//            passWord.setText(pass);
-//            passWord.setSelection(pass.length());
-//            paswdHidShows.setText("Hide");
-//        }
-//        isPasswordVisible= !isPasswordVisible;
-    }
+
 
     @Override
     public void onClick(View v) {
@@ -168,28 +153,34 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     progressDialog.dismiss();
                     result = new AccountControlerHelper.PostLogin().execute(emails.getText().toString(),passWord.getText().toString()).get();
                 }else {
-                    try {
-                        progressDialog.dismiss();
-                        Gson gson = new Gson();
-                        UserLogin jsonbody = gson.fromJson(result, UserLogin.class);
-                        UserLogin us = new UserLogin();
-                        us.UserName = jsonbody.UserName;
-                        us.UserID = jsonbody.UserID;
-                        us.SubscriberId = jsonbody.SubscriberId;
-                        us.FirmName = jsonbody.FirmName;
-                        us.Category = jsonbody.Category;
-                        SharedPrefManager.getInstance(getApplicationContext()).userLogin(us);
 
-                        Snackbar.make(getWindow().getDecorView().getRootView(),  "Login Successfull", Snackbar.LENGTH_LONG).show();
-                   // Toast.makeText(SignInActivity.this, SharedPrefManager.getInstance(this).getUser().getSubscriberId(), Toast.LENGTH_SHORT).show();
+                        try {
+                            progressDialog.dismiss();
+                            Gson gson = new Gson();
+                            UserLogin jsonbody = gson.fromJson(result, UserLogin.class);
+                            UserLogin us = new UserLogin();
 
-                        Intent i = new Intent(this, MainActivity.class);
-                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(i);
+                                us.UserName = jsonbody.UserName;
+                                us.UserId = jsonbody.UserId;
+                                us.SubsciberID = jsonbody.SubsciberID;
+                                us.FirmName = jsonbody.FirmName;
+                                us.Category = jsonbody.Category;
+                                SharedPrefManager.getInstance(getApplicationContext()).userLogin(us);
 
-                    }catch (Exception e){
+                                Snackbar.make(getWindow().getDecorView().getRootView(),  "Login Successfull", Snackbar.LENGTH_LONG).show();
+                                // Toast.makeText(SignInActivity.this, SharedPrefManager.getInstance(this).getUser().getSubscriberId(), Toast.LENGTH_SHORT).show();
 
-                    }
+                                Intent i = new Intent(this, RetailerHomeActivity.class);
+                                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(i);
+
+
+
+                        }catch (Exception e){
+
+                        }
+
+
 
                 }
             }
@@ -220,7 +211,24 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 //            //emails.setText(accountName);
 //        }
     }
-
+    private void togglePassVisability() {
+        if (isPasswordVisible) {
+            String pass = passWord.getText().toString();
+            passWord.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            passWord.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            passWord.setText(pass);
+            passWord.setSelection(pass.length());
+            paswdHidShows.setText("Show");
+        } else {
+            String pass = passWord.getText().toString();
+            passWord.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            passWord.setInputType(InputType.TYPE_CLASS_TEXT);
+            passWord.setText(pass);
+            passWord.setSelection(pass.length());
+            paswdHidShows.setText("Hide");
+        }
+        isPasswordVisible= !isPasswordVisible;
+    }
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);

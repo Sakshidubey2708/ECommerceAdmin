@@ -2,28 +2,19 @@ package com.bytes.tech.awizom.ecommerceadmin.models;
 
 
 public class OrderMainModel {
-
-    public long OrderId ;
-    public String OrderNo ;
+    public int OrderId ;
+    public String OrderNo;
     public String UserId ;
-    public String DeliveryAddress ;
-    public String Status;
-    public double TotalAmount ;
-    public double DeliveryCharge;
-    public double AnyOtherCharge;
+    public String Date;
+    public String DeliveryAddress;
+    public String Status ;
+    public String PlaceOrder;
 
-
-    public String PlaceOrder ;
-    public String OrderAccept ;
-    public String UnderProccess ;
-    public String OrderDispatch ;
-
-
-    public long getOrderId() {
+    public int getOrderId() {
         return OrderId;
     }
 
-    public void setOrderId(long orderId) {
+    public void setOrderId(int orderId) {
         OrderId = orderId;
     }
 
@@ -43,6 +34,14 @@ public class OrderMainModel {
         UserId = userId;
     }
 
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String date) {
+        Date = date;
+    }
+
     public String getDeliveryAddress() {
         return DeliveryAddress;
     }
@@ -57,30 +56,6 @@ public class OrderMainModel {
 
     public void setStatus(String status) {
         Status = status;
-    }
-
-    public double getTotalAmount() {
-        return TotalAmount;
-    }
-
-    public void setTotalAmount(double totalAmount) {
-        TotalAmount = totalAmount;
-    }
-
-    public double getDeliveryCharge() {
-        return DeliveryCharge;
-    }
-
-    public void setDeliveryCharge(double deliveryCharge) {
-        DeliveryCharge = deliveryCharge;
-    }
-
-    public double getAnyOtherCharge() {
-        return AnyOtherCharge;
-    }
-
-    public void setAnyOtherCharge(double anyOtherCharge) {
-        AnyOtherCharge = anyOtherCharge;
     }
 
     public String getPlaceOrder() {
@@ -114,4 +89,44 @@ public class OrderMainModel {
     public void setOrderDispatch(String orderDispatch) {
         OrderDispatch = orderDispatch;
     }
+
+    public double getTotalAmount() {
+        return TotalAmount;
+    }
+
+    public void setTotalAmount(double totalAmount) {
+        TotalAmount = totalAmount;
+    }
+
+    public double getDeliveryCharge() {
+        return DeliveryCharge;
+    }
+
+    public void setDeliveryCharge(double deliveryCharge) {
+        DeliveryCharge = deliveryCharge;
+    }
+
+    public double getAnyOtherCharge() {
+        return AnyOtherCharge;
+    }
+
+    public void setAnyOtherCharge(double anyOtherCharge) {
+        AnyOtherCharge = anyOtherCharge;
+    }
+
+    public String getSubscriberID() {
+        return SubscriberID;
+    }
+
+    public void setSubscriberID(String subscriberID) {
+        SubscriberID = subscriberID;
+    }
+
+    public String OrderAccept;
+    public String UnderProccess ;
+    public String OrderDispatch ;
+    public double TotalAmount ;
+    public double DeliveryCharge ;
+    public double AnyOtherCharge ;
+    public String SubscriberID ;
 }
