@@ -15,7 +15,6 @@ import com.bytes.tech.awizom.ecommerceadmin.R;
 import com.bytes.tech.awizom.ecommerceadmin.adapter.NotificationAdapter;
 import com.bytes.tech.awizom.ecommerceadmin.configure.HelperApi;
 import com.bytes.tech.awizom.ecommerceadmin.configure.SharedPrefManager;
-import com.bytes.tech.awizom.ecommerceadmin.models.AddUser;
 import com.bytes.tech.awizom.ecommerceadmin.models.NotificationListModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -85,7 +84,7 @@ public class NotificationListActivity extends AppCompatActivity {
             progressDialog.setMessage("loading...");
             progressDialog.show();
             mSwipeRefreshLayout.setRefreshing(true);
-            result = new HelperApi.GETNotifications().execute(SharedPrefManager.getInstance(this).getUser().getSubsciberID()).get();
+            result = new HelperApi.GETNotifications().execute(SharedPrefManager.getInstance(this).getUser().getSubscriberId()).get();
             if (result.isEmpty()) {
                 progressDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);

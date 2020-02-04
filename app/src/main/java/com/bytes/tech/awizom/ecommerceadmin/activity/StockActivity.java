@@ -65,8 +65,8 @@ public class StockActivity extends AppCompatActivity {
 
     private void getProductList() {
         try {
-            result = new HelperApi.GetStockItems().execute(SharedPrefManager.getInstance(this).getUser().getSubsciberID(),
-                    SharedPrefManager.getInstance(this).getUser().getUserId()).get();
+            result = new HelperApi.GetStockItems().execute(SharedPrefManager.getInstance(this).getUser().getSubscriberId(),
+                    SharedPrefManager.getInstance(this).getUser().getUserID()).get();
             if (result.isEmpty()) {
             } else {
                 Gson gson = new Gson();

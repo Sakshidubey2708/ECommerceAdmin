@@ -2,7 +2,6 @@ package com.bytes.tech.awizom.ecommerceadmin.activity;
 
 import android.app.ActivityOptions;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -95,14 +94,14 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-            if(SharedPrefManager.getInstance(CartActivity.this).getUser().getUserId() == String.valueOf(0)){
+            if(SharedPrefManager.getInstance(CartActivity.this).getUser().getUserID() == String.valueOf(0)){
                 gridlayout.setVisibility(View.GONE);
                 baglayout.setVisibility(View.VISIBLE);
                 total_amounts.setVisibility(View.GONE);
                 proceed.setEnabled(false);
             }else {
                 getCArt();
-                getAssuredTotalAmount(SharedPrefManager.getInstance(CartActivity.this).getUser().getUserId().toString());
+                getAssuredTotalAmount(SharedPrefManager.getInstance(CartActivity.this).getUser().getUserID().toString());
 
 
             }
@@ -126,7 +125,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             progressDialog.setMessage("loading...");
             progressDialog.show();
          //   mSwipeRefreshLayout.setRefreshing(true);
-            result = new HelperApi.GetCartList().execute(SharedPrefManager.getInstance(this).getUser().getUserId().toString()).get();
+            result = new HelperApi.GetCartList().execute(SharedPrefManager.getInstance(this).getUser().getUserID().toString()).get();
             if (result.isEmpty()) {
                 progressDialog.dismiss();
                 gridlayout.setVisibility(View.GONE);
@@ -228,18 +227,18 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             result = new HelperApi.PostOrderMain().execute(
                     anyother_charge.getText().toString(),
                     shippingcharge_amounts.getText().toString(),
-                    SharedPrefManager.getInstance(this).getUser().getUserId().toString(),
+                    SharedPrefManager.getInstance(this).getUser().getUserID().toString(),
                     "","",subtotal_prices.getText().toString().split("\\.")[0],
-                    "","",SharedPrefManager.getInstance(this).getUser().getSubsciberID(),"1").get();
+                    "","",SharedPrefManager.getInstance(this).getUser().getSubscriberId(),"1").get();
 
 
             if (result.isEmpty()) {
                 result = new HelperApi.PostOrderMain().execute(
                         anyother_charge.getText().toString(),
                         shippingcharge_amounts.getText().toString(),
-                        SharedPrefManager.getInstance(this).getUser().getUserId().toString(),
+                        SharedPrefManager.getInstance(this).getUser().getUserID().toString(),
                         "","",subtotal_prices.getText().toString().split("\\.")[0],
-                        "","",SharedPrefManager.getInstance(this).getUser().getSubsciberID(),"1").get();
+                        "","",SharedPrefManager.getInstance(this).getUser().getSubscriberId(),"1").get();
             } else {
 
                     Gson gson = new Gson();

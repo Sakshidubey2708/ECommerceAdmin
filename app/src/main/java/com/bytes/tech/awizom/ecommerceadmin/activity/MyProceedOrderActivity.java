@@ -16,6 +16,7 @@ import com.bytes.tech.awizom.ecommerceadmin.adapter.MyOrderAdapter;
 import com.bytes.tech.awizom.ecommerceadmin.configure.HelperApi;
 import com.bytes.tech.awizom.ecommerceadmin.configure.SharedPrefManager;
 import com.bytes.tech.awizom.ecommerceadmin.models.MyOrderModel;
+import com.bytes.tech.awizom.ecommerceadmin.models.OrderMainModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
@@ -82,15 +83,14 @@ public class MyProceedOrderActivity extends AppCompatActivity {
             progressDialog.setMessage("loading...");
             progressDialog.show();
             mSwipeRefreshLayout.setRefreshing(true);
-            result = new HelperApi.GETMyOrderPlace().execute(SharedPrefManager.getInstance(MyProceedOrderActivity.this).getUser().getSubsciberID(),
-                    "Order Accepted").get();
+            result = new HelperApi.GetMyCompleteOrder().execute(SharedPrefManager.getInstance(MyProceedOrderActivity.this).getUser().getSubscriberId()).get();
             if (result.isEmpty()) {
                 progressDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);
             } else {
                 progressDialog.dismiss();
                 Gson gson = new Gson();
-                Type listType = new TypeToken<List<MyOrderModel>>() {
+                Type listType = new TypeToken<List<OrderMainModel>>() {
                 }.getType();
                 userModels = new Gson().fromJson(result, listType);
                 Log.d("Error", userModels.toString());

@@ -17,15 +17,12 @@
             android:id="@+id/nav_notification"
             android:title="Notification" />
         <item
-            android:id="@+id/nav_orderHistory"
+            android:id="@+id/nav_order"
             android:title="My Order" />
+
         <item
             android:id="@+id/nav_orderRunning"
-            android:title="Order Running" />
-        <item
-            android:id="@+id/nav_ordrTrack"
-            android:title="Order Track"
-            android:visible="false"/>
+            android:title="Running Order" />
 
         <item
             android:id="@+id/nav_weblink"

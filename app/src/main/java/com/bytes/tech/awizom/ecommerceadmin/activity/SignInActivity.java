@@ -1,12 +1,8 @@
 package com.bytes.tech.awizom.ecommerceadmin.activity;
 
 import android.Manifest;
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -39,7 +35,6 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
@@ -161,8 +156,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                             UserLogin us = new UserLogin();
 
                                 us.UserName = jsonbody.UserName;
-                                us.UserId = jsonbody.UserId;
-                                us.SubsciberID = jsonbody.SubsciberID;
+                                us.UserID = jsonbody.UserID;
+                                us.SubscriberId = jsonbody.SubscriberId;
                                 us.FirmName = jsonbody.FirmName;
                                 us.Category = jsonbody.Category;
                                 SharedPrefManager.getInstance(getApplicationContext()).userLogin(us);

@@ -99,7 +99,7 @@ public class RetailerHomeActivity extends AppCompatActivity
         MenuItem target = menu.findItem(R.id.nav_login);
         MenuItem target2 = menu.findItem(R.id.nav_logout);
         userNameIDs = headerView.findViewById(R.id.userNameID);
-        if(SharedPrefManager.getInstance(this).getUser().getUserId() != null){
+        if(SharedPrefManager.getInstance(this).getUser().getUserID() != null){
             target.setVisible(false);
             target2.setVisible(true);
         }else {
@@ -212,7 +212,7 @@ public class RetailerHomeActivity extends AppCompatActivity
     private void getNotificationCount() {
         try {
 
-            result = new HelperApi.GETNotificationCount().execute(SharedPrefManager.getInstance(this).getUser().getSubsciberID()).get();
+            result = new HelperApi.GETNotificationCount().execute(SharedPrefManager.getInstance(this).getUser().getSubscriberId()).get();
             if (result.isEmpty()) {
 
             } else {
@@ -254,8 +254,8 @@ public class RetailerHomeActivity extends AppCompatActivity
 
     private void getProductList() {
         try {
-            result = new HelperApi.GetStockItems().execute(SharedPrefManager.getInstance(this).getUser().getSubsciberID(),
-                    SharedPrefManager.getInstance(this).getUser().getUserId()).get();
+            result = new HelperApi.GetStockItems().execute(SharedPrefManager.getInstance(this).getUser().getSubscriberId(),
+                    SharedPrefManager.getInstance(this).getUser().getUserID()).get();
             if (result.isEmpty()) {
             } else {
                 Gson gson = new Gson();
@@ -328,12 +328,12 @@ public class RetailerHomeActivity extends AppCompatActivity
             startActivity(intent=new Intent(this,BuiltiUploadActivity.class));
         }else if (id == R.id.nav_notification) {
             startActivity(intent=new Intent(this,NotificationListActivity.class));
-        }else if (id == R.id.nav_orderHistory) {
+        }else if (id == R.id.nav_order) {
             startActivity(intent=new Intent(this,MyOrderActivity.class));
         }else if (id == R.id.nav_orderRunning) {
-            startActivity(intent=new Intent(this,MyRunningOrderActivity.class));
+            startActivity(intent=new Intent(this,MyProceedOrderActivity.class));
         }else if (id == R.id.nav_login) {
-            if(SharedPrefManager.getInstance(this).getUser().getUserId() == null){
+            if(SharedPrefManager.getInstance(this).getUser().getUserID() == null){
                 startActivity(intent=new Intent(this,SignInActivity.class));
             }else {
                 AlertDialog.Builder alertbox = new AlertDialog.Builder(this);

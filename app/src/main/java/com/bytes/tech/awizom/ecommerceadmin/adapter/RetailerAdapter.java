@@ -115,7 +115,7 @@ public class RetailerAdapter extends BaseAdapter {
                     public void onClick(View v) {
                         v.startAnimation(buttonClick);
                         try {
-                            if (SharedPrefManager.getInstance(mContext).getUser().getUserId() == null) {
+                            if (SharedPrefManager.getInstance(mContext).getUser().getUserID() == null) {
                                 final Dialog dialog = new Dialog(mContext);
                                 WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
                                 lp.copyFrom(dialog.getWindow().getAttributes());
@@ -159,13 +159,13 @@ public class RetailerAdapter extends BaseAdapter {
                                 try {
                                     result = new HelperApi.PostSentPriceRequest().execute(
                                             String.valueOf(productid.getText().toString()),
-                                            SharedPrefManager.getInstance(mContext).getUser().getSubsciberID().toString(),
+                                            SharedPrefManager.getInstance(mContext).getUser().getSubscriberId().toString(),
                                             productid.getText().toString().trim(),
                                             "PriceRequest").get();
                                     if (result.isEmpty()) {
                                         result = new HelperApi.PostSentPriceRequest().execute(
                                                 String.valueOf(productid.getText().toString()),
-                                                SharedPrefManager.getInstance(mContext).getUser().getSubsciberID().toString(),
+                                                SharedPrefManager.getInstance(mContext).getUser().getSubscriberId().toString(),
                                                 productid.getText().toString().trim(),
                                                 "PriceRequest").get();
                                     } else {
@@ -247,15 +247,15 @@ public class RetailerAdapter extends BaseAdapter {
                                             result = new HelperApi.PostOrderMain().execute(
                                                     String.valueOf(orderMainID),
                                                     S.toString(),
-                                                    SharedPrefManager.getInstance(mContext).getUser().getSubsciberID().toString(),
-                                                    "",order.getText().toString().trim(),"","","",SharedPrefManager.getInstance(mContext).getUser().getSubsciberID(),"1").get();
+                                                    SharedPrefManager.getInstance(mContext).getUser().getSubscriberId().toString(),
+                                                    "",order.getText().toString().trim(),"","","",SharedPrefManager.getInstance(mContext).getUser().getSubscriberId(),"1").get();
 
                                             if (result.isEmpty()) {
                                                 result = new HelperApi.PostOrderMain().execute(
                                                         String.valueOf(orderMainID),
                                                         S.toString(),
-                                                        SharedPrefManager.getInstance(mContext).getUser().getSubsciberID().toString(),
-                                                        "",order.getText().toString().trim(),"","","",SharedPrefManager.getInstance(mContext).getUser().getSubsciberID(),"1").get();
+                                                        SharedPrefManager.getInstance(mContext).getUser().getSubscriberId().toString(),
+                                                        "",order.getText().toString().trim(),"","","",SharedPrefManager.getInstance(mContext).getUser().getSubscriberId(),"1").get();
                                             } else {
 
                                                 Gson gson = new Gson();
@@ -292,10 +292,10 @@ public class RetailerAdapter extends BaseAdapter {
                                                         Toast.makeText(mContext,"OrderDetailsMain"+String.valueOf(orderDetailID),Toast.LENGTH_LONG).show();
                                                         try {
 
-                                                            String userID = SharedPrefManager.getInstance(mContext).getUser().getUserId();
+                                                            String userID = SharedPrefManager.getInstance(mContext).getUser().getUserID();
                                                             String h= "ord"+k;
                                                             result =   new HelperApi.PostCarts().execute(productid.getText().toString(),
-                                                                    SharedPrefManager.getInstance(mContext).getUser().getUserId(),
+                                                                    SharedPrefManager.getInstance(mContext).getUser().getUserID(),
                                                                     String.valueOf(orderMainID),String.valueOf(orderDetailID),h.toString()).get();
                                                             try {
                                                                 if (result.isEmpty()) {

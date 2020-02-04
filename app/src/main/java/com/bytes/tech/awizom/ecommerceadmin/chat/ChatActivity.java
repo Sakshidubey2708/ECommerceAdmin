@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,25 +20,18 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bytes.tech.awizom.ecommerceadmin.R;
 import com.bytes.tech.awizom.ecommerceadmin.activity.MainActivity;
 import com.bytes.tech.awizom.ecommerceadmin.activity.SignInActivity;
-import com.bytes.tech.awizom.ecommerceadmin.activity.SplashActivity;
-import com.bytes.tech.awizom.ecommerceadmin.adapter.ProductListAdapter;
 import com.bytes.tech.awizom.ecommerceadmin.configure.HelperApi;
 import com.bytes.tech.awizom.ecommerceadmin.configure.SharedPrefManager;
 import com.bytes.tech.awizom.ecommerceadmin.models.ChatModel;
-import com.bytes.tech.awizom.ecommerceadmin.models.ProductModel;
-import com.bytes.tech.awizom.ecommerceadmin.models.UploadBuilty;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -132,7 +124,7 @@ public class ChatActivity extends AppCompatActivity {
         sendmsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if( SharedPrefManager.getInstance(ChatActivity.this).getUser().getSubsciberID() == null){
+                if( SharedPrefManager.getInstance(ChatActivity.this).getUser().getSubscriberId() == null){
                     final Dialog dialog = new Dialog(ChatActivity.this);
                     WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
                     lp.copyFrom(dialog.getWindow().getAttributes());
@@ -176,11 +168,11 @@ public class ChatActivity extends AppCompatActivity {
 
                     try {
                         result = new HelperApi.PostChating().execute(
-                                SharedPrefManager.getInstance(ChatActivity.this).getUser().getSubsciberID(),
+                                SharedPrefManager.getInstance(ChatActivity.this).getUser().getSubscriberId(),
                                 typeMessage.getText().toString()).get();
                         if (result.isEmpty()) {
                             result = new HelperApi.PostChating().execute(
-                                    SharedPrefManager.getInstance(ChatActivity.this).getUser().getSubsciberID(),
+                                    SharedPrefManager.getInstance(ChatActivity.this).getUser().getSubscriberId(),
                                     typeMessage.getText().toString()).get();
                         } else {
                             typeMessage.setText("");
@@ -197,7 +189,7 @@ public class ChatActivity extends AppCompatActivity {
     }
     public void getChat() {
         try {
-            result = new HelperApi.GetChat().execute(SharedPrefManager.getInstance(this).getUser().getSubsciberID()).get();
+            result = new HelperApi.GetChat().execute(SharedPrefManager.getInstance(this).getUser().getSubscriberId()).get();
             if (result.isEmpty()) {
             } else {
                 /*   Toast.makeText(getApplicationContext(),result+"",Toast.LENGTH_LONG).show();*/

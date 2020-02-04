@@ -81,7 +81,7 @@ public class MyOrderTrackingActivity extends AppCompatActivity {
     private void GetTracking() {
 
         try {
-            String result = new HelperApi.GETMyOrderTracking().execute(OrderId.toString(),SharedPrefManager.getInstance(this).getUser().getUserId()).get();
+            String result = new HelperApi.GETMyOrderTracking().execute(OrderId.toString(),SharedPrefManager.getInstance(this).getUser().getUserID()).get();
             Gson gson = new Gson();
             Type listType = new TypeToken<OrderMainModel>() {
             }.getType();
