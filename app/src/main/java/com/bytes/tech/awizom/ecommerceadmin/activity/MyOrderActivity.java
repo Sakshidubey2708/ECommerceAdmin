@@ -25,7 +25,7 @@ public class MyOrderActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     private String result = "";
-    List<MyOrderModel> userModels;
+    List<MyOrderModel> myOrderModels;
     SwipeRefreshLayout mSwipeRefreshLayout;
     private String ID="";
     private ProgressDialog progressDialog;
@@ -67,23 +67,24 @@ public class MyOrderActivity extends AppCompatActivity {
         mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(MyOrderActivity.this));
-        getNotificationList();
+        getOrderList();
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 // Refresh items
-                getNotificationList();
+                getOrderList();
             }
         });
     }
 
-    private void getNotificationList() {
+    private void getOrderList() {
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();
             mSwipeRefreshLayout.setRefreshing(true);
-            result = new HelperApi.GETMyOrderPlace().execute(SharedPrefManager.getInstance(MyOrderActivity.this).getUser().getSubscriberId(),
-                    "PlaceOrder").get();
+//            result = new HelperApi.GETMyOrderPlace().execute(SharedPrefManager.getInstance(MyOrderActivity.this).getUser().getSubscriberId(),
+//                    "Place Order").get();
+            result = new HelperApi.GETMyTotalOrder().execute(SharedPrefManager.getInstance(MyOrderActivity.this).getUser().getSubscriberId()).get();
             if (result.isEmpty()) {
                 progressDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);
@@ -92,9 +93,9 @@ public class MyOrderActivity extends AppCompatActivity {
                 Gson gson = new Gson();
                 Type listType = new TypeToken<List<MyOrderModel>>() {
                 }.getType();
-                userModels = new Gson().fromJson(result, listType);
-                Log.d("Error", userModels.toString());
-                MyOrderAdapter viewUserAdapter= new MyOrderAdapter(MyOrderActivity.this, userModels);
+                myOrderModels = new Gson().fromJson(result, listType);
+                Log.d("Error", myOrderModels.toString());
+                MyOrderAdapter viewUserAdapter= new MyOrderAdapter(MyOrderActivity.this, myOrderModels);
                 recyclerView.setAdapter(viewUserAdapter);
                 mSwipeRefreshLayout.setRefreshing(false);
             }

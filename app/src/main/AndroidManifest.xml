@@ -158,6 +158,10 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
+        <activity android:name=".activity.OrderDispatch"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
         <activity android:name=".activity.WebViewActivity">
 
             <!-- <intent-filter> -->

@@ -145,11 +145,13 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                     order_no = new String[productModelList.size()];
                    for (int i = 0; i < productModelList.size(); i++) {
 
-                       order_no[i] = String.valueOf(productModelList.get(i).getOrderNo());
-
                        order_main_ID[i] = String.valueOf(productModelList.get(i).getOrderId());
 
                   }
+                for (int i = 0; i < productModelList.size(); i++) {
+
+                    order_no[i] = String.valueOf(productModelList.get(i).getOrderNo());
+                }
                 for (String s : order_main_ID) {
                     anyother_charge.setText(s);
                 }

@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,7 +46,7 @@ public class RetailerAdapter extends BaseAdapter {
     private String skipdata = "", result = "";
     private CardView cardView;
     PricerequestModel pricerequestModel;
-    long PriceRequestId = 0, ratingID = 0,orderMainID=0,orderDetailID=0;
+    long PriceRequestId = 0, ratingID = 0,orderMainID=0,orderDetailID=0,orderDetailIDs=0,orderMainIDs=0;
     OrderMainModel orderMainModel;
     OrderDetailMain orderDetailMain;
     int k =0;
@@ -142,19 +143,11 @@ public class RetailerAdapter extends BaseAdapter {
                                 closebtn.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-
-                                    }
-                                });
-
-
-                                closebtn.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
                                         dialog.dismiss();
                                     }
                                 });
-
                                 dialog.show();
+
                             } else {
                                 try {
                                     result = new HelperApi.PostSentPriceRequest().execute(
@@ -219,6 +212,7 @@ public class RetailerAdapter extends BaseAdapter {
 
                                 final TextView discountPrices = dialog.findViewById(R.id.discountPrice);
                                 final TextView salePrices = dialog.findViewById(R.id.salePrice);
+                                final EditText quantity = dialog.findViewById(R.id.quantity);
                                 Button ok = dialog.findViewById(R.id.okbtn);
                                 final Button order = dialog.findViewById(R.id.orderPlace);
                                 discountPrices.setText(String.valueOf(pricerequestModel.getSaleDiscount()));
@@ -226,8 +220,10 @@ public class RetailerAdapter extends BaseAdapter {
 
                                 if(salePrices.getText().toString().equals("0.0")){
                                     order.setVisibility(View.GONE);
+                                    quantity.setVisibility(View.GONE);
                                 }else {
                                     order.setVisibility(View.VISIBLE);
+                                    quantity.setVisibility(View.VISIBLE);
                                 }
 
                                 ok.setOnClickListener(new View.OnClickListener() {
@@ -245,17 +241,14 @@ public class RetailerAdapter extends BaseAdapter {
                                             String S= "ord"+k;
 
                                             result = new HelperApi.PostOrderMain().execute(
-                                                    String.valueOf(orderMainID),
+                                                    String.valueOf(orderMainIDs),
                                                     S.toString(),
-                                                    SharedPrefManager.getInstance(mContext).getUser().getSubscriberId().toString(),
-                                                    "",order.getText().toString().trim(),"","","",SharedPrefManager.getInstance(mContext).getUser().getSubscriberId(),"1").get();
+                                                    SharedPrefManager.getInstance(mContext).getUser().getUserID().toString(),
+                                                    "",order.getText().toString().trim(),"","","",
+                                                    SharedPrefManager.getInstance(mContext).getUser().getSubscriberId(),"1").get();
 
                                             if (result.isEmpty()) {
-                                                result = new HelperApi.PostOrderMain().execute(
-                                                        String.valueOf(orderMainID),
-                                                        S.toString(),
-                                                        SharedPrefManager.getInstance(mContext).getUser().getSubscriberId().toString(),
-                                                        "",order.getText().toString().trim(),"","","",SharedPrefManager.getInstance(mContext).getUser().getSubscriberId(),"1").get();
+
                                             } else {
 
                                                 Gson gson = new Gson();
@@ -268,59 +261,76 @@ public class RetailerAdapter extends BaseAdapter {
                                                 if(orderMainID == 0){
 
                                                 }else {
+
+                                                    Double  qty, ass_price,total;
+
+                                                        qty = Double.parseDouble(quantity.getText().toString());
+                                                        ass_price = Double.parseDouble(salePrices.getText().toString());
+                                                        total = qty * ass_price;
+
+
                                                     Toast.makeText(mContext,"OrderMAin"+String.valueOf(orderMainID),Toast.LENGTH_LONG).show();
                                                     result = new HelperApi.PostOrderDetailMain().execute(
                                                             String.valueOf(orderDetailID),
                                                             String.valueOf(orderMainID),
-                                                            productid.getText().toString(),"","1",
-                                                            salePrices.getText().toString(),  discountPrices.getText().toString(),
+                                                            productid.getText().toString(),
+                                                            salePrices.getText().toString(),quantity.getText().toString(),
+                                                            total.toString(),  discountPrices.getText().toString(),
                                                             "", "",  "",  "", "").get();
                                                     if(result.isEmpty()){
-                                                        result = new HelperApi.PostOrderDetailMain().execute(
-                                                                String.valueOf(orderDetailID),
-                                                                String.valueOf(orderMainID),
-                                                                productid.getText().toString(),"","1",
-                                                                salePrices.getText().toString(),  discountPrices.getText().toString(),
-                                                                "", "",  "",  "", "").get();
+
                                                     }else {
                                                         Gson gsons = new Gson();
                                                         Type listType1 = new TypeToken<OrderDetailMain>() {
                                                         }.getType();
                                                         orderDetailMain = new Gson().fromJson(result, listType1);
-                                                        orderDetailID = orderDetailMain.getOrderId();
-                                                        //   orderMainID=0;
-                                                        Toast.makeText(mContext,"OrderDetailsMain"+String.valueOf(orderDetailID),Toast.LENGTH_LONG).show();
-                                                        try {
+                                                        result = new HelperApi.PostOrderMain().execute(
+                                                                String.valueOf(orderMainID),
+                                                                S.toString(),
+                                                                SharedPrefManager.getInstance(mContext).getUser().getUserID().toString(),
+                                                                "",order.getText().toString().trim(),
+                                                                total.toString(),"","",SharedPrefManager.getInstance(mContext).getUser().getSubscriberId(),"1").get();
 
-                                                            String userID = SharedPrefManager.getInstance(mContext).getUser().getUserID();
-                                                            String h= "ord"+k;
-                                                            result =   new HelperApi.PostCarts().execute(productid.getText().toString(),
-                                                                    SharedPrefManager.getInstance(mContext).getUser().getUserID(),
-                                                                    String.valueOf(orderMainID),String.valueOf(orderDetailID),h.toString()).get();
-                                                            try {
-                                                                if (result.isEmpty()) {
-                                                                    Log.d("Result Empty", "Error");
-
-                                                                } else {
-
-                                                                    Toast.makeText(mContext, "Cart Added", Toast.LENGTH_SHORT).show();
-
-                                                                    Intent intent = new Intent(mContext,CartActivity.class);
-                                                                    intent.putExtra("orderMainID" , String.valueOf(orderMainID));
-                                                                    intent.putExtra("orderDetailID" , String.valueOf(orderMainID));
-                                                                    mContext.startActivity(intent);
-
-                                                                }
-
-                                                            } catch (Exception e) {
-                                                                Log.d("Result Empty", "Error");
-                                                                e.printStackTrace();
-                                                            }
-
-                                                        } catch (Exception e) {
-                                                            Log.d("Result Empty", "Error");
-                                                            e.printStackTrace();
+                                                        orderDetailIDs = orderDetailMain.getOrderId();
+                                                        if(!(orderMainID == 0)){
+                                                            order.setVisibility(View.GONE);
+                                                            quantity.setVisibility(View.GONE);
                                                         }
+
+
+//   orderMainID=0;
+//  Toast.makeText(mContext,"OrderDetailsMain"+String.valueOf(orderDetailID),Toast.LENGTH_LONG).show();
+//                                                        try {
+//
+//                                                            String userID = SharedPrefManager.getInstance(mContext).getUser().getUserID();
+//                                                            String h= "ord"+k;
+//                                                            result =   new HelperApi.PostCarts().execute(productid.getText().toString(),
+//                                                                    SharedPrefManager.getInstance(mContext).getUser().getUserID(),
+//                                                                    String.valueOf(orderMainID),String.valueOf(orderDetailID),h.toString()).get();
+//                                                            try {
+//                                                                if (result.isEmpty()) {
+//                                                                    Log.d("Result Empty", "Error");
+//
+//                                                                } else {
+//
+//                                                                    Toast.makeText(mContext, "Cart Added", Toast.LENGTH_SHORT).show();
+//
+//                                                                    Intent intent = new Intent(mContext,CartActivity.class);
+//                                                                    intent.putExtra("orderMainID" , String.valueOf(orderMainID));
+//                                                                    intent.putExtra("orderDetailID" , String.valueOf(orderMainID));
+//                                                                    mContext.startActivity(intent);
+//
+//                                                                }
+//
+//                                                            } catch (Exception e) {
+//                                                                Log.d("Result Empty", "Error");
+//                                                                e.printStackTrace();
+//                                                            }
+//
+//                                                        } catch (Exception e) {
+//                                                            Log.d("Result Empty", "Error");
+//                                                            e.printStackTrace();
+//                                                        }
 
                                                     }
                                                 }

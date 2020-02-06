@@ -4,9 +4,9 @@ public class MyOrderModel {
     public int OrderId ;
 
     public String UserId ;
-    public String SubscriberID;
+    public String SubscriberID ;
     public String Date ;
-    public String Status;
+    public String Status ;
 
     public double TotalAmount ;
     public double Discount ;
@@ -16,6 +16,7 @@ public class MyOrderModel {
     public int ProductId ;
 
     public String ProductName ;
+
 
     public int getOrderId() {
         return OrderId;

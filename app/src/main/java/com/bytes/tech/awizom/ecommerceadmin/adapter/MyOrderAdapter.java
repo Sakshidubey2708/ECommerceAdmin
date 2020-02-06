@@ -1,19 +1,32 @@
 package com.bytes.tech.awizom.ecommerceadmin.adapter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
 import com.bytes.tech.awizom.ecommerceadmin.R;
+import com.bytes.tech.awizom.ecommerceadmin.activity.MyOrderActivity;
 import com.bytes.tech.awizom.ecommerceadmin.activity.MyOrderTrackingActivity;
+import com.bytes.tech.awizom.ecommerceadmin.activity.OrderDispatch;
+import com.bytes.tech.awizom.ecommerceadmin.configure.HelperApi;
+import com.bytes.tech.awizom.ecommerceadmin.configure.SharedPrefManager;
 import com.bytes.tech.awizom.ecommerceadmin.models.MyOrderModel;
 import com.bytes.tech.awizom.ecommerceadmin.models.NotificationListModel;
+import com.bytes.tech.awizom.ecommerceadmin.models.OrderDispatchDetail;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class MyOrderAdapter extends  RecyclerView.Adapter<MyOrderAdapter.OrderItemViewHolder> {
@@ -21,6 +34,8 @@ public class MyOrderAdapter extends  RecyclerView.Adapter<MyOrderAdapter.OrderIt
     private Context mCtx;
     private List<MyOrderModel> userModelsList;
     private Intent i;
+    List<OrderDispatchDetail> orderDispatchDetails;
+    private String result="";
 
 
     public MyOrderAdapter(Context mCtx, List<MyOrderModel> userModelsList) {
@@ -44,7 +59,20 @@ public class MyOrderAdapter extends  RecyclerView.Adapter<MyOrderAdapter.OrderIt
         holder.catagoryIDs.setText(String.valueOf(catagoriesModel.getStatus()));
         holder.amounts.setText(String.valueOf(catagoriesModel.getTotalAmount()));
         holder.orderIds.setText(String.valueOf(catagoriesModel.getOrderId()));
+        if(holder.catagoryIDs.getText().toString().equals("Order Dispatch")){
+            holder.viewBtn.setVisibility(View.VISIBLE);
+        }else {
+            holder.viewBtn.setVisibility(View.GONE);
+        }
+        holder.viewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                i = new Intent(mCtx,OrderDispatch.class);
+                i.putExtra("OId",holder.orderIds.getText().toString());
+                mCtx.startActivity(i);
+            }
+        });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +94,7 @@ public class MyOrderAdapter extends  RecyclerView.Adapter<MyOrderAdapter.OrderIt
     class OrderItemViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
 
         private Context mCtx;
-        private TextView catagory_names,catagoryIDs,amounts,orderIds;
+        private TextView catagory_names,catagoryIDs,amounts,orderIds,viewBtn;
 
         private List<MyOrderModel> userModelsList;
         private MyOrderModel catagoriesModel;
@@ -81,6 +109,7 @@ public class MyOrderAdapter extends  RecyclerView.Adapter<MyOrderAdapter.OrderIt
             catagoryIDs=view.findViewById(R.id.work);
             amounts=view.findViewById(R.id.amount);
             orderIds=view.findViewById(R.id.orderId);
+            viewBtn = view.findViewById(R.id.view);
             itemView.setOnClickListener(this);
 
 
