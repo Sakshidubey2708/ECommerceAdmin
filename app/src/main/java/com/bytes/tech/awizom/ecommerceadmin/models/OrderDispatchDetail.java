@@ -19,12 +19,12 @@ public class OrderDispatchDetail {
     public double TotalAmt ;
 
 
-    public String CotactPerson ;
+    public String ContactPerson ;
     public String Business ;
     public String Address ;
     public int Pincode ;
     public String EmailId ;
-    public int ContactNo ;
+    public long ContactNo ;
 
     public String RetailFName ;
     public String MidName ;
@@ -166,13 +166,7 @@ public class OrderDispatchDetail {
         TotalAmt = totalAmt;
     }
 
-    public String getCotactPerson() {
-        return CotactPerson;
-    }
 
-    public void setCotactPerson(String cotactPerson) {
-        CotactPerson = cotactPerson;
-    }
 
     public String getBusiness() {
         return Business;
@@ -206,11 +200,11 @@ public class OrderDispatchDetail {
         EmailId = emailId;
     }
 
-    public int getContactNo() {
+    public long getContactNo() {
         return ContactNo;
     }
 
-    public void setContactNo(int contactNo) {
+    public void setContactNo(long contactNo) {
         ContactNo = contactNo;
     }
 
@@ -348,5 +342,13 @@ public class OrderDispatchDetail {
 
     public void setRetailCitycode(int retailCitycode) {
         RetailCitycode = retailCitycode;
+    }
+
+    public String getContactPerson() {
+        return ContactPerson;
+    }
+
+    public void setContactPerson(String contactPerson) {
+        ContactPerson = contactPerson;
     }
 }

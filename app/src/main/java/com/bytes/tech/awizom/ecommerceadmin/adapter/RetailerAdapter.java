@@ -17,6 +17,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ import com.bytes.tech.awizom.ecommerceadmin.models.OrderDetailMain;
 import com.bytes.tech.awizom.ecommerceadmin.models.OrderMainModel;
 import com.bytes.tech.awizom.ecommerceadmin.models.PricerequestModel;
 import com.bytes.tech.awizom.ecommerceadmin.models.StockMain;
+import com.bytes.tech.awizom.ecommerceadmin.models.StockProduct;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -44,7 +46,7 @@ public class RetailerAdapter extends BaseAdapter {
     private List<StockMain> stockMains;
     private Context mContext;
     private String skipdata = "", result = "";
-    private CardView cardView;
+
     PricerequestModel pricerequestModel;
     long PriceRequestId = 0, ratingID = 0,orderMainID=0,orderDetailID=0,orderDetailIDs=0,orderMainIDs=0;
     OrderMainModel orderMainModel;
@@ -88,10 +90,12 @@ public class RetailerAdapter extends BaseAdapter {
             final TextView productid = (TextView) gridViewAndroid.findViewById(R.id.product_ids);
             final TextView stockid = (TextView) gridViewAndroid.findViewById(R.id.stock_ids);
             TextView imglinkurl = gridViewAndroid.findViewById(R.id.imgLink);
+            final CardView homeCleancardViewOne = gridViewAndroid.findViewById(R.id.homeCleancardViewOne);
+            final LinearLayout frames = gridViewAndroid.findViewById(R.id.frame);
             Button request = gridViewAndroid.findViewById(R.id.btn);
             Button sent = gridViewAndroid.findViewById(R.id.btnSent);
             final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
-            cardView = gridViewAndroid.findViewById(R.id.homeCleancardViewOne);
+
 
             //  final ProgressBar progressBar = gridViewAndroid.findViewById(R.id.homeprogress);
             try {
@@ -99,6 +103,21 @@ public class RetailerAdapter extends BaseAdapter {
                 descriptions.setText(stockMains.get(i).getHighlightsDesign());
                 productid.setText(String.valueOf(stockMains.get(i).getProductId()));
                 stockid.setText(String.valueOf(stockMains.get(i).getStockMainId()));
+                homeCleancardViewOne.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mContext, StockProduct.class);
+                        mContext.startActivity(intent);
+                    }
+                });
+
+                frames.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mContext, StockActivity.class);
+                        mContext.startActivity(intent);
+                    }
+                });
 
                 if (stockMains.get(i).getPricingProductId() == 0) {
                     request.setVisibility(View.VISIBLE);
@@ -347,12 +366,7 @@ public class RetailerAdapter extends BaseAdapter {
                         }
                     }
                 });
-                cardView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
 
-                    }
-                });
 
             } catch (Exception e) {
                 e.printStackTrace();

@@ -1,32 +1,35 @@
 package com.bytes.tech.awizom.ecommerceadmin.activity;
 
 import android.app.ActivityOptions;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
-
 import com.bytes.tech.awizom.ecommerceadmin.R;
 import com.bytes.tech.awizom.ecommerceadmin.configure.HelperApi;
 import com.bytes.tech.awizom.ecommerceadmin.models.OrderDispatchDetail;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
-import java.util.List;
 
-public class OrderDispatch extends AppCompatActivity {
+public class OrderDispatch extends AppCompatActivity implements View.OnClickListener {
 
     private String result="",oid="";
-    private List<OrderDispatchDetail> orderDispatchDetails;
+    private OrderDispatchDetail orderDispatchDetails;
 
     private TextView FirmName,FirstName,retailerContact,retailerEmail,retailerAddress;
     private TextView cityName,stateName,cityCode,pinCode;
     private TextView dateOfRegistration,dateOFDispatch;
     private TextView contactPersonName,contactNo,ContactEmailID,contactBusiness,ContactAddress,ContactPincode;
-    private TextView trancationDate,driverName,driver_Contact,dates,vehicle_no,vehicle_address;
+    private TextView trancationDate,driverName,driver_Contact,dates,vehicle_no,vehicle_address,dispatchIds;
+
+    private  TextView oidTextView,gstinTextView;
+    private Button downloadBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,10 @@ public class OrderDispatch extends AppCompatActivity {
 
         oid = getIntent().getStringExtra("OId").toString();
 
+
+        oidTextView = findViewById(R.id.orderNo);
+        gstinTextView = findViewById(R.id.gstinNo);
+
         FirmName = findViewById(R.id.FirmNAme);
         FirstName = findViewById(R.id.FirmownerName);
         retailerContact = findViewById(R.id.FirmownerContact);
@@ -84,10 +91,14 @@ public class OrderDispatch extends AppCompatActivity {
 
         trancationDate = findViewById(R.id.Date);
         driverName = findViewById(R.id.DriverName);
+        dispatchIds = findViewById(R.id.dispatchId);
         driver_Contact = findViewById(R.id.driverContact);
         dates = findViewById(R.id.date);
         vehicle_no = findViewById(R.id.Vehicle_no);
         vehicle_address = findViewById(R.id.Vehicle_address);
+
+        downloadBtn = findViewById(R.id.download);
+        downloadBtn.setOnClickListener(this);
 
 
         method();
@@ -103,46 +114,56 @@ public class OrderDispatch extends AppCompatActivity {
             } else {
 
                 Gson gson = new Gson();
-                Type listType = new TypeToken<List<OrderDispatchDetail>>() {
+                Type listType = new TypeToken<OrderDispatchDetail>() {
                 }.getType();
                 orderDispatchDetails = new Gson().fromJson(result, listType);
                 Log.d("Error", orderDispatchDetails.toString());
 
-                for(int i=0; i<=orderDispatchDetails.size(); i++){
 
-                    FirmName.setText(orderDispatchDetails.get(i).getFirmName().toString());
-                    FirstName.setText(orderDispatchDetails.get(i).getRetailFName().toString()+ " "
-                    +orderDispatchDetails.get(i).getRetailLName().toString());
-
-                    retailerContact.setText(orderDispatchDetails.get(i).getRetailCon().toString());
-                    retailerEmail.setText(orderDispatchDetails.get(i).getEmail().toString());
-                    retailerAddress.setText(orderDispatchDetails.get(i).getRetailAddress().toString());
+                    try{
 
 
-                    cityName.setText(orderDispatchDetails.get(i).getCityName().toString());
-                    stateName.setText(orderDispatchDetails.get(i).getStateName().toString());
-                    cityCode.setText(orderDispatchDetails.get(i).getCityName().toString());
-                    pinCode.setText(String.valueOf(orderDispatchDetails.get(i).getPincode()));
-                    dateOfRegistration.setText(orderDispatchDetails.get(i).getDateOfRegistration().toString());
-                    dateOFDispatch.setText(orderDispatchDetails.get(i).getDispatchDate().toString());
+                        FirmName.setText(orderDispatchDetails.getFirmName().toString());
+                        FirstName.setText(orderDispatchDetails.getRetailFName().toString()+ " "
+                                +orderDispatchDetails.getRetailLName().toString());
+
+                        retailerContact.setText(orderDispatchDetails.getRetailCon().toString());
+                        retailerEmail.setText(orderDispatchDetails.getEmail().toString());
+                        retailerAddress.setText(orderDispatchDetails.getRetailAddress().toString());
 
 
-                    contactPersonName.setText(orderDispatchDetails.get(i).getCotactPerson().toString());
-                    ContactEmailID.setText(orderDispatchDetails.get(i).getEmailId().toString());
-                    contactNo.setText(String.valueOf(orderDispatchDetails.get(i).getContactNo()));
-                    contactBusiness.setText(orderDispatchDetails.get(i).getBusiness().toString());
-                    ContactAddress.setText(orderDispatchDetails.get(i).getAddress().toString());
-                    ContactPincode.setText(String.valueOf(orderDispatchDetails.get(i).getPincode()));
+                        cityName.setText(orderDispatchDetails.getCityName().toString());
+                        stateName.setText(orderDispatchDetails.getStateName().toString());
+                        cityCode.setText(orderDispatchDetails.getCityName().toString());
+                        pinCode.setText(String.valueOf(orderDispatchDetails.getPincode()));
+                        dateOfRegistration.setText(orderDispatchDetails.getDateOfRegistration().toString());
+                        dateOFDispatch.setText(orderDispatchDetails.getDispatchDate().toString());
 
 
-                    trancationDate.setText(orderDispatchDetails.get(i).getDate().toString());
-                    driverName.setText(orderDispatchDetails.get(i).getDriverName().toString());
-                    driver_Contact.setText(String.valueOf(orderDispatchDetails.get(i).getDriverContact()));
-                    dates.setText(orderDispatchDetails.get(i).getDate().toString());
-                    vehicle_no.setText(orderDispatchDetails.get(i).getVehicleNo().toString());
-                    vehicle_address.setText(orderDispatchDetails.get(i).getVehicleAddress());
 
-                }
+                        ContactEmailID.setText(orderDispatchDetails.getEmailId().toString());
+                        contactNo.setText(String.valueOf(orderDispatchDetails.getContactNo()));
+                        contactBusiness.setText(orderDispatchDetails.getBusiness().toString());
+                        ContactAddress.setText(orderDispatchDetails.getAddress().toString());
+                        ContactPincode.setText(String.valueOf(orderDispatchDetails.getPincode()));
+
+
+                        trancationDate.setText(orderDispatchDetails.getDate().toString());
+                        driverName.setText(orderDispatchDetails.getDriverName().toString());
+                        driver_Contact.setText(String.valueOf(orderDispatchDetails.getDriverContact()));
+                        dates.setText(orderDispatchDetails.getDate().toString());
+                        vehicle_no.setText(orderDispatchDetails.getVehicleNo().toString());
+                        vehicle_address.setText(orderDispatchDetails.getVehicleAddress());
+                        contactPersonName.setText(orderDispatchDetails.getContactPerson().toString());
+                        dispatchIds.setText(String.valueOf(orderDispatchDetails.getDispatchID()));
+                        oidTextView.setText(String.valueOf(orderDispatchDetails.getOrderID()));
+                        gstinTextView.setText(orderDispatchDetails.getGstinNo());
+                    }catch (Exception w){
+                        w.printStackTrace();
+                    }
+
+
+
 
             }
         } catch (Exception e) {
@@ -151,5 +172,15 @@ public class OrderDispatch extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.download:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://192.168.10.27:25402//Admin/Admin/DispatchOrderReport?DispatchID=" + dispatchIds.getText().toString().trim()));
+                startActivity(browserIntent);
+                break;
+        }
     }
 }
