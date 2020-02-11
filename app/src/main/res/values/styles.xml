@@ -51,4 +51,8 @@
     <style name="DialogSlideAnim" parent="@android:style/Theme.Dialog">
         <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
     </style>
+
+
+
+
 </resources>

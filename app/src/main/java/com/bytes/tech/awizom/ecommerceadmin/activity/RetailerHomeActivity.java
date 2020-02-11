@@ -254,8 +254,7 @@ public class RetailerHomeActivity extends AppCompatActivity
 
     private void getProductList() {
         try {
-            result = new HelperApi.GetStockItems().execute(SharedPrefManager.getInstance(this).getUser().getSubscriberId(),
-                    SharedPrefManager.getInstance(this).getUser().getUserID()).get();
+            result = new HelperApi.GetStockItems().execute(SharedPrefManager.getInstance(this).getUser().getSubscriberId()).get();
             if (result.isEmpty()) {
             } else {
                 Gson gson = new Gson();

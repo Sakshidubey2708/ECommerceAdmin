@@ -63,7 +63,7 @@ dependencies {
     implementation 'com.android.volley:volley:1.0.0'
     implementation 'com.frosquivel:magicaltakephoto:1.0'
 
-
+    implementation 'br.com.simplepass:loading-button-android:1.14.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

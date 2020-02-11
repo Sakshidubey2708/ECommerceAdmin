@@ -7,6 +7,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
 public class HelperApi extends AppCompatActivity {
+
     public static final class  PostCartAmount extends AsyncTask<String, Void, String> {
 
         @Override
@@ -171,11 +172,12 @@ public class HelperApi extends AppCompatActivity {
             String RequestUserId = params[1];
             String ProductId = params[2];
             String RequestStatus = params[3];
+            String SubscriberID = params[4];
             String json = "";
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "/PriceRequestPost/"+ProductId);
+                builder.url(AppConfig.BASE_URL_API + "/PriceRequestPost/"+ProductId+"/"+RequestUserId+"/"+SubscriberID);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 FormBody.Builder parameters = new FormBody.Builder();
@@ -185,6 +187,7 @@ public class HelperApi extends AppCompatActivity {
                 parameters.add("RequestDate", "");
                 parameters.add("ProductId", ProductId);
                 parameters.add("RequestStatus", RequestStatus);
+                parameters.add("SubscriberID", SubscriberID);
 
                 builder.post(parameters.build());
                 okhttp3.Response response = client.newCall(builder.build()).execute();
@@ -210,6 +213,7 @@ public class HelperApi extends AppCompatActivity {
 
         }
     }
+
     public static final class GetAllProductList extends AsyncTask<String, Void, String> {
 
         @Override
@@ -430,6 +434,7 @@ public class HelperApi extends AppCompatActivity {
             }
         }
     }
+
     public static final class GetCartList extends AsyncTask<String, Void, String> {
 
         @Override
@@ -465,7 +470,6 @@ public class HelperApi extends AppCompatActivity {
             }
         }
     }
-
     public static final class PostOrderMain extends AsyncTask<String, Void, String> {
 
         @Override
@@ -529,6 +533,7 @@ public class HelperApi extends AppCompatActivity {
 
         }
     }
+
     public static final class PostOrderDetailMain extends AsyncTask<String, Void, String> {
 
         @Override
@@ -590,7 +595,6 @@ public class HelperApi extends AppCompatActivity {
             }
         }
     }
-
     public static final class GetChat extends AsyncTask<String, Void, String> {
 
         @Override
@@ -625,6 +629,7 @@ public class HelperApi extends AppCompatActivity {
             }
         }
     }
+
     public static final class GetAllGetMainCategoriesList extends AsyncTask<String, Void, String> {
 
         @Override
@@ -658,7 +663,6 @@ public class HelperApi extends AppCompatActivity {
             }
         }
     }
-
     public static final class PostChating extends AsyncTask<String, Void, String> {
 
         @Override
@@ -706,6 +710,7 @@ public class HelperApi extends AppCompatActivity {
         }
 
     }
+
     public static final class PostBuiltyUpload extends AsyncTask<String, Void, String> {
 
         @Override
@@ -753,7 +758,6 @@ public class HelperApi extends AppCompatActivity {
         }
 
     }
-
     public static final class PostClient extends AsyncTask<String, Void, String> {
 
         @Override
@@ -806,7 +810,6 @@ public class HelperApi extends AppCompatActivity {
 
     }
 
-
     public static final class GETMyOrderTracking extends AsyncTask<String, Void, String> {
 
         @Override
@@ -843,7 +846,6 @@ public class HelperApi extends AppCompatActivity {
             }
         }
     }
-
     public static final class GETPriceRequest extends AsyncTask<String, Void, String> {
 
         @Override
@@ -1097,6 +1099,7 @@ public class HelperApi extends AppCompatActivity {
             }
         }
     }
+
     public static final class GETMyTotalOrder extends AsyncTask<String, Void, String> {
 
         @Override
@@ -1133,7 +1136,6 @@ public class HelperApi extends AppCompatActivity {
             }
         }
     }
-
     public static final class GetMyOrderDispatchDetails extends AsyncTask<String, Void, String> {
 
         @Override
@@ -1211,11 +1213,45 @@ public class HelperApi extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             String json = "";
             String CreatedBy=strings[0];
-            String UserId=strings[1];
+
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "/GetStockProduct/"+CreatedBy+"/"+UserId);
+                builder.url(AppConfig.BASE_URL_API + "/GetStockProduct/"+CreatedBy);
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return json;
+        }
+        protected void onPostExecute(String result) {
+            try {
+                if (result.isEmpty()) {
+                } else {
+                    super.onPostExecute(result);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static final class GetStockSingleItems extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String json = "";
+            String StockMainId=strings[0];
+
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "/GetSingleStockProduct/"+StockMainId);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 okhttp3.Response response = client.newCall(builder.build()).execute();

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.Gravity;
@@ -21,11 +22,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.bytes.tech.awizom.ecommerceadmin.R;
 import com.bytes.tech.awizom.ecommerceadmin.activity.CartActivity;
 import com.bytes.tech.awizom.ecommerceadmin.activity.RetailerHomeActivity;
 import com.bytes.tech.awizom.ecommerceadmin.activity.SignInActivity;
 import com.bytes.tech.awizom.ecommerceadmin.activity.StockActivity;
+import com.bytes.tech.awizom.ecommerceadmin.configure.AppConfig;
 import com.bytes.tech.awizom.ecommerceadmin.configure.HelperApi;
 import com.bytes.tech.awizom.ecommerceadmin.configure.SharedPrefManager;
 import com.bytes.tech.awizom.ecommerceadmin.models.OrderDetailMain;
@@ -42,7 +45,6 @@ import java.util.List;
 public class RetailerAdapter extends BaseAdapter {
 
     //  private final String[] catalogNameList;
-
     private List<StockMain> stockMains;
     private Context mContext;
     private String skipdata = "", result = "";
@@ -53,15 +55,11 @@ public class RetailerAdapter extends BaseAdapter {
     OrderDetailMain orderDetailMain;
     int k =0;
 
-
     public RetailerAdapter(RetailerHomeActivity newCustomerHome, List<StockMain> stockMains) {
-
         this.mContext = newCustomerHome;
         this.stockMains = stockMains;
         this.skipdata = skipdata;
     }
-
-
 
     @Override
     public int getCount() {
@@ -84,7 +82,7 @@ public class RetailerAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
             gridViewAndroid = new View(mContext);
-            gridViewAndroid = inflater.inflate(R.layout.stock_adapter, null);
+            gridViewAndroid = inflater.inflate(R.layout.retailr_adapter, null);
             TextView textViewAndroid = (TextView) gridViewAndroid.findViewById(R.id.catalogName);
             TextView descriptions = (TextView) gridViewAndroid.findViewById(R.id.description);
             final TextView productid = (TextView) gridViewAndroid.findViewById(R.id.product_ids);
@@ -94,6 +92,7 @@ public class RetailerAdapter extends BaseAdapter {
             final LinearLayout frames = gridViewAndroid.findViewById(R.id.frame);
             Button request = gridViewAndroid.findViewById(R.id.btn);
             Button sent = gridViewAndroid.findViewById(R.id.btnSent);
+            ImageView imgs = gridViewAndroid.findViewById(R.id.img);
             final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
 
 
@@ -103,10 +102,12 @@ public class RetailerAdapter extends BaseAdapter {
                 descriptions.setText(stockMains.get(i).getHighlightsDesign());
                 productid.setText(String.valueOf(stockMains.get(i).getProductId()));
                 stockid.setText(String.valueOf(stockMains.get(i).getStockMainId()));
+                imglinkurl.setText(stockMains.get(i).getProImg1());
                 homeCleancardViewOne.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(mContext, StockProduct.class);
+                        Intent intent = new Intent(mContext, StockActivity.class);
+                        intent.putExtra("StockID",stockid.getText().toString());
                         mContext.startActivity(intent);
                     }
                 });
@@ -115,21 +116,35 @@ public class RetailerAdapter extends BaseAdapter {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(mContext, StockActivity.class);
+                        intent.putExtra("StockID",stockid.getText().toString());
                         mContext.startActivity(intent);
                     }
                 });
 
-                if (stockMains.get(i).getPricingProductId() == 0) {
-                    request.setVisibility(View.VISIBLE);
-                    request.setText("Req");
-                    request.setTextColor(Color.parseColor("#FD210B"));
-                    sent.setVisibility(View.GONE);
-                } else {
-                    sent.setVisibility(View.VISIBLE);
-                    sent.setText("Sent");
-                    sent.setTextColor(Color.parseColor("#3B970A"));
-                    request.setVisibility(View.GONE);
+                String url = AppConfig.BASE_URL+"/" +imglinkurl.getText().toString();
+                if (url != null) {
+                    Glide.with(imgs)
+                            .load(url)
+                            .centerCrop()
+                            .placeholder(R.mipmap.product)
+                            .error(R.mipmap.product)
+                            .fallback(R.mipmap.product)
+                            .into(imgs) ;
                 }
+
+
+
+//                if (stockMains.get(i).getPricingProductId() == 0) {
+//                    request.setVisibility(View.VISIBLE);
+//                    request.setText("Req");
+//                    request.setTextColor(Color.parseColor("#FD210B"));
+//                    sent.setVisibility(View.GONE);
+//                } else {
+//                    sent.setVisibility(View.VISIBLE);
+//                    sent.setText("Sent");
+//                    sent.setTextColor(Color.parseColor("#3B970A"));
+//                    request.setVisibility(View.GONE);
+//                }
                 request.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -169,17 +184,14 @@ public class RetailerAdapter extends BaseAdapter {
 
                             } else {
                                 try {
+
                                     result = new HelperApi.PostSentPriceRequest().execute(
-                                            String.valueOf(productid.getText().toString()),
-                                            SharedPrefManager.getInstance(mContext).getUser().getSubscriberId().toString(),
+                                            productid.getText().toString(),
+                                            SharedPrefManager.getInstance(mContext).getUser().getUserID().toString(),
                                             productid.getText().toString().trim(),
-                                            "PriceRequest").get();
+                                            "PriceRequest",SharedPrefManager.getInstance(mContext).getUser().getSubscriberId()).get();
                                     if (result.isEmpty()) {
-                                        result = new HelperApi.PostSentPriceRequest().execute(
-                                                String.valueOf(productid.getText().toString()),
-                                                SharedPrefManager.getInstance(mContext).getUser().getSubscriberId().toString(),
-                                                productid.getText().toString().trim(),
-                                                "PriceRequest").get();
+
                                     } else {
                                         Gson gson = new Gson();
                                         Type listType = new TypeToken<PricerequestModel>() {
@@ -377,7 +389,6 @@ public class RetailerAdapter extends BaseAdapter {
 
         return gridViewAndroid;
     }
-
 
 }
 

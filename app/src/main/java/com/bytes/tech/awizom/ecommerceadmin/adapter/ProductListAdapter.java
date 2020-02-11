@@ -168,17 +168,14 @@ public class ProductListAdapter extends  RecyclerView.Adapter<ProductListAdapter
                             dialog.show();
                         }else {
                             try {
+
                                 result = new HelperApi.PostSentPriceRequest().execute(
-                                        String.valueOf(PriceRequestId),
+                                        holder.productId.getText().toString().trim(),
                                         SharedPrefManager.getInstance(mCtx).getUser().getUserID().toString(),
                                         holder.productId.getText().toString().trim(),
-                                        "PriceRequest").get();
+                                        "PriceRequest",SharedPrefManager.getInstance(mCtx).getUser().getSubscriberId()).get();
                                 if (result.isEmpty()) {
-                                    result = new HelperApi.PostSentPriceRequest().execute(
-                                            String.valueOf(PriceRequestId),
-                                            SharedPrefManager.getInstance(mCtx).getUser().getUserID().toString(),
-                                            holder.productId.getText().toString().trim(),
-                                            "PriceRequest").get();
+
                                 } else {
                                     Gson gson = new Gson();
                                     Type listType = new TypeToken<PricerequestModel>() {

@@ -11,6 +11,7 @@ public class StockMain {
     public long StockOutQuantity;
     public int PricingProductId;
     public  int StockMainId;
+    public String ProImg1;
 
     public int getPricingProductId() {
         return PricingProductId;
@@ -90,5 +91,13 @@ public class StockMain {
 
     public void setStockOutQuantity(long stockOutQuantity) {
         StockOutQuantity = stockOutQuantity;
+    }
+
+    public String getProImg1() {
+        return ProImg1;
+    }
+
+    public void setProImg1(String proImg1) {
+        ProImg1 = proImg1;
     }
 }
