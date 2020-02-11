@@ -10,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-
 import com.bytes.tech.awizom.ecommerceadmin.R;
 import com.bytes.tech.awizom.ecommerceadmin.adapter.MyOrderAdapter;
 import com.bytes.tech.awizom.ecommerceadmin.configure.HelperApi;
@@ -18,7 +17,6 @@ import com.bytes.tech.awizom.ecommerceadmin.configure.SharedPrefManager;
 import com.bytes.tech.awizom.ecommerceadmin.models.MyOrderModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
 import java.util.List;
 
