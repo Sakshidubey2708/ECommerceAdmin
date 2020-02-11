@@ -64,6 +64,7 @@ dependencies {
     implementation 'com.frosquivel:magicaltakephoto:1.0'
 
     implementation 'br.com.simplepass:loading-button-android:1.14.0'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
 }
 
 apply plugin: 'com.google.gms.google-services'

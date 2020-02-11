@@ -43,7 +43,7 @@ public class SplashActivity extends AppCompatActivity {
                         public void run() {
 
                             if(SharedPrefManager.getInstance(SplashActivity.this).getUser().getUserID() == null){
-                                Intent mainIntent = new Intent(SplashActivity.this,SignInActivity.class);
+                                Intent mainIntent = new Intent(SplashActivity.this,login.class);
                                 SplashActivity.this.startActivity(mainIntent);
                                 SplashActivity.this.finish();
                             }else {

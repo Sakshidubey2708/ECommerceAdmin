@@ -1,8 +1,10 @@
 package com.bytes.tech.awizom.ecommerceadmin.activity;
 
 import android.app.ActivityOptions;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -54,7 +56,7 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
     OrderDetailMain orderDetailMain;
     private LinearLayout requestlayout,getAmount;
     private TextView salesPrices,DiscountPrices,stockQuantitys;
-    private TextView imgelinks;
+    private TextView imgelinks,stockin,stockout;
     private ImageView images;
     private Button DoneBtn;
 
@@ -92,6 +94,9 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
         show_price.setOnClickListener(this);
         request.setOnClickListener(this);
 
+        stockin =  findViewById(R.id.stockIN);
+        stockout =  findViewById(R.id.stockOut);
+
         imgelinks = findViewById(R.id.imgelinkText);
         images = findViewById(R.id.image);
         DoneBtn = findViewById(R.id.BtnDone);
@@ -121,6 +126,8 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
                 productDescription.setText(stockMains.getDescriptions().toString());
                 product_idss.setText(String.valueOf(stockMains.getProductId()));
                 imgelinks.setText(stockMains.getProImg1().toString());
+                stockin.setText(String.valueOf(stockMains.getStockInQuantity()));
+                stockout.setText(String.valueOf(stockMains.getStockOutQuantity()));
                 String url = AppConfig.BASE_URL+"/" +imgelinks.getText().toString();
                 if (url != null) {
                     Glide.with(images)
@@ -256,77 +263,94 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
                         order.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                try {
-                                    k = ++k;
-                                    String S= "ord"+k;
 
-                                    result = new HelperApi.PostOrderMain().execute(
-                                            String.valueOf(orderMainIDs),
-                                            S.toString(),
-                                            SharedPrefManager.getInstance(StockActivity.this).getUser().getUserID().toString(),
-                                            "",order.getText().toString().trim(),"","","",
-                                            SharedPrefManager.getInstance(StockActivity.this).getUser().getSubscriberId(),"1").get();
+                                if(!stockin.getText().toString().equals("0")){
+                                    try {
+                                        k = ++k;
+                                        String S= "ord"+k;
 
-                                    if (result.isEmpty()) {
+                                        result = new HelperApi.PostOrderMain().execute(
+                                                String.valueOf(orderMainIDs),
+                                                S.toString(),
+                                                SharedPrefManager.getInstance(StockActivity.this).getUser().getUserID().toString(),
+                                                "",order.getText().toString().trim(),"","","",
+                                                SharedPrefManager.getInstance(StockActivity.this).getUser().getSubscriberId(),"1").get();
 
-                                    } else {
+                                        if (result.isEmpty()) {
 
-                                        Gson gson = new Gson();
-                                        Type listType = new TypeToken<OrderMainModel>() {
-                                        }.getType();
-                                        orderMainModel = new Gson().fromJson(result, listType);
-                                        orderMainID =orderMainModel.getOrderId();
+                                        } else {
 
-                                        if(orderMainID == 0){
+                                            Gson gson = new Gson();
+                                            Type listType = new TypeToken<OrderMainModel>() {
+                                            }.getType();
+                                            orderMainModel = new Gson().fromJson(result, listType);
+                                            orderMainID =orderMainModel.getOrderId();
 
-                                        }else {
-
-                                            Double  qty, ass_price,total;
-                                            qty = Double.parseDouble(quantity.getText().toString());
-                                            ass_price = Double.parseDouble(salePrices.getText().toString());
-                                            total = qty * ass_price;
-
-                                            salesPrices.setText(String.valueOf(ass_price));
-                                            salesPrices.setTextColor(Color.parseColor("#0d0d0d"));
-                                            DiscountPrices.setText(String.valueOf(pricerequestModel.getSaleDiscount()));
-                                            DiscountPrices.setTextColor(Color.parseColor("#0d0d0d"));
-                                            stockQuantitys.setText(String.valueOf(qty));
-                                            stockQuantitys.setTextColor(Color.parseColor("#0d0d0d"));
-
-                                          //  Toast.makeText(StockActivity.this,"OrderMAin"+String.valueOf(orderMainID),Toast.LENGTH_LONG).show();
-                                            result = new HelperApi.PostOrderDetailMain().execute(
-                                                    String.valueOf(orderDetailID),
-                                                    String.valueOf(orderMainID),
-                                                    product_idss.getText().toString(),
-                                                    salePrices.getText().toString(),quantity.getText().toString(),
-                                                    total.toString(),  discountPrices.getText().toString(),
-                                                    "", "",  "",  "", "").get();
-                                            if(result.isEmpty()){
+                                            if(orderMainID == 0){
 
                                             }else {
-                                                Gson gsons = new Gson();
-                                                Type listType1 = new TypeToken<OrderDetailMain>() {
-                                                }.getType();
-                                                orderDetailMain = new Gson().fromJson(result, listType1);
-                                                result = new HelperApi.PostOrderMain().execute(
-                                                        String.valueOf(orderMainID),
-                                                        S.toString(),
-                                                        SharedPrefManager.getInstance(StockActivity.this).getUser().getUserID().toString(),
-                                                        "",order.getText().toString().trim(),
-                                                        total.toString(),"","",SharedPrefManager.getInstance(StockActivity.this).getUser().getSubscriberId(),"1").get();
 
-                                                orderDetailIDs = orderDetailMain.getOrderId();
-                                                getPrricerequestTable();
-                                                if(!(orderMainID == 0)){
-                                                    order.setVisibility(View.GONE);
-                                                    quantity.setVisibility(View.GONE);
+                                                Double  qty, ass_price,total;
+                                                qty = Double.parseDouble(quantity.getText().toString());
+                                                ass_price = Double.parseDouble(salePrices.getText().toString());
+                                                total = qty * ass_price;
+
+                                                salesPrices.setText(String.valueOf(ass_price));
+                                                salesPrices.setTextColor(Color.parseColor("#0d0d0d"));
+                                                DiscountPrices.setText(String.valueOf(pricerequestModel.getSaleDiscount()));
+                                                DiscountPrices.setTextColor(Color.parseColor("#0d0d0d"));
+                                                stockQuantitys.setText(String.valueOf(qty));
+                                                stockQuantitys.setTextColor(Color.parseColor("#0d0d0d"));
+
+                                                //  Toast.makeText(StockActivity.this,"OrderMAin"+String.valueOf(orderMainID),Toast.LENGTH_LONG).show();
+                                                result = new HelperApi.PostOrderDetailMain().execute(
+                                                        String.valueOf(orderDetailID),
+                                                        String.valueOf(orderMainID),
+                                                        product_idss.getText().toString(),
+                                                        salePrices.getText().toString(),quantity.getText().toString(),
+                                                        total.toString(),  discountPrices.getText().toString(),
+                                                        "", "",  "",  "", "").get();
+                                                if(result.isEmpty()){
+
+                                                }else {
+                                                    Gson gsons = new Gson();
+                                                    Type listType1 = new TypeToken<OrderDetailMain>() {
+                                                    }.getType();
+                                                    orderDetailMain = new Gson().fromJson(result, listType1);
+                                                    result = new HelperApi.PostOrderMain().execute(
+                                                            String.valueOf(orderMainID),
+                                                            S.toString(),
+                                                            SharedPrefManager.getInstance(StockActivity.this).getUser().getUserID().toString(),
+                                                            "",order.getText().toString().trim(),
+                                                            total.toString(),"","",SharedPrefManager.getInstance(StockActivity.this).getUser().getSubscriberId(),"1").get();
+
+                                                    orderDetailIDs = orderDetailMain.getOrderId();
+                                                    getPrricerequestTable();
+                                                    if(!(orderMainID == 0)){
+                                                        order.setVisibility(View.GONE);
+                                                        quantity.setVisibility(View.GONE);
+                                                    }
                                                 }
                                             }
                                         }
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
                                     }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
+                                }else {
+                                    AlertDialog.Builder alertbox = new AlertDialog.Builder(StockActivity.this);
+                                    alertbox.setIcon(R.drawable.ic_warning_black_24dp);
+                                    alertbox.setTitle("Sorry !! Stock not available.");
+                                    alertbox.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface arg0, int arg1) {
+                                            // finish used for destroyed activity
+
+                                        }
+                                    });
+
+
+                                    alertbox.show();
                                 }
+
                             }
                         });
                         dialog.show();

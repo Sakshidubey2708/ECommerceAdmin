@@ -84,7 +84,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:inputType="textPassword"
+            android:inputType="numberPassword"
             android:hint="Password"
             android:textSize="15sp"
             android:background="@color/white"

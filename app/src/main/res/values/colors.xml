@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#c1022e</color>
-    <color name="colorPrimaryDark">#c1022e</color>
-    <color name="colorAccent">#c1022e</color>
+    <!--<color name="colorPrimary">#c1022e</color>-->
+    <!--<color name="colorPrimaryDark">#c1022e</color>-->
+    <!--<color name="colorAccent">#c1022e</color>-->
 
     <color name="white">#fffeff</color>
     <color name="maroon">#c1022e</color>
@@ -25,4 +25,14 @@
     <color name="transparent">#00000000</color>
     <color name="transparency">#00000000</color>
 
+
+    <color name="colorPrimary">#3F51B5</color>
+
+    <color name="colorPrimaryDark">#3F51B5</color>
+
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="blackTextColor">#000</color>
+
+    <color name="colorLoginPrimaryDark">#FDFFFF</color>
 </resources>

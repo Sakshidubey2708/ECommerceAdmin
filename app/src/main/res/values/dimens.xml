@@ -6,6 +6,10 @@
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
+    <!-- 11 Feb. -->
+    <dimen name="headerTextSize">22sp</dimen>
+    <dimen name="newsMoreTextSize">16sp</dimen>
+    <dimen name="signup_text_margin_top">5dp</dimen>
 
 
 

@@ -11,6 +11,7 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
     </style>
 
     <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light.NoActionBar">
@@ -18,6 +19,7 @@
         <item name="android:windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
+        <!--<item name="android:textSize">8sp</item>-->
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -41,7 +43,7 @@
     <style name="Theme">s</style>
 
     <style name="ThemeOverlay">ss</style>
-    //Dailog bottom to up
+    <!--//Dailog bottom to up-->
 
     <style name="DialogAnimation">
         <item name="android:windowEnterAnimation">@anim/slide_up_dialog</item>
@@ -55,4 +57,47 @@
 
 
 
-</resources>
+
+   <!--11 Feb-->
+    <style name="LoginTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorLoginPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
+
+     <style name="parent">
+
+     <item name="android:layout_width">match_parent</item>
+
+     <item name="android:layout_height">wrap_content</item>
+
+ </style>
+
+
+     <style name="viewParent">
+
+     <item name="android:layout_width">wrap_content</item>
+
+     <item name="android:layout_height">wrap_content</item>
+
+ </style>
+
+
+     <style name="parent.TextLayout">
+
+     <item name="android:layout_marginLeft">15dp</item>
+
+ </style>
+
+
+     <style parent="parent" name="modifiedEditText">
+
+     <item name="android:textSize">@dimen/newsMoreTextSize</item>
+
+ </style>
+ </resources>

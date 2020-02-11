@@ -6,10 +6,12 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_builtyUpload"
-            android:title="Download Bilti" />
+            android:title="Download Bilti"
+            android:visible="false"/>
         <item
             android:id="@+id/nav_searchActivity"
-            android:title="Search" />
+            android:title="Search"
+            android:visible="false"/>
         <item
             android:id="@+id/nav_Chat"
             android:title="Chat" />
@@ -22,11 +24,13 @@
 
         <item
             android:id="@+id/nav_orderRunning"
-            android:title="Running Order" />
+            android:title="Running Order"
+            android:visible="false"/>
 
         <item
             android:id="@+id/nav_weblink"
-            android:title="Web Link" />
+            android:title="Web Link"
+            android:visible="false" />
         <item
             android:id="@+id/nav_login"
             android:title="Login" />

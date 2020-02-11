@@ -177,9 +177,9 @@ public class RetailerHomeActivity extends AppCompatActivity
 
         color = new ArrayList<>();
         imglist = new ArrayList<Integer>();
-        imglist.add(R.drawable.ec);
-        imglist.add(R.drawable.m1);
-        imglist.add(R.drawable.stt);
+        imglist.add(R.drawable.slide1);
+        imglist.add(R.drawable.slide2);
+        imglist.add(R.drawable.slide3);
         color.add(Color.RED);
         color.add(Color.GREEN);
         color.add(Color.BLUE);
@@ -333,7 +333,7 @@ public class RetailerHomeActivity extends AppCompatActivity
             startActivity(intent=new Intent(this,MyProceedOrderActivity.class));
         }else if (id == R.id.nav_login) {
             if(SharedPrefManager.getInstance(this).getUser().getUserID() == null){
-                startActivity(intent=new Intent(this,SignInActivity.class));
+                startActivity(intent=new Intent(this,login.class));
             }else {
                 AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
                 alertbox.setIcon(R.drawable.ic_warning_black_24dp);
@@ -355,7 +355,7 @@ public class RetailerHomeActivity extends AppCompatActivity
 
 
                     SharedPrefManager.getInstance(RetailerHomeActivity.this).logout();
-                    startActivity(intent=new Intent(RetailerHomeActivity.this,SignInActivity.class));
+                    startActivity(intent=new Intent(RetailerHomeActivity.this,login.class));
                 }
             });
 

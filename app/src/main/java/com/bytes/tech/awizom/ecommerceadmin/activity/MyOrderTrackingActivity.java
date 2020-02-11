@@ -1,10 +1,12 @@
 package com.bytes.tech.awizom.ecommerceadmin.activity;
 
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
@@ -55,7 +57,7 @@ public class MyOrderTrackingActivity extends AppCompatActivity {
 
         verticalSeekBar = findViewById(R.id.capacity_seek);
 
-        placeOrders = findViewById(R.id.orderPlace);
+        placeOrders = findViewById(R.id.orderplaced);
 //        AcceptOrders = findViewById(R.id.orderAccept);
 //        UnderProcessOrders = findViewById(R.id.UnderProcess);
  //       DispatchOrders = findViewById(R.id.dispatch);
@@ -78,6 +80,7 @@ public class MyOrderTrackingActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("ResourceAsColor")
     private void GetTracking() {
 
         try {
@@ -91,6 +94,7 @@ public class MyOrderTrackingActivity extends AppCompatActivity {
             if (orderMainModel.getOrderDispatch().equals(vals.toString())) {
                 trackinProgress = 4;
                 secondaryProgress = trackinProgress + 1;
+                placeOrders.setTextColor(R.color.green);
 
             } else if (orderMainModel.getUnderProccess().equals(vals.toString())) {
                 trackinProgress = 3;
