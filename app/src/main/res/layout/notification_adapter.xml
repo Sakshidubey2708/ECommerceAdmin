@@ -42,7 +42,13 @@
                         android:layout_height="40dp"
                         android:layout_gravity="center_horizontal|center"
                         android:orientation="vertical">
-                        <ImageView
+                        <TextView
+                            android:id="@+id/imglink"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/image"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:tint="@color/grey_dark"
@@ -101,6 +107,11 @@
                             android:id="@+id/notifcationType"
                             android:visibility="gone"/>
                     </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/cid"
+                        android:visibility="gone"/>
 
                 </LinearLayout>
 

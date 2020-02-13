@@ -16,7 +16,9 @@
     <string name="note">Sign-up now to get <b>500 off + free shipping</b> on your first order</string>
     <string name="notification_activity">notify</string>
 
-
+    <string name="query">In case you want to write letter yourself the
+        use following business inquiry letter sample.</string>
+    <string name="query1">In case you want to call yourself the use following contact number.</string>
     <string name="default_notification_channel_id">0102</string>
     <string name="default_notification_channel_name">Product</string>
 

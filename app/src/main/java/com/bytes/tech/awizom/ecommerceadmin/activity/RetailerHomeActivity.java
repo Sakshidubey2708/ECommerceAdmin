@@ -302,28 +302,10 @@ public class RetailerHomeActivity extends AppCompatActivity
             startActivity(intent=new Intent(this,ChatActivity.class));
         }else  if (id == R.id.nav_ordrTrack) {
             startActivity(intent=new Intent(this,MyOrderTrackingActivity.class));
-        }else  if (id == R.id.nav_weblink) {
-            AlertDialog.Builder alertbox = new AlertDialog.Builder(RetailerHomeActivity.this);
-            alertbox.setIcon(R.drawable.ic_bookmark_black_24dp);
-            alertbox.setTitle("Do You Want To Open?");
-            alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface arg0, int arg1) {
-                    // finish used for destroyed activity
-
-                    intent = new Intent(RetailerHomeActivity.this,WebViewActivity.class);
-                    startActivity(intent);
-
-                }
-            });
-
-            alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface arg0, int arg1) {
-
-                }
-            });
-            alertbox.show();
-        }
-        else  if (id == R.id.nav_builtyUpload) {
+        }else  if (id == R.id.nav_enquiry) {
+            intent = new Intent(RetailerHomeActivity.this,EnquiryActivity.class);
+            startActivity(intent);
+        }else  if (id == R.id.nav_builtyUpload) {
             startActivity(intent=new Intent(this,BuiltiUploadActivity.class));
         }else if (id == R.id.nav_notification) {
             startActivity(intent=new Intent(this,NotificationListActivity.class));

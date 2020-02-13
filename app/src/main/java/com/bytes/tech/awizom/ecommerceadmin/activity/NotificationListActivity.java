@@ -84,7 +84,7 @@ public class NotificationListActivity extends AppCompatActivity {
             progressDialog.setMessage("loading...");
             progressDialog.show();
             mSwipeRefreshLayout.setRefreshing(true);
-            result = new HelperApi.GETNotifications().execute(SharedPrefManager.getInstance(this).getUser().getSubscriberId()).get();
+            result = new HelperApi.GETNotifications().execute(SharedPrefManager.getInstance(this).getUser().getSubscriberId(),SharedPrefManager.getInstance(this).getUser().getUserID()).get();
             if (result.isEmpty()) {
                 progressDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);

@@ -957,11 +957,12 @@ public class HelperApi extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             String json = "";
             String userId = strings[0];
+            String cid = strings[1];
             try {
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "/GETnotificationList/"+userId);
+                builder.url(AppConfig.BASE_URL_API + "/GetNotificationDetails/"+userId+"/"+cid);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 okhttp3.Response response = client.newCall(builder.build()).execute();
@@ -1027,12 +1028,13 @@ public class HelperApi extends AppCompatActivity {
 
             String notiid = params[0];
 
+            String cid = params[1];
 
             String json = "";
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "/PostNotification/"+notiid);
+                builder.url(AppConfig.BASE_URL_API + "/PostNotification/"+notiid+"/"+cid);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 FormBody.Builder parameters = new FormBody.Builder();

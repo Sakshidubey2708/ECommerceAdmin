@@ -10,13 +10,16 @@ public class NotificationListModel {
     public int OrderId ;
     public int OrderDetailId;
     public Boolean isRead ;
+    public String ProductName ;
+    public String ProImg1 ;
+    public  String CustomerId;
 
-    public Boolean getRead() {
-        return isRead;
+    public String getCustomerId() {
+        return CustomerId;
     }
 
-    public void setRead(Boolean read) {
-        isRead = read;
+    public void setCustomerId(String customerId) {
+        CustomerId = customerId;
     }
 
     public int getNotificationId() {
@@ -81,5 +84,29 @@ public class NotificationListModel {
 
     public void setOrderDetailId(int orderDetailId) {
         OrderDetailId = orderDetailId;
+    }
+
+    public Boolean getRead() {
+        return isRead;
+    }
+
+    public void setRead(Boolean read) {
+        isRead = read;
+    }
+
+    public String getProductName() {
+        return ProductName;
+    }
+
+    public void setProductName(String productName) {
+        ProductName = productName;
+    }
+
+    public String getProImg1() {
+        return ProImg1;
+    }
+
+    public void setProImg1(String proImg1) {
+        ProImg1 = proImg1;
     }
 }
