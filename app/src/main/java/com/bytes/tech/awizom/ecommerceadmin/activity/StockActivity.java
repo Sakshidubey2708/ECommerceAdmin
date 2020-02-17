@@ -21,8 +21,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.bytes.tech.awizom.ecommerceadmin.R;
 import com.bytes.tech.awizom.ecommerceadmin.configure.AppConfig;
@@ -147,7 +145,8 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
     }
     private void getPrricerequestTable() {
         try {
-            result = new HelperApi.GETPriceRequests().execute(product_idss.getText().toString()).get();
+            result = new HelperApi.GETPriceRequests().execute(product_idss.getText().toString(),
+                    SharedPrefManager.getInstance(StockActivity.this).getUser().getUserID()).get();
             if (result.isEmpty()) {
                 result = new HelperApi.GETPriceRequests().execute(product_idss.getText().toString()).get();
             } else {
@@ -212,9 +211,11 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.btnShow:
                 try {
-                    result = new HelperApi.GETPriceRequests().execute(product_idss.getText().toString()).get();
+                    result = new HelperApi.GETPriceRequests().execute(product_idss.getText().toString(),
+                            SharedPrefManager.getInstance(this).getUser().getUserID()).get();
                     if (result.isEmpty()) {
-                        result = new HelperApi.GETPriceRequests().execute(product_idss.getText().toString()).get();
+                        result = new HelperApi.GETPriceRequests().execute(product_idss.getText().toString(),
+                                SharedPrefManager.getInstance(this).getUser().getUserID()).get();
                     } else {
                         Gson gsons = new Gson();
                         Type listType1 = new TypeToken<PricerequestModel>() {

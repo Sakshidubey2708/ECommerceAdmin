@@ -247,6 +247,40 @@ public class HelperApi extends AppCompatActivity {
             }
         }
     }
+    public static final class GetSingleProductList extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String json = "";
+            String productID=strings[0];
+            try {
+
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "/GetProductsLists/"+productID);
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return json;
+        }
+        protected void onPostExecute(String result) {
+            try {
+                if (result.isEmpty()) {
+                } else {
+                    super.onPostExecute(result);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
     public static final class DeleteCartPost extends AsyncTask<String, Void, String> {
 
         @Override
@@ -887,13 +921,14 @@ public class HelperApi extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             String json = "";
-            String id = strings[0];
+            String Sub_id = strings[0];
+            String User_id = strings[1];
             try {
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder
                         ();
-                builder.url(AppConfig.BASE_URL_API + "/GETPriceRequests/"+ id);
+                builder.url(AppConfig.BASE_URL_API + "/GETPriceRequests/"+ Sub_id +"/"+User_id);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 okhttp3.Response response = client.newCall(builder.build()).execute();
@@ -996,7 +1031,7 @@ public class HelperApi extends AppCompatActivity {
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "/GETNotificationCount/"+userId);
+                builder.url(AppConfig.BASE_URL_API + "/GETNotifyCount/"+userId);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 okhttp3.Response response = client.newCall(builder.build()).execute();
@@ -1109,12 +1144,13 @@ public class HelperApi extends AppCompatActivity {
 
             String json = "";
             String subscriptionId = strings[0];
+            String usrid = strings[1];
 
             try {
 
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder.url(AppConfig.BASE_URL_API + "/GetMYtotalOrders/"+subscriptionId);
+                builder.url(AppConfig.BASE_URL_API + "/GetMYtotalOrders/"+subscriptionId+"/"+usrid);
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 builder.addHeader("Accept", "application/json");
                 okhttp3.Response response = client.newCall(builder.build()).execute();

@@ -1,41 +1,21 @@
 package com.bytes.tech.awizom.ecommerceadmin.chat;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bytes.tech.awizom.ecommerceadmin.R;
-import com.bytes.tech.awizom.ecommerceadmin.activity.SignInActivity;
-import com.bytes.tech.awizom.ecommerceadmin.adapter.ProductListAdapter;
-import com.bytes.tech.awizom.ecommerceadmin.configure.HelperApi;
-import com.bytes.tech.awizom.ecommerceadmin.configure.SharedPrefManager;
 import com.bytes.tech.awizom.ecommerceadmin.models.ChatModel;
 import com.bytes.tech.awizom.ecommerceadmin.models.PricerequestModel;
-import com.bytes.tech.awizom.ecommerceadmin.models.ProductModel;
 import com.bytes.tech.awizom.ecommerceadmin.models.RatingModel;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class ChatAdapter extends  RecyclerView.Adapter<ChatAdapter.OrderItemViewHolder> {
 

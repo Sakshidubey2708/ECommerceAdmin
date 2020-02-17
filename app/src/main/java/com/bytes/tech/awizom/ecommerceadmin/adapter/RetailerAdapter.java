@@ -121,7 +121,7 @@ public class RetailerAdapter extends BaseAdapter {
                     }
                 });
 
-                String url = AppConfig.BASE_URL+"/" +imglinkurl.getText().toString();
+                String url = AppConfig.BASE_URL_Imaage+"/" +imglinkurl.getText().toString();
                 if (url != null) {
                     Glide.with(imgs)
                             .load(url)

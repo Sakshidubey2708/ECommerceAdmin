@@ -212,7 +212,7 @@ public class RetailerHomeActivity extends AppCompatActivity
     private void getNotificationCount() {
         try {
 
-            result = new HelperApi.GETNotificationCount().execute(SharedPrefManager.getInstance(this).getUser().getSubscriberId()).get();
+            result = new HelperApi.GETNotificationCount().execute(SharedPrefManager.getInstance(this).getUser().getUserID()).get();
             if (result.isEmpty()) {
 
             } else {

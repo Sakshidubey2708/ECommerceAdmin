@@ -10,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-
 import com.bytes.tech.awizom.ecommerceadmin.R;
 import com.bytes.tech.awizom.ecommerceadmin.adapter.NotificationAdapter;
 import com.bytes.tech.awizom.ecommerceadmin.configure.HelperApi;
@@ -18,7 +17,6 @@ import com.bytes.tech.awizom.ecommerceadmin.configure.SharedPrefManager;
 import com.bytes.tech.awizom.ecommerceadmin.models.NotificationListModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -41,7 +39,6 @@ public class NotificationListActivity extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
     private void initview() {
@@ -60,8 +57,6 @@ public class NotificationListActivity extends AppCompatActivity {
         toolbar.setSubtitleTextAppearance(getApplicationContext(), R.style.styleA);
         toolbar.setTitleTextAppearance(getApplicationContext(), R.style.styleA);
         toolbar.setTitleTextColor(Color.WHITE);
-
-
 
 
         progressDialog = new ProgressDialog(this);

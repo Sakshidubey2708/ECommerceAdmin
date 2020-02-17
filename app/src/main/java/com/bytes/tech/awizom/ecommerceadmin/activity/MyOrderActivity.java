@@ -84,7 +84,8 @@ public class MyOrderActivity extends AppCompatActivity {
             mSwipeRefreshLayout.setRefreshing(true);
 //            result = new HelperApi.GETMyOrderPlace().execute(SharedPrefManager.getInstance(MyOrderActivity.this).getUser().getSubscriberId(),
 //                    "Place Order").get();
-            result = new HelperApi.GETMyTotalOrder().execute(SharedPrefManager.getInstance(MyOrderActivity.this).getUser().getSubscriberId()).get();
+            result = new HelperApi.GETMyTotalOrder().execute(SharedPrefManager.getInstance(MyOrderActivity.this).getUser().getSubscriberId(),
+                    SharedPrefManager.getInstance(MyOrderActivity.this).getUser().getUserID()).get();
             if (result.isEmpty()) {
                 progressDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);

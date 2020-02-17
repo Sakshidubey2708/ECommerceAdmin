@@ -50,26 +50,31 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         if (!catagoriesModel.getCustomerId().equals("-")) {
             holder.linear.setBackgroundColor(Color.parseColor("#F9F9F9"));
         }
-        holder.noti_id.setText(String.valueOf(catagoriesModel.getNotificationId()));
-        holder.catagory_names.setText(catagoriesModel.getProductName().toString());
-        holder.catagoryIDs.setText(String.valueOf(catagoriesModel.getNotificationDescription()));
+        try {
+            holder.noti_id.setText(String.valueOf(catagoriesModel.getNotificationId()));
+            holder.catagory_names.setText(catagoriesModel.getProductName().toString());
+            holder.catagoryIDs.setText(String.valueOf(catagoriesModel.getNotificationDescription()));
 
-        holder.order_id.setText(String.valueOf(catagoriesModel.getOrderId()));
-        holder.product_id.setText(String.valueOf(catagoriesModel.getProductId()));
-        holder.typenotif.setText(catagoriesModel.getNotificationType().toString());
-        holder.imglinks.setText(catagoriesModel.getProImg1().toString());
+            holder.order_id.setText(String.valueOf(catagoriesModel.getOrderId()));
+            holder.product_id.setText(String.valueOf(catagoriesModel.getProductId()));
+            holder.typenotif.setText(catagoriesModel.getNotificationType().toString());
+            holder.imglinks.setText(catagoriesModel.getProImg1().toString());
 
 
-        String url = AppConfig.BASE_URL + "/" + holder.imglinks.getText().toString();
-        if (url != null) {
-            Glide.with(holder.images)
-                    .load(url)
-                    .centerCrop()
-                    .placeholder(R.mipmap.product)
-                    .error(R.mipmap.product)
-                    .fallback(R.mipmap.product)
-                    .into(holder.images);
+            String url = AppConfig.BASE_URL_Imaage + holder.imglinks.getText().toString();
+            if (url != null) {
+                Glide.with(holder.images)
+                        .load(url)
+                        .centerCrop()
+                        .placeholder(R.mipmap.product)
+                        .error(R.mipmap.product)
+                        .fallback(R.mipmap.product)
+                        .into(holder.images);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
      /*   if(catagoriesModel.isRead){
             holder.linear.setBackgroundColor(Color.parseColor("#F9F9F9"));
         }*/
@@ -84,12 +89,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                         if (result.isEmpty()) {
                         } else {
                             if (holder.typenotif.getText().toString().equals("Purchase")) {
-                                mCtx.startActivity(i = new Intent(mCtx, ProductListActivity.class));
-                            } else if (holder.typenotif.toString().equals("SendPrice")) {
+                                i = new Intent(mCtx, ProductListActivity.class);
+                                i=i.putExtra("PID",  holder.product_id.getText().toString());
+                                mCtx.startActivity(i);
+                            } else if (holder.typenotif.getText().toString().equals("SendPrice")) {
                                 mCtx.startActivity(i = new Intent(mCtx, StockActivity.class));
-                            }  else if (!(holder.product_id.toString().equals("0"))) {
-                                mCtx.startActivity(i = new Intent(mCtx, ProductListActivity.class));
-                            }else {
+                            } else {
                                 mCtx.startActivity(i = new Intent(mCtx, NotificationListActivity.class));
                             }
                         }
@@ -97,11 +102,11 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
                     }else {
                         if (holder.typenotif.getText().toString().equals("Purchase")) {
-                            mCtx.startActivity(i = new Intent(mCtx, ProductListActivity.class));
-                        } else if (holder.typenotif.toString().equals("SendPrice")) {
+                            i = new Intent(mCtx, ProductListActivity.class);
+                            i=i.putExtra("PID",  holder.product_id.getText().toString());
+                            mCtx.startActivity(i);
+                        } else if (holder.typenotif.getText().toString().equals("SendPrice")) {
                             mCtx.startActivity(i = new Intent(mCtx, StockActivity.class));
-                        }  else if (!(holder.product_id.toString().equals("0"))) {
-                            mCtx.startActivity(i = new Intent(mCtx, ProductListActivity.class));
                         }else {
                             mCtx.startActivity(i = new Intent(mCtx, NotificationListActivity.class));
                         }
@@ -113,7 +118,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         });
 
     }
-
 
     @Override
     public int getItemCount() {
