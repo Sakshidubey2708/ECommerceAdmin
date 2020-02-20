@@ -68,7 +68,7 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
     private void initview() {
 
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Stock");
+        toolbar.setTitle("Product");
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

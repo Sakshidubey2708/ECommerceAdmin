@@ -10,8 +10,7 @@
             android:visible="false"/>
         <item
             android:id="@+id/nav_searchActivity"
-            android:title="Search"
-            android:visible="false"/>
+            android:title="Search" />
         <item
             android:id="@+id/nav_Chat"
             android:title="Chat" />

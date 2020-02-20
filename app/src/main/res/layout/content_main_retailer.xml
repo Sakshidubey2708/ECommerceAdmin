@@ -118,26 +118,58 @@
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
                 <!--//Notification card view End-->
-                <!--<RelativeLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:orientation="vertical"-->
-                    <!--android:layout_marginTop="100dp">-->
-                    <!--<TextView-->
-                        <!--android:id="@+id/subscriberNAme"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_centerHorizontal="true"-->
-                        <!--android:textColor="@color/black"-->
-                        <!--android:textSize="15sp"/>-->
-                    <!--<TextView-->
-                        <!--android:id="@+id/subscriber_catagory"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_centerHorizontal="true"-->
-                        <!--android:textColor="@color/black"-->
-                        <!--android:textSize="15sp"/>-->
-                <!--</RelativeLayout>-->
+<android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+    android:layout_margin="6dp"
+    app:cardCornerRadius="6dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="5dp">
+        <TextView
+            android:id="@+id/logedinUserNAme"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:textSize="13sp"
+            android:textColor="@color/blue"
+            android:paddingLeft="5dp"
+            android:gravity="center|left"
+            android:fontFamily="serif"/>
+        <TextView
+            android:id="@+id/logedinUserBuiseness"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:textSize="13sp"
+            android:textColor="@color/blue"
+            android:paddingLeft="5dp"
+            android:gravity="center|left"
+            android:fontFamily="serif"/>
+        <TextView
+            android:id="@+id/subscriberUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:textSize="13sp"
+            android:textColor="@color/blue"
+            android:paddingLeft="5dp"
+            android:gravity="center|left"
+            android:fontFamily="serif"/>
+        <TextView
+            android:id="@+id/subscriberUserFirm"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:textSize="13sp"
+            android:textColor="@color/blue"
+            android:paddingLeft="5dp"
+            android:gravity="center|left"
+            android:fontFamily="serif" />
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
+
+
+
                 <GridView
                     android:id="@+id/gridview"
                     android:layout_width="match_parent"

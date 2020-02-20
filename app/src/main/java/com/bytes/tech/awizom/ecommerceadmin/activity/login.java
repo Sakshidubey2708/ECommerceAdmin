@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bytes.tech.awizom.ecommerceadmin.R;
 import com.bytes.tech.awizom.ecommerceadmin.configure.AccountControlerHelper;
@@ -67,7 +68,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
             progressDialog.show();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CUPCAKE) {
                 result = new AccountControlerHelper.PostLogin().execute(emails.getText().toString(),passWord.getText().toString()).get();
-            }
+            }    Toast.makeText(login.this, result.toString(), Toast.LENGTH_SHORT).show();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
                 if(result.isEmpty()){
                     progressDialog.dismiss();
@@ -85,10 +86,12 @@ public class login extends AppCompatActivity implements View.OnClickListener {
                         us.SubscriberId = jsonbody.SubscriberId;
                         us.FirmName = jsonbody.FirmName;
                         us.Category = jsonbody.Category;
+                        us.Business = jsonbody.Business;
+                        us.logedInUserName = jsonbody.logedInUserName;
                         SharedPrefManager.getInstance(getApplicationContext()).userLogin(us);
 
                         Snackbar.make(getWindow().getDecorView().getRootView(),  "Login Successfull", Snackbar.LENGTH_LONG).show();
-                        // Toast.makeText(SignInActivity.this, SharedPrefManager.getInstance(this).getUser().getSubscriberId(), Toast.LENGTH_SHORT).show();
+                     /*    Toast.makeText(login.this, result.toString(), Toast.LENGTH_SHORT).show();*/
 
                         Intent i = new Intent(this, RetailerHomeActivity.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

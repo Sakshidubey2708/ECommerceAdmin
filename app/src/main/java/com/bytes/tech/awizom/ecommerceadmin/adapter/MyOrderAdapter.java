@@ -1,32 +1,19 @@
 package com.bytes.tech.awizom.ecommerceadmin.adapter;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
 import com.bytes.tech.awizom.ecommerceadmin.R;
-import com.bytes.tech.awizom.ecommerceadmin.activity.MyOrderActivity;
 import com.bytes.tech.awizom.ecommerceadmin.activity.MyOrderTrackingActivity;
 import com.bytes.tech.awizom.ecommerceadmin.activity.OrderDispatch;
-import com.bytes.tech.awizom.ecommerceadmin.configure.HelperApi;
-import com.bytes.tech.awizom.ecommerceadmin.configure.SharedPrefManager;
 import com.bytes.tech.awizom.ecommerceadmin.models.MyOrderModel;
-import com.bytes.tech.awizom.ecommerceadmin.models.NotificationListModel;
 import com.bytes.tech.awizom.ecommerceadmin.models.OrderDispatchDetail;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 import java.util.List;
 
 public class MyOrderAdapter extends  RecyclerView.Adapter<MyOrderAdapter.OrderItemViewHolder> {
@@ -111,8 +98,6 @@ public class MyOrderAdapter extends  RecyclerView.Adapter<MyOrderAdapter.OrderIt
             orderIds=view.findViewById(R.id.orderId);
             viewBtn = view.findViewById(R.id.view);
             itemView.setOnClickListener(this);
-
-
         }
 
         @Override

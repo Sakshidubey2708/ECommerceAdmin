@@ -20,8 +20,11 @@ public class SharedPrefManager {
 
     private static final String KEY_USER_CAtagory = "catagoryname";
     private static final String KEY_PREF_FirmName= "firmname";
-    private static final String KEY_PREF_UserName= "username";
+    private static final String KEY_PREF_UserName= "usernames";
     private static final String SHARED_PREF_assured_amt = "dhh";
+
+    private static final String KEY_PREF_Business= "business";
+    private static final String KEY_PREF_logedInUserName= "userlogged";
 
 
     private SharedPrefManager(Context context) {
@@ -44,6 +47,9 @@ public class SharedPrefManager {
         editor.putString(KEY_USER_CAtagory, user.Category);
         editor.putString(KEY_PREF_FirmName, user.FirmName);
         editor.putString(KEY_PREF_UserName, user.UserName);
+
+        editor.putString(KEY_PREF_Business, user.Business);
+        editor.putString(KEY_PREF_logedInUserName, user.logedInUserName);
         editor.apply();
         return true;
 
@@ -58,6 +64,9 @@ public class SharedPrefManager {
         users.Category   =  sharedPreferences.getString(KEY_USER_CAtagory, null);
         users.FirmName   =  sharedPreferences.getString(KEY_PREF_FirmName, null);
         users.UserName   =  sharedPreferences.getString(KEY_PREF_UserName, null);
+
+        users.Business   =  sharedPreferences.getString(KEY_PREF_Business, null);
+        users.logedInUserName   =  sharedPreferences.getString(KEY_PREF_logedInUserName, null);
         return  users;
     }
 

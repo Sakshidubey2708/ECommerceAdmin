@@ -9,11 +9,13 @@ public class UserLogin {
     public String SubscriberId ;
     public String FirmName;
     public String Category;
-
     public int Id ;
-;
     public String LogInDate;
     public String LogInType ;
+
+    public String Business;
+    public int ContactNo ;
+    public String logedInUserName ;
 
     public String getUserName() {
         return UserName;
@@ -93,5 +95,29 @@ public class UserLogin {
 
     public void setLogInType(String logInType) {
         LogInType = logInType;
+    }
+
+    public String getBusiness() {
+        return Business;
+    }
+
+    public void setBusiness(String business) {
+        Business = business;
+    }
+
+    public int getContactNo() {
+        return ContactNo;
+    }
+
+    public void setContactNo(int contactNo) {
+        ContactNo = contactNo;
+    }
+
+    public String getLogedInUserName() {
+        return logedInUserName;
+    }
+
+    public void setLogedInUserName(String logedInUserName) {
+        this.logedInUserName = logedInUserName;
     }
 }

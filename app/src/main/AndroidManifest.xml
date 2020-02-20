@@ -94,6 +94,9 @@
             android:name=".activity.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
+            android:name=".activity.SearchAdminActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".activity.ProductListActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity

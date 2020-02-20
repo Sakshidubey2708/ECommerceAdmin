@@ -40,7 +40,6 @@ import com.bytes.tech.awizom.ecommerceadmin.models.StockMain;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,19 +60,15 @@ public class RetailerHomeActivity extends AppCompatActivity
     private TextView searchEdits;
     private String result="";
     private AddUser addUser;
-    private TextView userNameIDs,catagories;
+    private TextView userNameIDs,catagories,emailIDs;
     GridView gridView;
     private TextView notoifye;
     private ImageView notificationIcon;
-
-
     RecyclerView recyclerView;
     SwipeRefreshLayout mSwipeRefreshLayout;
     private ProgressDialog progressDialog;
     private LinearLayout notifyLayouts;
-  //  TextView subscriberNAmes,subscriber_catagorys;
-
-
+    TextView logedinUserNAmes,logedinUserBuisenesss,subscriberUserNames,subscriberUserFirms;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +94,7 @@ public class RetailerHomeActivity extends AppCompatActivity
         MenuItem target = menu.findItem(R.id.nav_login);
         MenuItem target2 = menu.findItem(R.id.nav_logout);
         userNameIDs = headerView.findViewById(R.id.userNameID);
+        emailIDs = headerView.findViewById(R.id.emailID);
         if(SharedPrefManager.getInstance(this).getUser().getUserID() != null){
             target.setVisible(false);
             target2.setVisible(true);
@@ -132,8 +128,11 @@ public class RetailerHomeActivity extends AppCompatActivity
         gridView = (GridView) findViewById(R.id.gridview);
         catagories = findViewById(R.id.catagory);
         notifyLayouts = findViewById(R.id.notifyLayout);
-        //subscriberNAmes = findViewById(R.id.subscriberNAme);
-        //subscriber_catagorys =findViewById(R.id.subscriber_catagory);
+        logedinUserNAmes = findViewById(R.id.logedinUserNAme);
+        logedinUserBuisenesss =findViewById(R.id.logedinUserBuiseness);
+        subscriberUserNames = findViewById(R.id.subscriberUserName);
+        subscriberUserFirms =findViewById(R.id.subscriberUserFirm);
+
         notifyLayouts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,10 +141,17 @@ public class RetailerHomeActivity extends AppCompatActivity
             }
         });
         try{
-            userNameIDs.setText(SharedPrefManager.getInstance(this).getUser().getFirmName().toString());
-//            subscriberNAmes.setText(SharedPrefManager.getInstance(this).getUser().getUserName().toString());
-//            subscriber_catagorys.setText(SharedPrefManager.getInstance(this).getUser().getCategory());
+            userNameIDs.setText(SharedPrefManager.getInstance(this).getUser().getUserName().toString());
+            emailIDs.setText(SharedPrefManager.getInstance(this).getUser().getBusiness().toString());
+
+            logedinUserNAmes.setText("Subscriber ID :"+SharedPrefManager.getInstance(this).getUser().getFirmName().toString());
+            subscriberUserNames.setText("Login ID :"+SharedPrefManager.getInstance(this).getUser().getUserName().toString());
+            subscriberUserFirms.setText("Category :"+SharedPrefManager.getInstance(this).getUser().getCategory());
+            logedinUserBuisenesss.setText("Business :"+SharedPrefManager.getInstance(this).getUser().getBusiness().toString());
+
+
             catagories.setText(SharedPrefManager.getInstance(this).getUser().getCategory());
+
             getProductList();
             if(catagories.getText().toString().isEmpty()){
 
@@ -293,7 +299,7 @@ public class RetailerHomeActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.nav_searchActivity) {
-            startActivity(intent=new Intent(this,SearchActivity.class));
+            startActivity(intent=new Intent(this,SearchAdminActivity.class));
 
         }
         else if (id == R.id.nav_productDeatails) {
