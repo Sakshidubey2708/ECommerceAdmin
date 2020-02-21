@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/edittext_shape">
+
+    <LinearLayout
+        android:layout_width="10000dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="right"
+            android:src="@drawable/ic_close_black_24dp"/>
+        <View
+            android:layout_width="10000dp"
+            android:layout_height="2dp"
+            android:background="#dcd7d7"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="Product Name"
+                android:layout_gravity="left|center_horizontal"
+                android:textStyle="normal"
+                android:textSize="15sp"
+                android:paddingLeft="10dp"
+                android:gravity="left|center"
+                android:textColor="@color/blue"
+                android:fontFamily="serif"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/productName"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="Name"
+                android:layout_gravity="left|center_horizontal"
+                android:layout_marginRight="10dp"
+                android:textStyle="normal"
+                android:textSize="13sp"
+                android:gravity="left|center"
+                android:background="@drawable/edittext_shape"
+                android:textColor="@color/blue"
+                android:fontFamily="serif"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="Quantity"    android:paddingLeft="10dp"
+
+                android:layout_gravity="center|center_horizontal"
+                android:textStyle="normal"
+                android:textSize="15sp"
+                android:gravity="left|center"
+                android:textColor="@color/blue"
+                android:fontFamily="serif"
+                android:layout_weight="1"/>
+            <EditText
+                android:id="@+id/quantity"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="Quantity"
+                android:visibility="visible"
+                android:layout_gravity="center|center_horizontal"
+                android:gravity="left|center"
+                android:layout_marginRight="10dp"
+                android:textStyle="normal"
+                android:textSize="15sp"
+                android:text="1"
+                android:background="@drawable/edittext_shape"
+                android:textColor="@color/blue"
+                android:fontFamily="serif"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_gravity="center|center_horizontal|center_vertical">
+
+            <Button
+                android:id="@+id/requestSend"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:background="@color/colorPrimaryDark"
+                android:text="Place Order"
+                android:textAllCaps="false"
+                android:layout_margin="8dp"
+                android:padding="5dp" />
+            <Button
+                android:id="@+id/requestcancel"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:background="@color/colorPrimaryDark"
+                android:text="Cancel"
+                android:textAllCaps="false"
+                android:layout_weight="1"
+                android:layout_margin="8dp"
+                android:padding="5dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

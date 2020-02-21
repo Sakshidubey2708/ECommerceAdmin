@@ -8,7 +8,8 @@
     <LinearLayout
         android:layout_width="10000dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
         <ImageView
             android:id="@+id/close"
             android:layout_width="35dp"
@@ -19,53 +20,104 @@
             android:layout_width="10000dp"
             android:layout_height="2dp"
             android:background="#dcd7d7"/>
-
-        <TextView
-            android:id="@+id/salePrice"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:hint="Sales Price"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="Sales Price"
+                android:layout_gravity="left|center_horizontal"
+                android:textStyle="normal"
+                android:textSize="15sp"
+                android:paddingLeft="10dp"
+                android:gravity="left|center"
+                android:textColor="@color/blue"
+                android:fontFamily="serif"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/salePrice"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="Sales Price"
+                android:layout_gravity="left|center_horizontal"
+                android:layout_marginRight="10dp"
+                android:textStyle="normal"
+                android:textSize="13sp"
+                android:gravity="left|center"
+                android:background="@drawable/edittext_shape"
+                android:textColor="@color/blue"
+                android:fontFamily="serif"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Discount Price"
             android:layout_gravity="center|center_horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:textStyle="normal"
             android:textSize="15sp"
-            android:gravity="center|center_horizontal"
-            android:background="@drawable/edittext_shape"
+            android:gravity="left|center"
             android:textColor="@color/blue"
-            android:fontFamily="serif"/>
-
+            android:fontFamily="serif"
+            android:paddingLeft="10dp"
+            android:layout_weight="1"/>
         <TextView
             android:id="@+id/discountPrice"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:hint="Discount Price"
+            android:layout_height="40dp"
+            android:hint="Price"
             android:layout_gravity="center|center_horizontal"
-            android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:textStyle="normal"
-            android:textSize="15sp"
-            android:gravity="center|center_horizontal"
+            android:textSize="13sp"
+            android:gravity="left|center"
             android:background="@drawable/edittext_shape"
             android:textColor="@color/blue"
-            android:fontFamily="serif" />
+            android:fontFamily="serif"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Quantity"    android:paddingLeft="10dp"
 
+            android:layout_gravity="center|center_horizontal"
+            android:textStyle="normal"
+            android:textSize="15sp"
+            android:gravity="left|center"
+            android:textColor="@color/blue"
+            android:fontFamily="serif"
+            android:layout_weight="1"/>
         <EditText
             android:id="@+id/quantity"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="40dp"
             android:hint="Quantity"
             android:visibility="visible"
             android:layout_gravity="center|center_horizontal"
-            android:layout_marginLeft="10dp"
+            android:gravity="left|center"
             android:layout_marginRight="10dp"
             android:textStyle="normal"
             android:textSize="15sp"
             android:text="1"
-            android:gravity="center|center_horizontal"
             android:background="@drawable/edittext_shape"
             android:textColor="@color/blue"
-            android:fontFamily="serif"/>
+            android:fontFamily="serif"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
 <LinearLayout
     android:layout_width="match_parent"

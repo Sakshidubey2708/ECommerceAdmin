@@ -173,6 +173,7 @@ public class HelperApi extends AppCompatActivity {
             String ProductId = params[2];
             String RequestStatus = params[3];
             String SubscriberID = params[4];
+            String ReqQty = params[5];
             String json = "";
             try {
                 OkHttpClient client = new OkHttpClient();
@@ -188,6 +189,7 @@ public class HelperApi extends AppCompatActivity {
                 parameters.add("ProductId", ProductId);
                 parameters.add("RequestStatus", RequestStatus);
                 parameters.add("SubscriberID", SubscriberID);
+                parameters.add("ReqQty",ReqQty);
 
                 builder.post(parameters.build());
                 okhttp3.Response response = client.newCall(builder.build()).execute();

@@ -84,7 +84,7 @@ public class RetailerAdapter extends BaseAdapter {
         if (convertView == null) {
             gridViewAndroid = new View(mContext);
             gridViewAndroid = inflater.inflate(R.layout.retailr_adapter, null);
-            TextView textViewAndroid = (TextView) gridViewAndroid.findViewById(R.id.catalogName);
+            final TextView textViewAndroid = (TextView) gridViewAndroid.findViewById(R.id.catalogName);
             TextView descriptions = (TextView) gridViewAndroid.findViewById(R.id.description);
             final TextView productid = (TextView) gridViewAndroid.findViewById(R.id.product_ids);
             final TextView stockid = (TextView) gridViewAndroid.findViewById(R.id.stock_ids);
@@ -150,69 +150,105 @@ public class RetailerAdapter extends BaseAdapter {
                     @Override
                     public void onClick(View v) {
                         v.startAnimation(buttonClick);
-                        try {
-                            if (SharedPrefManager.getInstance(mContext).getUser().getUserID() == null) {
-                                final Dialog dialog = new Dialog(mContext);
-                                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-                                lp.copyFrom(dialog.getWindow().getAttributes());
-                                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-                                lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-                                lp.gravity = Gravity.BOTTOM;
-                                lp.windowAnimations = R.style.DialogAnimation;
-                                dialog.getWindow().setAttributes(lp);
-                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                                dialog.setCancelable(false);
-                                dialog.setContentView(R.layout.bottom_slide_dailog);
+
+                        final Dialog dialog1 = new Dialog(mContext);
+                        WindowManager.LayoutParams lp1 = new WindowManager.LayoutParams();
+                        lp1.copyFrom(dialog1.getWindow().getAttributes());
+                        lp1.width = WindowManager.LayoutParams.MATCH_PARENT;
+                        lp1.height = WindowManager.LayoutParams.WRAP_CONTENT;
+                        lp1.gravity = Gravity.BOTTOM;
+                        lp1.windowAnimations = R.style.DialogAnimation;
+                        dialog1.getWindow().setAttributes(lp1);
+                        dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        dialog1.setCancelable(false);
+                        dialog1.setContentView(R.layout.reuest_dailog);
 
 
-                                ImageView closebtn = dialog.findViewById(R.id.close);
-                                TextView loginview = dialog.findViewById(R.id.loginClickevent);
+                        final TextView productname = dialog1.findViewById(R.id.productName);
+                        final EditText quantity = dialog1.findViewById(R.id.quantity);
+                        final Button request = dialog1.findViewById(R.id.requestSend);
+                        final Button canecl = dialog1.findViewById(R.id.requestcancel);
+                        productname.setText(textViewAndroid.getText().toString());
 
-                                loginview.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Intent i = new Intent(mContext, SignInActivity.class);
-                                        mContext.startActivity(i);
-                                    }
-                                });
-                                closebtn.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        dialog.dismiss();
-                                    }
-                                });
-                                dialog.show();
-
-                            } else {
+                        request.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
                                 try {
+                                    if (SharedPrefManager.getInstance(mContext).getUser().getUserID() == null) {
+                                        final Dialog dialog = new Dialog(mContext);
+                                        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                                        lp.copyFrom(dialog.getWindow().getAttributes());
+                                        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                                        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+                                        lp.gravity = Gravity.BOTTOM;
+                                        lp.windowAnimations = R.style.DialogAnimation;
+                                        dialog.getWindow().setAttributes(lp);
+                                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                                        dialog.setCancelable(false);
+                                        dialog.setContentView(R.layout.bottom_slide_dailog);
 
-                                    result = new HelperApi.PostSentPriceRequest().execute(
-                                            productid.getText().toString(),
-                                            SharedPrefManager.getInstance(mContext).getUser().getUserID().toString(),
-                                            productid.getText().toString().trim(),
-                                            "PriceRequest",SharedPrefManager.getInstance(mContext).getUser().getSubscriberId()).get();
-                                    if (result.isEmpty()) {
+
+                                        ImageView closebtn = dialog.findViewById(R.id.close);
+                                        TextView loginview = dialog.findViewById(R.id.loginClickevent);
+
+                                        loginview.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                Intent i = new Intent(mContext, SignInActivity.class);
+                                                mContext.startActivity(i);
+                                            }
+                                        });
+                                        closebtn.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                dialog.dismiss();
+                                            }
+                                        });
+                                        dialog.show();
 
                                     } else {
-                                        Gson gson = new Gson();
-                                        Type listType = new TypeToken<PricerequestModel>() {
-                                        }.getType();
-                                        pricerequestModel = new Gson().fromJson(result, listType);
-                                        PriceRequestId = pricerequestModel.getPriceRequestId();
+                                        try {
+
+                                            result = new HelperApi.PostSentPriceRequest().execute(
+                                                    productid.getText().toString(),
+                                                    SharedPrefManager.getInstance(mContext).getUser().getUserID().toString(),
+                                                    productid.getText().toString().trim(),
+                                                    "PriceRequest",SharedPrefManager.getInstance(mContext).getUser().getSubscriberId(),
+                                                    quantity.getText().toString().trim()).get();
+                                            if (result.isEmpty()) {
+
+                                            } else {
+                                                Gson gson = new Gson();
+                                                Type listType = new TypeToken<PricerequestModel>() {
+                                                }.getType();
+                                                pricerequestModel = new Gson().fromJson(result, listType);
+                                                PriceRequestId = pricerequestModel.getPriceRequestId();
 
 
-                                        Intent i = new Intent(mContext,StockActivity.class);
-                                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        mContext.startActivity(i);
+                                                Intent i = new Intent(mContext,StockActivity.class);
+                                                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                mContext.startActivity(i);
 
+                                            }
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
                                     }
                                 } catch (Exception e) {
-                                    e.printStackTrace();
+
                                 }
                             }
-                        } catch (Exception e) {
+                        });
+                        canecl.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog1.dismiss();
+                            }
+                        });
+                        dialog1.show();
 
-                        }
+
+
                     }
                 });
                 sent.setOnClickListener(new View.OnClickListener() {

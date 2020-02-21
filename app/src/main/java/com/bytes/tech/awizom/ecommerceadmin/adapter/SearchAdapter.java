@@ -46,6 +46,7 @@ public class SearchAdapter extends  RecyclerView.Adapter<SearchAdapter.OrderItem
     public void onBindViewHolder(@NonNull final SearchAdapter.OrderItemViewHolder holder, int position) {
         SearchModel searchModel = searchModelList.get(position);
 
+
         holder.catagory_names.setText(searchModel.getBrandName().toString());
         holder.catagoryIDs.setText(String.valueOf(searchModel.getProductName()));
         holder.productIDs.setText(String.valueOf(searchModel.getProductId()));
