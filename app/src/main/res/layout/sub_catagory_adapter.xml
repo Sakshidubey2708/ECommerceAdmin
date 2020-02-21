@@ -44,10 +44,16 @@
                         android:orientation="vertical"
                         android:layout_weight="1.9">
                         <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/img"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:src="@drawable/ec"
                             android:layout_gravity="center_horizontal|center"/>
+                        <TextView
+                            android:id="@+id/imglink"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:visibility="gone"/>
                     </LinearLayout>
                     <View
                         android:layout_width="1dp"
@@ -61,29 +67,34 @@
                         android:layout_gravity="center_horizontal|center">
                         <TextView
                             android:id="@+id/catagory_name"
-                            android:layout_width="150dp"
-                            android:layout_height="match_parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
                             android:hint="Catagory"
                             android:textSize="14sp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/blue"
                             android:layout_weight="1"
                             android:padding="5dp"
                             android:layout_gravity="center"
-                            android:gravity="center"/>
+                            android:gravity="left|center_horizontal"/>
 
-                        <!--<TextView-->
-                            <!--android:id="@+id/price"-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="30dp"-->
-                            <!--android:textSize="13sp"-->
-                            <!--android:textStyle="bold"-->
-                            <!--android:gravity="center"-->
-                            <!--android:layout_gravity="center"-->
-                            <!--android:textColor="@color/orange_yellowihs"-->
-                            <!--android:text="1233/-"/>-->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#c0c0c0"/>
 
                         <TextView
                             android:id="@+id/catagoryID"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:hint="Catagory"
+                            android:textSize="13sp"
+                            android:textColor="@color/blue"
+                            android:layout_weight="1"
+                            android:padding="5dp"
+                            android:layout_gravity="center"
+                            android:gravity="left|center_horizontal"/>
+                        <TextView
+                            android:id="@+id/productID"
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
                             android:visibility="gone"/>

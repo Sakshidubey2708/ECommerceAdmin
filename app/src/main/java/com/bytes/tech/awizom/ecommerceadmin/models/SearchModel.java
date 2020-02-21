@@ -5,6 +5,7 @@ public class SearchModel {
     public String ProductName ;
     public int BrandId ;
     public String BrandName;
+    public String ProImg1;
 
     public int getProductId() {
         return ProductId;
@@ -36,5 +37,13 @@ public class SearchModel {
 
     public void setBrandName(String brandName) {
         BrandName = brandName;
+    }
+
+    public String getProImg1() {
+        return ProImg1;
+    }
+
+    public void setProImg1(String proImg1) {
+        ProImg1 = proImg1;
     }
 }

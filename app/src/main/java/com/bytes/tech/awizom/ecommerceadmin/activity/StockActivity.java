@@ -29,6 +29,7 @@ import com.bytes.tech.awizom.ecommerceadmin.configure.SharedPrefManager;
 import com.bytes.tech.awizom.ecommerceadmin.models.OrderDetailMain;
 import com.bytes.tech.awizom.ecommerceadmin.models.OrderMainModel;
 import com.bytes.tech.awizom.ecommerceadmin.models.PricerequestModel;
+import com.bytes.tech.awizom.ecommerceadmin.models.ProductModel;
 import com.bytes.tech.awizom.ecommerceadmin.models.StockMain;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -38,8 +39,8 @@ import java.lang.reflect.Type;
 public class StockActivity extends AppCompatActivity implements View.OnClickListener {
 
     RecyclerView recyclerView;
-    private String result = "",stockID="";
-    private StockMain stockMains;
+    private String result = "",productIDs="";
+    private ProductModel stockMains;
     SwipeRefreshLayout mSwipeRefreshLayout;
     private ProgressDialog progressDialog;
     private int k =0;
@@ -54,7 +55,8 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
     OrderDetailMain orderDetailMain;
     private LinearLayout requestlayout,getAmount;
     private TextView salesPrices,DiscountPrices,stockQuantitys;
-    private TextView imgelinks,stockin,stockout;
+    private TextView imgelinks;
+  //  private TextView stockin,stockout;
     private ImageView images;
     private Button DoneBtn;
 
@@ -81,7 +83,7 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
         toolbar.setSubtitleTextAppearance(getApplicationContext(), R.style.styleA);
         toolbar.setTitleTextAppearance(getApplicationContext(), R.style.styleA);
         toolbar.setTitleTextColor(Color.WHITE);
-        stockID = getIntent().getStringExtra("StockID").toString();
+        productIDs = getIntent().getStringExtra("productID").toString();
 
         progressDialog = new ProgressDialog(this);
         productName =  findViewById(R.id.productNames);
@@ -92,8 +94,8 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
         show_price.setOnClickListener(this);
         request.setOnClickListener(this);
 
-        stockin =  findViewById(R.id.stockIN);
-        stockout =  findViewById(R.id.stockOut);
+//        stockin =  findViewById(R.id.stockIN);
+//        stockout =  findViewById(R.id.stockOut);
 
         imgelinks = findViewById(R.id.imgelinkText);
         images = findViewById(R.id.image);
@@ -112,11 +114,11 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
 
     private void getProductList() {
         try {
-            result = new HelperApi.GetStockSingleItems().execute(stockID.toString()).get();
+            result = new HelperApi.GetSingleProductsForHomeBySubscriberIDThrough().execute(productIDs.toString()).get();
             if (result.isEmpty()) {
             } else {
                 Gson gson = new Gson();
-                Type listType = new TypeToken<StockMain>() {
+                Type listType = new TypeToken<ProductModel>() {
                 }.getType();
                 stockMains = new Gson().fromJson(result, listType);
                // Toast.makeText(this,stockMains.toString(),Toast.LENGTH_LONG).show();
@@ -124,8 +126,8 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
                 productDescription.setText(stockMains.getDescriptions().toString());
                 product_idss.setText(String.valueOf(stockMains.getProductId()));
                 imgelinks.setText(stockMains.getProImg1().toString());
-                stockin.setText(String.valueOf(stockMains.getStockInQuantity()));
-                stockout.setText(String.valueOf(stockMains.getStockOutQuantity()));
+//                stockin.setText(String.valueOf(stockMains.getStockInQuantity()));
+//                stockout.setText(String.valueOf(stockMains.getStockOutQuantity()));
                 String url = AppConfig.BASE_URL+"/" +imgelinks.getText().toString();
                 if (url != null) {
                     Glide.with(images)
@@ -265,7 +267,7 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
                             @Override
                             public void onClick(View v) {
 
-                                if(!stockin.getText().toString().equals("0")){
+                               // if(!stockin.getText().toString().equals("0")){
                                     try {
                                         k = ++k;
                                         String S= "ord"+k;
@@ -337,20 +339,20 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
-                                }else {
-                                    AlertDialog.Builder alertbox = new AlertDialog.Builder(StockActivity.this);
-                                    alertbox.setIcon(R.drawable.ic_warning_black_24dp);
-                                    alertbox.setTitle("Sorry !! Stock not available.");
-                                    alertbox.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface arg0, int arg1) {
-                                            // finish used for destroyed activity
-
-                                        }
-                                    });
-
-
-                                    alertbox.show();
-                                }
+//                                }else {
+//                                    AlertDialog.Builder alertbox = new AlertDialog.Builder(StockActivity.this);
+//                                    alertbox.setIcon(R.drawable.ic_warning_black_24dp);
+//                                    alertbox.setTitle("Sorry !! Stock not available.");
+//                                    alertbox.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                                        public void onClick(DialogInterface arg0, int arg1) {
+//                                            // finish used for destroyed activity
+//
+//                                        }
+//                                    });
+//
+//
+//                                    alertbox.show();
+//                                }
 
                             }
                         });

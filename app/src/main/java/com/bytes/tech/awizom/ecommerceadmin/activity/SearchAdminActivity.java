@@ -219,7 +219,7 @@ public class SearchAdminActivity extends AppCompatActivity implements View.OnCli
                 searchModels = new Gson().fromJson(result, listType);
                 productName = new String[searchModels.size()];
                 for (int i = 0; i < searchModels.size(); i++) {
-                    productName[i] = String.valueOf(searchModels.get(i).getProductName());
+                    productName[i] = searchModels.get(i).getProductName();
                 }
                 adapter1 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.select_dialog_item, productName);
                 byProduct.setThreshold(1);//will start working from first character
@@ -245,7 +245,7 @@ public class SearchAdminActivity extends AppCompatActivity implements View.OnCli
                 searchModels = new Gson().fromJson(result, listType);
                 brandName = new String[searchModels.size()];
                 for (int i = 0; i < searchModels.size(); i++) {
-                    brandName[i] = String.valueOf(searchModels.get(i).getProductName());
+                    brandName[i] = searchModels.get(i).getBrandName();
                 }
                 adapter2 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.select_dialog_item, brandName);
                 byBrand.setThreshold(1);//will start working from first character

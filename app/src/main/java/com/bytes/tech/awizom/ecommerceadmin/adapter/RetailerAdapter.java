@@ -34,6 +34,7 @@ import com.bytes.tech.awizom.ecommerceadmin.configure.SharedPrefManager;
 import com.bytes.tech.awizom.ecommerceadmin.models.OrderDetailMain;
 import com.bytes.tech.awizom.ecommerceadmin.models.OrderMainModel;
 import com.bytes.tech.awizom.ecommerceadmin.models.PricerequestModel;
+import com.bytes.tech.awizom.ecommerceadmin.models.ProductModel;
 import com.bytes.tech.awizom.ecommerceadmin.models.StockMain;
 import com.bytes.tech.awizom.ecommerceadmin.models.StockProduct;
 import com.google.gson.Gson;
@@ -45,7 +46,7 @@ import java.util.List;
 public class RetailerAdapter extends BaseAdapter {
 
     //  private final String[] catalogNameList;
-    private List<StockMain> stockMains;
+    private List<ProductModel> productModels;
     private Context mContext;
     private String skipdata = "", result = "";
 
@@ -55,15 +56,15 @@ public class RetailerAdapter extends BaseAdapter {
     OrderDetailMain orderDetailMain;
     int k =0;
 
-    public RetailerAdapter(RetailerHomeActivity newCustomerHome, List<StockMain> stockMains) {
+    public RetailerAdapter(RetailerHomeActivity newCustomerHome, List<ProductModel> productModels) {
         this.mContext = newCustomerHome;
-        this.stockMains = stockMains;
+        this.productModels = productModels;
         this.skipdata = skipdata;
     }
 
     @Override
     public int getCount() {
-        return stockMains.size();
+        return productModels.size();
     }
 
     @Override
@@ -98,16 +99,16 @@ public class RetailerAdapter extends BaseAdapter {
 
             //  final ProgressBar progressBar = gridViewAndroid.findViewById(R.id.homeprogress);
             try {
-                textViewAndroid.setText(stockMains.get(i).getProductName());
-                descriptions.setText(stockMains.get(i).getHighlightsDesign());
-                productid.setText(String.valueOf(stockMains.get(i).getProductId()));
-                stockid.setText(String.valueOf(stockMains.get(i).getStockMainId()));
-                imglinkurl.setText(stockMains.get(i).getProImg1());
+                textViewAndroid.setText(productModels.get(i).getProductName());
+                descriptions.setText(productModels.get(i).getHighlightsDesign());
+                productid.setText(String.valueOf(productModels.get(i).getProductId()));
+                stockid.setText(String.valueOf(productModels.get(i).getHighlightsDesign()));
+                imglinkurl.setText(productModels.get(i).getProImg1());
                 homeCleancardViewOne.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(mContext, StockActivity.class);
-                        intent.putExtra("StockID",stockid.getText().toString());
+                        intent.putExtra("productID",productid.getText().toString());
                         mContext.startActivity(intent);
                     }
                 });
@@ -116,7 +117,7 @@ public class RetailerAdapter extends BaseAdapter {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(mContext, StockActivity.class);
-                        intent.putExtra("StockID",stockid.getText().toString());
+                        intent.putExtra("productID",productid.getText().toString());
                         mContext.startActivity(intent);
                     }
                 });

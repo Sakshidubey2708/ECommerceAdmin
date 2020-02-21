@@ -36,6 +36,7 @@ import com.bytes.tech.awizom.ecommerceadmin.chat.ChatActivity;
 import com.bytes.tech.awizom.ecommerceadmin.configure.HelperApi;
 import com.bytes.tech.awizom.ecommerceadmin.configure.SharedPrefManager;
 import com.bytes.tech.awizom.ecommerceadmin.models.AddUser;
+import com.bytes.tech.awizom.ecommerceadmin.models.ProductModel;
 import com.bytes.tech.awizom.ecommerceadmin.models.StockMain;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
@@ -57,6 +58,7 @@ public class RetailerHomeActivity extends AppCompatActivity
     List<String> colorName;
     TextView offerTextViews;
     List<StockMain> stockMains;
+    List<ProductModel> productModels;
     private TextView searchEdits;
     private String result="";
     private AddUser addUser;
@@ -260,16 +262,16 @@ public class RetailerHomeActivity extends AppCompatActivity
 
     private void getProductList() {
         try {
-            result = new HelperApi.GetStockItems().execute(SharedPrefManager.getInstance(this).getUser().getSubscriberId()).get();
+            result = new HelperApi.GetProductsForHomeBySubscriberIDThrough().execute(SharedPrefManager.getInstance(this).getUser().getSubscriberId()).get();
             if (result.isEmpty()) {
             } else {
                 Gson gson = new Gson();
-                Type listType = new TypeToken<List<StockMain>>() {
+                Type listType = new TypeToken<List<ProductModel>>() {
                 }.getType();
-                stockMains = new Gson().fromJson(result, listType);
-                RetailerAdapter catagoryGridViewAdapter = new RetailerAdapter(RetailerHomeActivity.this, stockMains);
+                productModels = new Gson().fromJson(result, listType);
+                RetailerAdapter catagoryGridViewAdapter = new RetailerAdapter(RetailerHomeActivity.this, productModels);
                 gridView.setAdapter(catagoryGridViewAdapter);
-                Log.d("LOGId",stockMains.toString());
+                Log.d("LOGId",productModels.toString());
             }
         } catch (Exception e) {
             e.printStackTrace();

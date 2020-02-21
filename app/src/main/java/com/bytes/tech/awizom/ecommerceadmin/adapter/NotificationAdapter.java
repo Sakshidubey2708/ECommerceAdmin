@@ -90,10 +90,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                         } else {
                             if (holder.typenotif.getText().toString().equals("Purchase")) {
                                 i = new Intent(mCtx, ProductListActivity.class);
-                                i=i.putExtra("PID",  holder.product_id.getText().toString());
+                                i=i.putExtra("productID",  holder.product_id.getText().toString());
                                 mCtx.startActivity(i);
                             } else if (holder.typenotif.getText().toString().equals("SendPrice")) {
-                                mCtx.startActivity(i = new Intent(mCtx, StockActivity.class));
+                                i = new Intent(mCtx, StockActivity.class);
+                                i=i.putExtra("productID",  holder.product_id.getText().toString());
+                                mCtx.startActivity(i);
                             } else {
                                 mCtx.startActivity(i = new Intent(mCtx, NotificationListActivity.class));
                             }
@@ -106,7 +108,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                             i=i.putExtra("PID",  holder.product_id.getText().toString());
                             mCtx.startActivity(i);
                         } else if (holder.typenotif.getText().toString().equals("SendPrice")) {
-                            mCtx.startActivity(i = new Intent(mCtx, StockActivity.class));
+                            i = new Intent(mCtx, StockActivity.class);
+                            i=i.putExtra("productID",  holder.product_id.getText().toString());
+                            mCtx.startActivity(i);
                         }else {
                             mCtx.startActivity(i = new Intent(mCtx, NotificationListActivity.class));
                         }
