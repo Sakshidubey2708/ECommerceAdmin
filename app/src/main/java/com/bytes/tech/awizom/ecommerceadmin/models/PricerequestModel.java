@@ -9,6 +9,7 @@ public class PricerequestModel {
     public double SalePrice ;
     public double SaleDiscount ;
     public Boolean isRequest;
+    public float ReqQty;
 
     public Boolean getRequest() {
         return isRequest;
@@ -74,5 +75,11 @@ public class PricerequestModel {
         SaleDiscount = saleDiscount;
     }
 
+    public float getReqQty() {
+        return ReqQty;
+    }
 
+    public void setReqQty(float reqQty) {
+        ReqQty = reqQty;
+    }
 }

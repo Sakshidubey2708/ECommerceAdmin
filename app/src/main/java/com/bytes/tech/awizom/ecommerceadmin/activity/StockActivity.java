@@ -16,6 +16,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -55,10 +56,12 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
     OrderDetailMain orderDetailMain;
     private LinearLayout requestlayout,getAmount;
     private TextView salesPrices,DiscountPrices,stockQuantitys;
-    private TextView imgelinks;
+    private TextView imgelinks,chatstarts;
   //  private TextView stockin,stockout;
     private ImageView images;
     private Button DoneBtn;
+    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +94,7 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
         product_idss = findViewById(R.id.product_ids);
         request = findViewById(R.id.requestBtn);
         show_price = findViewById(R.id.btnShow);
+        chatstarts = findViewById(R.id.chatstart);
         show_price.setOnClickListener(this);
         request.setOnClickListener(this);
 
@@ -107,9 +111,17 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
         DiscountPrices = findViewById(R.id.DiscountPrice);
         stockQuantitys = findViewById(R.id.stockQuantity);
 
+        chatstarts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.startAnimation(buttonClick);
+            }
+        });
+
         getProductList();
         getPrricerequestTable();
     }
+
 
 
     private void getProductList() {
@@ -181,35 +193,86 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        v.startAnimation(buttonClick);
         switch (v.getId()){
             case R.id.BtnDone:
                 Intent i = new Intent(StockActivity.this,RetailerHomeActivity.class);
                 startActivity(i);
                 break;
             case R.id.requestBtn:
-                try {
-                    result = new HelperApi.PostSentPriceRequest().execute(
-                            product_idss.getText().toString(),
-                            SharedPrefManager.getInstance(this).getUser().getUserID().toString(),
-                            product_idss.getText().toString().trim(),
-                            "PriceRequest",SharedPrefManager.getInstance(this).getUser().getSubscriberId()).get();
-                    if (result.isEmpty()) {
 
-                    } else {
-                        Gson gson = new Gson();
-                        Type listType = new TypeToken<PricerequestModel>() {
-                        }.getType();
-                        pricerequestModel = new Gson().fromJson(result, listType);
-                        PriceRequestId = pricerequestModel.getPriceRequestId();
-                      //  Toast.makeText(this,String.valueOf(PriceRequestId),Toast.LENGTH_LONG).show();
+                    final Dialog dialogs = new Dialog(this);
+                    WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                    lp.copyFrom(dialogs.getWindow().getAttributes());
+                    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                    lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+                    lp.gravity = Gravity.BOTTOM;
+                    lp.windowAnimations = R.style.DialogAnimation;
+                    dialogs.getWindow().setAttributes(lp);
+                    dialogs.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialogs.setCancelable(false);
+                    dialogs.setContentView(R.layout.reuest_dailog);
 
-                        requestlayout.setVisibility(View.GONE);
-                        getAmount.setVisibility(View.VISIBLE);
 
+                   final TextView productNames = dialogs.findViewById(R.id.productName);
+                   final ImageView closeBtn = dialogs.findViewById(R.id.close);
+                    final EditText quantitys = dialogs.findViewById(R.id.quantity);
+                    Button request_send = dialogs.findViewById(R.id.requestSend);
+                    Button request_cancel = dialogs.findViewById(R.id.requestcancel);
+                    productNames.setText(productName.getText().toString());
+
+                closeBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        v.startAnimation(buttonClick);
+                        dialogs.dismiss();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                });
+
+                    request_send.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            v.startAnimation(buttonClick);
+                            try {
+                                result = new HelperApi.PostSentPriceRequest().execute(
+                                        product_idss.getText().toString(),
+                                        SharedPrefManager.getInstance(StockActivity.this).getUser().getUserID().toString(),
+                                        product_idss.getText().toString().trim(),
+                                        "PriceRequest", SharedPrefManager.getInstance(StockActivity.this).getUser().getSubscriberId(),
+                                        quantitys.getText().toString()).get();
+
+                                if (result.isEmpty()) {
+
+                                } else {
+                                    Gson gson = new Gson();
+                                    Type listType = new TypeToken<PricerequestModel>() {
+                                    }.getType();
+                                    pricerequestModel = new Gson().fromJson(result, listType);
+                                    PriceRequestId = pricerequestModel.getPriceRequestId();
+                                    stockQuantitys.setText(String.valueOf(pricerequestModel.getReqQty()).split("//.")[0]);
+                                    //  Toast.makeText(this,String.valueOf(PriceRequestId),Toast.LENGTH_LONG).show();
+
+                                    requestlayout.setVisibility(View.GONE);
+                                    getAmount.setVisibility(View.VISIBLE);
+
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+                    request_cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            v.startAnimation(buttonClick);
+                            dialogs.dismiss();
+                        }
+                    });
+                    dialogs.show();
+
+
+
                 break;
             case R.id.btnShow:
                 try {
@@ -227,13 +290,13 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
 
 
                         final Dialog dialog = new Dialog(this);
-                        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-                        lp.copyFrom(dialog.getWindow().getAttributes());
-                        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-                        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-                        lp.gravity = Gravity.BOTTOM;
-                        lp.windowAnimations = R.style.DialogAnimation;
-                        dialog.getWindow().setAttributes(lp);
+                        WindowManager.LayoutParams lp1 = new WindowManager.LayoutParams();
+                        lp1.copyFrom(dialog.getWindow().getAttributes());
+                        lp1.width = WindowManager.LayoutParams.MATCH_PARENT;
+                        lp1.height = WindowManager.LayoutParams.WRAP_CONTENT;
+                        lp1.gravity = Gravity.BOTTOM;
+                        lp1.windowAnimations = R.style.DialogAnimation;
+                        dialog.getWindow().setAttributes(lp1);
                         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                         dialog.setCancelable(false);
                         dialog.setContentView(R.layout.pricing_id_show);
@@ -259,6 +322,7 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
                         ok.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                v.startAnimation(buttonClick);
                                 dialog.dismiss();
                             }
                         });
@@ -266,6 +330,7 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
                         order.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                v.startAnimation(buttonClick);
 
                                // if(!stockin.getText().toString().equals("0")){
                                     try {
@@ -292,7 +357,6 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
                                             if(orderMainID == 0){
 
                                             }else {
-
                                                 Double  qty, ass_price,total;
                                                 qty = Double.parseDouble(quantity.getText().toString());
                                                 ass_price = Double.parseDouble(salePrices.getText().toString());
@@ -302,7 +366,7 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
                                                 salesPrices.setTextColor(Color.parseColor("#0d0d0d"));
                                                 DiscountPrices.setText(String.valueOf(pricerequestModel.getSaleDiscount()));
                                                 DiscountPrices.setTextColor(Color.parseColor("#0d0d0d"));
-                                                stockQuantitys.setText(String.valueOf(qty));
+                                                stockQuantitys.setText(String.valueOf(qty).split("//.")[0]);
                                                 stockQuantitys.setTextColor(Color.parseColor("#0d0d0d"));
 
                                                 //  Toast.makeText(StockActivity.this,"OrderMAin"+String.valueOf(orderMainID),Toast.LENGTH_LONG).show();
