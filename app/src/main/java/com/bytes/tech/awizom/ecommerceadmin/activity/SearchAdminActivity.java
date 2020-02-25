@@ -50,9 +50,9 @@ public class SearchAdminActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void initView() {
+
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Search");
-
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -62,7 +62,6 @@ public class SearchAdminActivity extends AppCompatActivity implements View.OnCli
                 onBackPressed();
             }
         });
-
         toolbar.setSubtitleTextAppearance(getApplicationContext(), R.style.styleA);
         toolbar.setTitleTextAppearance(getApplicationContext(), R.style.styleA);
         toolbar.setTitleTextColor(Color.WHITE);
@@ -70,7 +69,6 @@ public class SearchAdminActivity extends AppCompatActivity implements View.OnCli
 
         byProduct=findViewById(R.id.searchByProduct);
         byBrand=findViewById(R.id.searchByBrand);
-
         mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayoutItems);
         recyclerView = findViewById(R.id.recyclerViewItems);
         recyclerView.setHasFixedSize(true);
@@ -190,7 +188,6 @@ public class SearchAdminActivity extends AppCompatActivity implements View.OnCli
                 SearchAdapter adapter = new SearchAdapter(SearchAdminActivity.this, categorylist);
                 recyclerView.setAdapter(adapter);
 
-
 //                Gson gson = new Gson();
 //                Type listType = new TypeToken<SearchModel>() {
 //                }.getType();
@@ -293,4 +290,5 @@ public class SearchAdminActivity extends AppCompatActivity implements View.OnCli
                 break;
         }
     }
+
 }
