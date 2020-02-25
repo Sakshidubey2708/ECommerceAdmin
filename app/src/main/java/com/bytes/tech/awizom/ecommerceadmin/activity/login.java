@@ -24,7 +24,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
 
     private ProgressDialog progressDialog;
     private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
-    String TAG = "Check",result="";
+    String TAG = "Check", result = "";
     EditText emails, passWord, contact;
 
     ImageView loginButton;
@@ -45,17 +45,17 @@ public class login extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.loginbtn:
-             String e=emails.getText().toString();
-             String p=passWord.getText().toString();
-             if(e.isEmpty()){
-                emails.requestFocus();
-                emails.setError("Required");
-             }else if(p.isEmpty()){
-                 passWord.requestFocus();
-                 passWord.setError("Required");
-             }else {
-                 loginEvent();
-             }
+                String e = emails.getText().toString();
+                String p = passWord.getText().toString();
+                if (e.isEmpty()) {
+                    emails.requestFocus();
+                    emails.setError("Required");
+                } else if (p.isEmpty()) {
+                    passWord.requestFocus();
+                    passWord.setError("Required");
+                } else {
+                    loginEvent();
+                }
 
                 break;
         }
@@ -66,19 +66,21 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         try {
             progressDialog.setMessage("loading...");
             progressDialog.show();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CUPCAKE) {
-                result = new AccountControlerHelper.PostLogin().execute(emails.getText().toString(),passWord.getText().toString()).get();
-            }    Toast.makeText(login.this, result.toString(), Toast.LENGTH_SHORT).show();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-                if(result.isEmpty()){
-                    progressDialog.dismiss();
-                    result = new AccountControlerHelper.PostLogin().execute(emails.getText().toString(),passWord.getText().toString()).get();
-                }else {
 
-                    try {
-                        progressDialog.dismiss();
-                        Gson gson = new Gson();
-                        UserLogin jsonbody = gson.fromJson(result, UserLogin.class);
+            result = new AccountControlerHelper.PostLogin().execute(emails.getText().toString(), passWord.getText().toString()).get();
+
+
+            if (result.isEmpty()) {
+                progressDialog.dismiss();
+                result = new AccountControlerHelper.PostLogin().execute(emails.getText().toString(), passWord.getText().toString()).get();
+            } else {
+
+                try {
+                    progressDialog.dismiss();
+                    Gson gson = new Gson();
+                    UserLogin jsonbody = gson.fromJson(result, UserLogin.class);
+                    boolean corrects = jsonbody.getCorrect();
+                    if (corrects) {
                         UserLogin us = new UserLogin();
 
                         us.UserName = jsonbody.UserName;
@@ -90,18 +92,21 @@ public class login extends AppCompatActivity implements View.OnClickListener {
                         us.logedInUserName = jsonbody.logedInUserName;
                         SharedPrefManager.getInstance(getApplicationContext()).userLogin(us);
 
-                        Snackbar.make(getWindow().getDecorView().getRootView(),  "Login Successfull", Snackbar.LENGTH_LONG).show();
-                     /*    Toast.makeText(login.this, result.toString(), Toast.LENGTH_SHORT).show();*/
+                        Snackbar.make(getWindow().getDecorView().getRootView(), "Login Successfull", Snackbar.LENGTH_LONG).show();
+                        /*    Toast.makeText(login.this, result.toString(), Toast.LENGTH_SHORT).show();*/
 
                         Intent i = new Intent(this, RetailerHomeActivity.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(i);
-
-                    }catch (Exception e){
+                    } else {
+                        Snackbar.make(getWindow().getDecorView().getRootView(), "Username or Password are not coorect", Snackbar.LENGTH_LONG).show();
                     }
 
+                } catch (Exception e) {
                 }
+
             }
+
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

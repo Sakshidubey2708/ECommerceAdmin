@@ -12,6 +12,15 @@ public class UserLogin {
     public int Id ;
     public String LogInDate;
     public String LogInType ;
+    public Boolean Correct;
+
+    public Boolean getCorrect() {
+        return Correct;
+    }
+
+    public void setCorrect(Boolean correct) {
+        Correct = correct;
+    }
 
     public String Business;
     public int ContactNo ;
