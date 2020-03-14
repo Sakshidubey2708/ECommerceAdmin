@@ -1208,9 +1208,6 @@ public class HelperApi extends AppCompatActivity {
             }
         }
     }
-
-
-
     public static final class GETMyTotalOrder extends AsyncTask<String, Void, String> {
 
         @Override
@@ -1496,4 +1493,89 @@ public class HelperApi extends AppCompatActivity {
         }
     }
 
+    public static final class GetProductBaseChat extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String json = "";
+            String productid = strings[0];
+            String userID = strings[1];
+            String subscid = strings[2];
+            try {
+
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "/GetProductBaseChat/"+productid+"/"+userID+"/"+ subscid);
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return json;
+        }
+        protected void onPostExecute(String result) {
+            try {
+                if (result.isEmpty()) {
+                } else {
+                    super.onPostExecute(result);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static final class  AddProductChat extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+
+
+            String chatbox = params[0];
+            String myids = params[1];
+            String subsid = params[2];
+            String product_id = params[3];
+            String msgby = params[4];
+            String json = "";
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder.url(AppConfig.BASE_URL_API + "/AddProductChat");
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                builder.addHeader("Accept", "application/json");
+                FormBody.Builder parameters = new FormBody.Builder();
+                parameters.add("userids", myids);
+                parameters.add("subscriberid", subsid);
+                parameters.add("ChatContain", chatbox);
+                parameters.add("MsgBy", msgby);
+                parameters.add("ProductId", product_id);
+                builder.post(parameters.build());
+                okhttp3.Response response = client.newCall(builder.build()).execute();
+                if (response.isSuccessful()) {
+                    json = response.body().string();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return json;
+
+        }
+        protected void onPostExecute(String result) {
+
+            try {
+                if (result.isEmpty()) {
+                } else {
+                    super.onPostExecute(result);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
 }

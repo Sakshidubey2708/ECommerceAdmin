@@ -74,7 +74,6 @@ public class login extends AppCompatActivity implements View.OnClickListener {
                 progressDialog.dismiss();
                 result = new AccountControlerHelper.PostLogin().execute(emails.getText().toString(), passWord.getText().toString()).get();
             } else {
-
                 try {
                     progressDialog.dismiss();
                     Gson gson = new Gson();
@@ -82,7 +81,6 @@ public class login extends AppCompatActivity implements View.OnClickListener {
                     boolean corrects = jsonbody.getCorrect();
                     if (corrects) {
                         UserLogin us = new UserLogin();
-
                         us.UserName = jsonbody.UserName;
                         us.UserID = jsonbody.UserID;
                         us.SubscriberId = jsonbody.SubscriberId;
@@ -91,10 +89,8 @@ public class login extends AppCompatActivity implements View.OnClickListener {
                         us.Business = jsonbody.Business;
                         us.logedInUserName = jsonbody.logedInUserName;
                         SharedPrefManager.getInstance(getApplicationContext()).userLogin(us);
-
                         Snackbar.make(getWindow().getDecorView().getRootView(), "Login Successfull", Snackbar.LENGTH_LONG).show();
                         /*    Toast.makeText(login.this, result.toString(), Toast.LENGTH_SHORT).show();*/
-
                         Intent i = new Intent(this, RetailerHomeActivity.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(i);

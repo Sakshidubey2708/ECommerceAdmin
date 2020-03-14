@@ -20,11 +20,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -71,7 +74,7 @@ public class RetailerHomeActivity extends AppCompatActivity
     private ProgressDialog progressDialog;
     private LinearLayout notifyLayouts;
     TextView logedinUserNAmes,logedinUserBuisenesss,subscriberUserNames,subscriberUserFirms;
-
+    AutoCompleteTextView search;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,7 +137,23 @@ public class RetailerHomeActivity extends AppCompatActivity
         logedinUserBuisenesss =findViewById(R.id.logedinUserBuiseness);
         subscriberUserNames = findViewById(R.id.subscriberUserName);
         subscriberUserFirms =findViewById(R.id.subscriberUserFirm);
+        search=findViewById(R.id.search);
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filter(editable.toString());
+            }
+        });
         notifyLayouts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -216,7 +235,19 @@ public class RetailerHomeActivity extends AppCompatActivity
         handler.postDelayed(runnable, 1000);
 
     }
-
+    void filter(String text){
+        List<ProductModel> temp = new ArrayList();
+        for(ProductModel d: productModels){
+            //or use .equal(text) with you want equal match
+            //use .toLowerCase() for better matches
+            if(d.getProductName().toLowerCase().contains(text.toLowerCase()) || d.getDescriptions().contains(text)){
+                temp.add(d);
+            }
+        }
+        //update recyclerview
+        RetailerAdapter catagoryGridViewAdapter = new RetailerAdapter(RetailerHomeActivity.this, temp);
+        gridView.setAdapter(catagoryGridViewAdapter);
+    }
     private void getNotificationCount() {
         try {
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ECommerceAdmin</string>
+    <string name="app_name">ECommerce</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">E-Commerce</string>
@@ -12,7 +12,7 @@
     <string name="BrandType"><u>Brand Type</u></string>
     <string name="ProductType"><u>Product Type</u></string>
     <string name="somthing"> 10 % instant Discount* with this bank  </string>
-    <string name="message">Welcom to ECommerce</string>
+    <string name="message">Welcome to ECommerce</string>
     <string name="note">Sign-up now to get <b>500 off + free shipping</b> on your first order</string>
     <string name="notification_activity">notify</string>
 

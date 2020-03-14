@@ -74,21 +74,15 @@ public class ProductListActivity extends AppCompatActivity  {
         toolbar.setTitleTextColor(Color.WHITE);
         productID = getIntent().getStringExtra("PID").toString();
         progressDialog = new ProgressDialog(this);
-
         progressDialog = new ProgressDialog(this);
         productName =  findViewById(R.id.productNames);
         productDescription =  findViewById(R.id.productDescriptions);
         product_idss = findViewById(R.id.product_ids);
-
-
-
-
         imgelinks = findViewById(R.id.imgelinkText);
         images = findViewById(R.id.image);
         DoneBtn = findViewById(R.id.BtnDone);
         requestlayout = findViewById(R.id.requestlayoutlayer);
         getAmount = findViewById(R.id.showAmounts);
-
         salesPrices = findViewById(R.id.salesPrice);
         DiscountPrices = findViewById(R.id.DiscountPrice);
         stockQuantitys = findViewById(R.id.stockQuantity);

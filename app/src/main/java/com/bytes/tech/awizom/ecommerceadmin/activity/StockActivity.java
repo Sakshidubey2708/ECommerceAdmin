@@ -106,15 +106,18 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
         DoneBtn = findViewById(R.id.BtnDone);
         requestlayout = findViewById(R.id.requestlayoutlayer);
         getAmount = findViewById(R.id.showAmounts);
-
         salesPrices = findViewById(R.id.salesPrice);
         DiscountPrices = findViewById(R.id.DiscountPrice);
         stockQuantitys = findViewById(R.id.stockQuantity);
-
         chatstarts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.startAnimation(buttonClick);
+              /*  v.startAnimation(buttonClick);*/
+
+
+              Intent intent=new Intent(StockActivity.this,ProductBaseActivity.class);
+              intent.putExtra("ProductID",productIDs.toString());
+              startActivity(intent);
             }
         });
 
@@ -244,11 +247,12 @@ public class StockActivity extends AppCompatActivity implements View.OnClickList
                                 if (result.isEmpty()) {
 
                                 } else {
+                                    dialogs.dismiss();
                                     Gson gson = new Gson();
                                     Type listType = new TypeToken<PricerequestModel>() {
                                     }.getType();
                                     pricerequestModel = new Gson().fromJson(result, listType);
-                                    PriceRequestId = pricerequestModel.getPriceRequestId();
+                                      PriceRequestId = pricerequestModel.getPriceRequestId();
                                     stockQuantitys.setText(String.valueOf(pricerequestModel.getReqQty()).split("//.")[0]);
                                     //  Toast.makeText(this,String.valueOf(PriceRequestId),Toast.LENGTH_LONG).show();
 
