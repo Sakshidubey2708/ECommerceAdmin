@@ -123,7 +123,7 @@ public class RetailerHomeActivity extends AppCompatActivity
     }
 
     private void initview() {
-
+        FirebaseMessaging.getInstance().subscribeToTopic("ChatAdmin");
         viewPager = findViewById(R.id.viewPager);
         indicator = findViewById(R.id.indicator);
         searchEdits = findViewById(R.id.searchEdit);

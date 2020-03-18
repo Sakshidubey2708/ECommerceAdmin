@@ -10,7 +10,10 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
+
 import com.bytes.tech.awizom.ecommerceadmin.R;
+import com.bytes.tech.awizom.ecommerceadmin.activity.ProductBaseActivity;
 import com.google.firebase.messaging.RemoteMessage;
 
 
@@ -27,7 +30,12 @@ public class MYFirebaseMessagingServise
         String strTitle=remoteMessage.getNotification().getTitle();
         String message=remoteMessage.getNotification().getBody();
         Log.d(TAG,"onMessageReceived: Message Received: \n" +  "Title: " + strTitle + "\n" + "Message: "+ message);
-        sendNotification(strTitle,message);
+        if(strTitle.toString().equals("Ecommerce"))
+        {
+            ((ProductBaseActivity)getApplicationContext()).getchats();
+        }
+        else{
+        sendNotification(strTitle,message);}
     }
 
     @Override

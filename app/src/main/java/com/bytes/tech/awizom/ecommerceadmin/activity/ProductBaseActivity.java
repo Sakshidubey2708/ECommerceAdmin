@@ -16,6 +16,7 @@ import com.bytes.tech.awizom.ecommerceadmin.configure.HelperApi;
 import com.bytes.tech.awizom.ecommerceadmin.configure.SharedPrefManager;
 import com.bytes.tech.awizom.ecommerceadmin.models.ProductBaseChatModel;
 import com.bytes.tech.awizom.ecommerceadmin.models.ProductModel;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -88,9 +89,11 @@ public class ProductBaseActivity extends AppCompatActivity {
                 }
             }
         });
+
+       /* FirebaseMessaging.getInstance().subscribeToTopic("ChatAdmin");*/
     }
 
-    private void getchats() {
+    public void getchats() {
         try {
             result = new HelperApi.GetProductBaseChat().execute(product_id.toString(), myids.toString(), subsid.toString()).get();
             if (result.isEmpty()) {
