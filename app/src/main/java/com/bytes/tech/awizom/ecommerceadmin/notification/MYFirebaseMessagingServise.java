@@ -17,22 +17,26 @@ import com.bytes.tech.awizom.ecommerceadmin.activity.ProductBaseActivity;
 import com.google.firebase.messaging.RemoteMessage;
 
 
-public class MYFirebaseMessagingServise
-        extends  com.google.firebase.messaging.FirebaseMessagingService {
+public class MYFirebaseMessagingServise extends  com.google.firebase.messaging.FirebaseMessagingService {
     private static final String TAG="FirebaseMessagingServic";
 
     public MYFirebaseMessagingServise() {
     }
 
     @Override
-    public void onMessageReceived(RemoteMessage remoteMessage) {
+    public void onMessageReceived(RemoteMessage remoteMessage)
+    {
 
         String strTitle=remoteMessage.getNotification().getTitle();
         String message=remoteMessage.getNotification().getBody();
         Log.d(TAG,"onMessageReceived: Message Received: \n" +  "Title: " + strTitle + "\n" + "Message: "+ message);
         if(strTitle.toString().equals("Ecommerce"))
         {
-            ((ProductBaseActivity)getApplicationContext()).getchats();
+            String pids=message.toString().split(":")[1];
+            Intent dialogIntent = new Intent(this, ProductBaseActivity.class);
+            dialogIntent.putExtra("ProductID",pids);
+            dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(dialogIntent);
         }
         else{
         sendNotification(strTitle,message);}
